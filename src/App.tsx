@@ -1,9 +1,12 @@
 import React from 'react';
+import CircularProgressBar from '../lib';
 
 const App: React.FC = () => {
   return (
     <div>
-      <p className='text-3xl'>app</p>
+      <div className='w-48'>
+        <CircularProgressBar value={75}/>
+      </div>
     </div>
   );
 };
