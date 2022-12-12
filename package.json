@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "dist": "npx tsup",
+    "dist:css": "postcss src/index.css -o dist/index.css"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -24,8 +26,10 @@
     "eslint-plugin-n": "^15.6.0",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.31.11",
-    "postcss": "^8.4.19",
+    "postcss": "^8.4.20",
+    "postcss-cli": "^10.1.0",
     "tailwindcss": "^3.2.4",
+    "tsup": "^6.5.0",
     "typescript": "^4.9.4",
     "vite": "^4.0.0"
   }
