@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/*
+https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function
+*/
+.svg-ratio {
+  transition: stroke-dashoffset ease-in-out;
+  transition-duration: var(--transitionDuration);
+}
+
+.bg {
+  background-image: url('/background-pattern.svg');
+}
+
