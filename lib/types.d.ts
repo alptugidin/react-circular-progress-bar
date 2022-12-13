@@ -1,24 +1,24 @@
 export interface IFlat {
    progress: number
    showValue?: boolean
-   additionalText?: string
+   text?: string
    sx: {
       barColor: string
       barWidth: number
-      transitionTime?: number
       valueSize?: number
-      additionalTextSize?: number
-      weight?: FontWeight
-      additionalTextWeight?: FontWeight
-      color?: string
-      additionalTextColor?: string
+      valueWeight?: FontWeight
+      valueColor?: string
+      textSize?: number
+      textWeight?: FontWeight
+      textColor?: string
       bgColor?: string
       bgOpacity?: number
+      loadingTime?: number
    }
 }
 
-export interface IHeat {
-   progress: number
+export interface IHeat extends Pick<IFlat, 'progress' | 'sx' | 'showValue' | 'text' > {
+   revertColor?: boolean
 }
 
 type FontWeight = 'normal' | 'bold' | 'bolder' | 'lighter'
