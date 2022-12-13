@@ -3,7 +3,7 @@ import { IFlat } from '../../types';
 
 const Flat: React.FC<IFlat> = ({
   progress = 0,
-  additionalText = undefined,
+  text = undefined,
   showValue = true,
   sx
 }) => {
@@ -11,12 +11,12 @@ const Flat: React.FC<IFlat> = ({
 
   const {
     valueSize = 30,
-    color = 'black',
-    weight = 'normal',
-    additionalTextSize = 13,
-    additionalTextColor = 'black',
-    additionalTextWeight = 'normal',
-    transitionTime = 500,
+    valueColor = 'black',
+    valueWeight = 'normal',
+    textSize = 13,
+    textColor = 'black',
+    textWeight = 'normal',
+    loadingTime = 500,
     bgColor = 'black',
     bgOpacity = 0.0
   } = sx;
@@ -28,8 +28,8 @@ const Flat: React.FC<IFlat> = ({
   const dasharray = 2 * Math.PI * 50;
   const dashoffset = (1 - afterProgress / 100) * dasharray;
   return (
-    <div style={{ '--transitionDuration': transitionTime.toString().concat('ms') } as CSSProperties}>
-      <svg viewBox='0 0 110 110'>
+    <div style={{ '--transitionDuration': loadingTime.toString().concat('ms') } as CSSProperties}>
+      <svg viewBox='0 0 110 110' className='drop-shadow-lg'>
         <circle
           id='circle-bg'
           cx="145"
@@ -55,7 +55,7 @@ const Flat: React.FC<IFlat> = ({
           cx="145"
           cy="55"
           r="50"
-          className='svg-ratio'
+          className='transition-effect'
           strokeWidth={sx.barWidth}
           transform='rotate(-90 100 100)'
           fill="none"
@@ -66,23 +66,23 @@ const Flat: React.FC<IFlat> = ({
         {showValue &&
         <text x="50%" y="50%"
           fontSize={valueSize}
-          fontWeight={weight}
+          fontWeight={valueWeight}
           textAnchor='middle'
-          fill={color}
+          fill={valueColor}
         >
-          <tspan alignmentBaseline={additionalText !== undefined ? 'baseline' : 'central'}>
+          <tspan alignmentBaseline={text !== undefined ? 'baseline' : 'central'}>
             {progress}%
           </tspan>
         </text>}
-        {additionalText !== undefined &&
+        {text !== undefined &&
         <text x="50%" y="50%"
-          fontSize={additionalTextSize}
-          fontWeight={additionalTextWeight}
+          fontSize={textSize}
+          fontWeight={textWeight}
           textAnchor='middle'
-          fill={additionalTextColor}
+          fill={textColor}
           dominantBaseline={showValue ? 'hanging' : 'start'} >
           <tspan alignmentBaseline={showValue ? 'hanging' : 'central'}>
-            {additionalText}
+            {text}
           </tspan>
         </text>
         }
