@@ -20,7 +20,7 @@ const Heat: React.FC<IHeat> = ({ progress, sx, showValue, text, revertColor = fa
   const dasharray = 2 * Math.PI * 50;
   const dashoffset = (1 - afterProgress / 100) * dasharray;
   return (
-    <div style={{ '--transitionDuration': loadingTime.toString().concat('ms') } as CSSProperties}>
+    <div>
       <svg viewBox='0 0 110 110' className='drop-shadow-lg'>
         {!revertColor
           ? (
@@ -41,9 +41,9 @@ const Heat: React.FC<IHeat> = ({ progress, sx, showValue, text, revertColor = fa
           )
         }
         <circle
-          r={50}
-          cx={55}
-          cy={55}
+          r='50'
+          cx='55'
+          cy='55'
           fill='none'
           className='transition-effect'
           strokeDasharray={dasharray}
@@ -54,11 +54,14 @@ const Heat: React.FC<IHeat> = ({ progress, sx, showValue, text, revertColor = fa
           transform='rotate(135, 55, 55)'
         />
         <circle
-          r={50}
-          cx={55}
-          cy={55}
+          r='50'
+          cx='55'
+          cy='55'
           fill='none'
-          className='transition-effect'
+          style={{
+            transition: 'stroke-dashoffset ease-in-out',
+            transitionDuration: loadingTime.toString().concat('ms')
+          }}
           strokeDasharray={dasharray}
           strokeDashoffset={dashoffset}
           strokeWidth={sx.barWidth}
