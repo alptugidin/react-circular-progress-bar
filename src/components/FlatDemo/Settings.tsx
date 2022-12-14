@@ -1,9 +1,10 @@
 import React from 'react';
-import { IFlatSettings } from '../../types';
-
+import { FontWeight, IFlatSettings } from '../../types';
+import { fontFamilies } from '../../features/fontFamilies';
+import { FontFamily } from '../../../lib/types';
 const Settings: React.FC<IFlatSettings> = (props) => {
   return (
-    <div className='flex flex-col gap-3 bg-white rounded-lg border py-5 px-3 shadow-lg mt-1.5'>
+    <div className='flex flex-col gap-2 bg-white rounded-lg border py-3 px-3 shadow-lg mt-1.5'>
       <div className='flex items-center gap-5'>
         <div className='flex flex-col gap-2'>
           <span className='text-center'>Value
@@ -31,6 +32,69 @@ const Settings: React.FC<IFlatSettings> = (props) => {
           onChange={(e) => props.setFlatOptions({ ...props.flatOptions, text: e.target.value })}
           className='border rounded-lg outline-none pl-2 focus:border-gray-400 w-full'/>
       </div>
+      <div className='flex justify-between'>
+        <div className='flex gap-2'>
+          <span>Value size</span>
+          <input
+            type="number"
+            value={props.flatOptions.valueSize}
+            onChange={(e) => props.setFlatOptions({ ...props.flatOptions, valueSize: parseInt(e.target.value) })}
+            className='w-14 border rounded-lg focus:border-gray-400 outline-none pl-2' />
+        </div>
+        <div className='flex gap-2'>
+          <span>Text size</span>
+          <input
+            type="number"
+            value={props.flatOptions.textSize}
+            onChange={(e) => props.setFlatOptions({ ...props.flatOptions, textSize: parseInt(e.target.value) })}
+            className='w-14 border rounded-lg focus:border-gray-400 outline-none pl-2' />
+        </div>
+      </div>
+      <div className='flex gap-3'>
+        <div className='flex gap-3'>
+          <span>Weight</span>
+          <select
+            className='outline-none text-sm text-gray-700 border rounded-lg'
+            onChange={(e) => props.setFlatOptions({ ...props.flatOptions, valueWeight: e.target.value as FontWeight })}
+            value={props.flatOptions.valueWeight}>
+            <option value="lighter">Lighter</option>
+            <option value="normal">Normal</option>
+            <option value="bold">Bold</option>
+            <option value="bolder">Bolder</option>
+          </select>
+        </div>
+        <div className='flex gap-3'>
+          <span>Weight</span>
+          <select
+            className='outline-none text-sm text-gray-700 border rounded-lg'
+            onChange={(e) => props.setFlatOptions({ ...props.flatOptions, textWeight: e.target.value as FontWeight })}
+            value={props.flatOptions.textWeight}>
+            <option value="lighter">Lighter</option>
+            <option value="normal">Normal</option>
+            <option value="bold">Bold</option>
+            <option value="bolder">Bolder</option>
+          </select>
+        </div>
+      </div>
+      <div className='flex justify-between'>
+        <span>Value font</span>
+        <select
+          value={props.flatOptions.valueFamily}
+          onChange={(e) => props.setFlatOptions({ ...props.flatOptions, valueFamily: e.target.value as FontFamily })}
+          className='outline-none text-sm text-gray-700 border rounded-lg'>
+          {fontFamilies.map((font) => (
+            <option key={font} value={font}>{font}</option>
+          ))}
+        </select>
+      </div>
+      <div className='flex justify-between'>
+        <span>Text font</span>
+        <select className='outline-none text-sm text-gray-700 border rounded-lg'>
+          {fontFamilies.map((font, index) => (
+            <option key={font} value={font}>{font}</option>
+          ))}
+        </select>
+      </div>
       <hr />
       <div className='flex'>
         <div className='flex flex-col gap-2 basis-1/2 items-center justify-center'>
@@ -56,13 +120,13 @@ const Settings: React.FC<IFlatSettings> = (props) => {
         </div>
       </div>
       <hr />
-      <div className='flex gap-2 basis-1/2 items-start justify-center'>
-        <span className='text-center'>Loading delay {'(ms)'}</span>
+      <div className='flex justify-start items-center gap-2'>
+        <span className=''>Loading time {'(ms)'}</span>
         <input
-          type="number"
-          className='border rounded-lg outline-none pl-2 focus:border-gray-400'
+          type="text"
+          value={props.flatOptions.loadingTime}
           onChange={(e) => props.setFlatOptions({ ...props.flatOptions, loadingTime: parseInt(e.target.value) })}
-          value={props.flatOptions.loadingTime} />
+          className='border rounded-lg outline-none pl-2 focus:bordersetflatOptions-400 w-20 '/>
       </div>
     </div>
   );
