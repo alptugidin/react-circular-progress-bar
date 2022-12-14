@@ -14,6 +14,8 @@ const Flat: React.FC<IFlat> = ({
     valueColor = 'black',
     valueWeight = 'normal',
     textSize = 13,
+    valueFamily = 'Microsoft Sans Serif MS',
+    textFamily = 'Microsoft Sans Serif MS',
     textColor = 'black',
     textWeight = 'normal',
     loadingTime = 500,
@@ -31,19 +33,9 @@ const Flat: React.FC<IFlat> = ({
     <div style={{ '--transitionDuration': loadingTime.toString().concat('ms') } as CSSProperties}>
       <svg viewBox='0 0 110 110' className='drop-shadow-lg'>
         <circle
-          id='circle-bg'
-          cx="145"
-          cy="55"
-          r="52"
-          fill={bgColor}
-          fillOpacity={bgOpacity}
-          transform='rotate(-90 100 100)'
-        />
-        <circle
-          cx="145"
+          cx="55"
           cy="55"
           r="50"
-          transform='rotate(-90 100 100)'
           fill="none"
           stroke={sx.barColor}
           strokeWidth={sx.barWidth - 0.1}
@@ -68,6 +60,7 @@ const Flat: React.FC<IFlat> = ({
           fontSize={valueSize}
           fontWeight={valueWeight}
           textAnchor='middle'
+          fontFamily={valueFamily}
           fill={valueColor}
         >
           <tspan alignmentBaseline={text !== undefined ? 'baseline' : 'central'}>
@@ -80,6 +73,7 @@ const Flat: React.FC<IFlat> = ({
           fontWeight={textWeight}
           textAnchor='middle'
           fill={textColor}
+          fontFamily={textFamily}
           dominantBaseline={showValue ? 'hanging' : 'start'} >
           <tspan alignmentBaseline={showValue ? 'hanging' : 'central'}>
             {text}
