@@ -2,10 +2,12 @@ export interface IHeatOptions {
    strokeColor: string
    strokeWidth: number
    bgColor: string
-   fontSize: number
    textSize: number
-   fontWeight: string
-   textWeight: string
+   valueSize: number
+   valueWeight: FontWeight
+   textWeight: FontWeight
+   valueFamily: FontFamily
+   textFamily: FontFamily
    valueColor: string
    textColor: string
    showValue: boolean
@@ -23,10 +25,12 @@ export interface IHeatSettings {
 export interface IFlatOptions {
    strokeColor: string
    strokeWidth: number
-   fontSize: number
    textSize: number
-   fontWeight: string
-   textWeight: string
+   valueSize: number
+   valueWeight: FontWeight
+   textWeight: FontWeight
+   valueFamily: FontFamily
+   textFamily: FontFamily
    valueColor: string
    textColor: string
    showValue: boolean
@@ -41,3 +45,38 @@ export interface IFlatSettings {
    progress: number
    setProgress: React.Dispatch<React.SetStateAction<number>>
 }
+
+type FontWeight = 'normal' | 'bold' | 'bolder' | 'lighter'
+export type FontFamily =
+'Microsoft Sans Serif' |
+'Arial' |
+'Helvetica' |
+'Verdana' |
+'Calibri' |
+'Noto' |
+'Lucida Sans' |
+'Gill Sans' |
+'Century Gothic' |
+'Candara' |
+'Futara' |
+'Franklin Gothic Medium' |
+'Trebuchet MS' |
+'Geneva' |
+'Segoe UI' |
+'Optima' |
+'Avanta Garde' |
+'Times New Roman' |
+'Georgia' |
+'Consolas' |
+'Courier' |
+'Courier New' |
+'Lucida Console' |
+'Lucidatypewriter' |
+'Lucida Sans Typewriter' |
+'Monaco' |
+'Andale Mono' |
+'Comic Sans' |
+'Comic Sans MS' |
+'Impact' |
+'Jazz LET' |
+'Microsoft Yi Baiti'
