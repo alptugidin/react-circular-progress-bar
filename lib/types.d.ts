@@ -1,6 +1,7 @@
 export interface IFlat {
    progress: number
    showValue?: boolean
+   showText?: boolean
    text?: string
    sx: {
       barColor: string
@@ -25,35 +26,18 @@ export interface IHeat extends Pick<IFlat, 'progress' | 'sx' | 'showValue' | 'te
 
 type FontWeight = 'normal' | 'bold' | 'bolder' | 'lighter'
 type FontFamily =
-'Microsoft Sans Serif' |
 'Arial' |
-'Helvetica' |
 'Verdana' |
-'Calibri' |
-'Noto' |
-'Lucida Sans' |
-'Gill Sans' |
-'Century Gothic' |
-'Candara' |
-'Futara' |
-'Franklin Gothic Medium' |
+'Tahoma' |
 'Trebuchet MS' |
-'Geneva' |
-'Segoe UI' |
-'Optima' |
-'Avanta Garde' |
 'Times New Roman' |
 'Georgia' |
-'Consolas' |
-'Courier' |
 'Courier New' |
-'Lucida Console' |
-'Lucidatypewriter' |
-'Lucida Sans Typewriter' |
-'Monaco' |
-'Andale Mono' |
-'Comic Sans' |
+'Brush Script MT' |
 'Comic Sans MS' |
-'Impact' |
-'Jazz LET' |
-'Microsoft Yi Baiti'
+'Goudy Bookletter 1911' |
+'Monospace'
+/**
+ Arial
+
+ */
