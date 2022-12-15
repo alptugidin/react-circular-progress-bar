@@ -20,8 +20,22 @@ const Heat: React.FC<IHeat> = ({ progress, sx, showValue, text, revertColor = fa
   const dasharray = 2 * Math.PI * 50;
   const dashoffset = (1 - afterProgress / 100) * dasharray;
   return (
-    <div>
-      <svg viewBox='0 0 110 110' className='drop-shadow-lg'>
+    <div className='relative'>
+      <svg viewBox='0 0 110 110' className='drop-shadow-lg absolute -z-10'>
+        <circle
+          r='50'
+          cx='55'
+          cy='55'
+          fill='none'
+          strokeDasharray={dasharray}
+          strokeDashoffset={(1 - 75 / 100) * dasharray}
+          strokeWidth={sx.barWidth}
+          stroke={'white'}
+          strokeLinecap='round'
+          transform='rotate(135, 55, 55)'
+        />
+      </svg>
+      <svg viewBox='0 0 110 110' className='  '>
         {!revertColor
           ? (
             <linearGradient id="gradient" x1="90.7089" y1="75.1526" x2="33.7868" y2="18.2305" gradientUnits="userSpaceOnUse">
@@ -40,19 +54,7 @@ const Heat: React.FC<IHeat> = ({ progress, sx, showValue, text, revertColor = fa
             </linearGradient>
           )
         }
-        <circle
-          r='50'
-          cx='55'
-          cy='55'
-          fill='none'
-          className='transition-effect'
-          strokeDasharray={dasharray}
-          strokeDashoffset={(1 - 75 / 100) * dasharray}
-          strokeWidth={sx.barWidth}
-          stroke={sx.bgColor}
-          strokeLinecap='round'
-          transform='rotate(135, 55, 55)'
-        />
+
         <circle
           r='50'
           cx='55'
