@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { FlatCanvas } from '../lib';
+import { FlatPath } from '../lib';
 import FlatDemo from './components/FlatDemo/FlatDemo';
+import FlatPathDemo from './components/FlatPathDemo/FlatPathDemo';
 import HeatDemo from './components/HeatDemo/HeatDemo';
 const App: React.FC = () => {
   const [progress, setProgress] = useState(100);
