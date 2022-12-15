@@ -1,10 +1,33 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { FontWeight, IFlatSettings } from '../../types';
 import { fontFamilies } from '../../features/fontFamilies';
 import { FontFamily } from '../../../lib/types';
 const Settings: React.FC<IFlatSettings> = (props) => {
+  const valueSection = useRef<HTMLDivElement>(null);
+  const textSection = useRef<HTMLDivElement>(null);
+  const [showValue, setShowValue] = useState(true);
+  const [showText, setShowText] = useState(true);
+  const handleValueCheck = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setShowValue(e.target.checked);
+    props.setFlatOptions((prev) => ({ ...prev, showValue: e.target.checked }));
+    if (e.target.checked) {
+      valueSection.current?.classList.remove('opacity-50', 'pointer-events-none');
+    } else {
+      valueSection.current?.classList.add('opacity-50', 'pointer-events-none');
+    }
+  };
+
+  const handleTextCheck = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setShowText(e.target.checked);
+    props.setFlatOptions((prev) => ({ ...prev, showText: e.target.checked }));
+    if (e.target.checked) {
+      textSection.current?.classList.remove('opacity-50', 'pointer-events-none');
+    } else {
+      textSection.current?.classList.add('opacity-50', 'pointer-events-none');
+    }
+  };
   return (
-    <div className='flex flex-col gap-3 bg-white rounded-lg border py-3 px-3 shadow-lg mt-1.5'>
+    <div className='flex flex-col gap-3 bg-white rounded-lg border py-3 px-2 shadow-lg mt-1.5'>
       <div className='flex items-center gap-5'>
         <div className='flex flex-col gap-2'>
           <span className='text-center'>Value
@@ -24,131 +47,100 @@ const Settings: React.FC<IFlatSettings> = (props) => {
         </div>
       </div>
       <hr />
-      <div className='flex justify-center items-center gap-2 relative '>
-        <div className='absolute -top-[25px] bg-white rounded-lg px-3 py-0'>
-          <span className='text-sm text-purple-500'>Text</span>
-        </div>
-        <input
-          type="text"
-          value={props.flatOptions.text}
-          onChange={(e) => props.setFlatOptions({ ...props.flatOptions, text: e.target.value })}
-          className='border rounded-lg outline-none pl-2 focus:border-gray-400 w-full'/>
-      </div>
-      <div className='flex justify-between'>
-        {/* <div className='flex gap-2'>
-          <span>Value size</span>
-          <input
-            type="number"
-            value={props.flatOptions.valueSize}
-            onChange={(e) => props.setFlatOptions({ ...props.flatOptions, valueSize: parseInt(e.target.value) })}
-            className='w-14 border rounded-lg focus:border-gray-400 outline-none pl-2' />
-        </div> */}
-        <div className='flex gap-2 bg-red-50'>
-
-          <span>Size</span>
-          <input
-            type="number"
-            value={props.flatOptions.textSize}
-            onChange={(e) => props.setFlatOptions({ ...props.flatOptions, textSize: parseInt(e.target.value) })}
-            className='w-14 border rounded-lg focus:border-gray-400 outline-none pl-2' />
-          <div className='flex gap-3'>
-            <span>Weight</span>
+      <div className='flex flex-col gap-3 relative'>
+        <label className='absolute left-0 -top-[25px] w-full text-center flex justify-center items-center'>
+          <div className='bg-white pl-3'>
+            <input
+              type="checkbox"
+              className='cursor-pointer'
+              defaultChecked
+              onChange={handleValueCheck} />
+          </div>
+          <span className='text-sm text-purple-500 font-semibold bg-white pr-3 pl-3'>Value</span>
+        </label>
+        <div ref={valueSection} className='flex flex-col gap-3 transition-all'>
+          <div className='flex justify-between'>
+            <div className='flex gap-2'>
+              <span>Size</span>
+              <input
+                type="number"
+                value={props.flatOptions.valueSize}
+                onChange={(e) => props.setFlatOptions({ ...props.flatOptions, valueSize: parseInt(e.target.value) })}
+                className='w-14 border text-sm rounded-lg focus:border-gray-400 outline-none pl-2' />
+            </div>
+            <div className='flex gap-2'>
+              <span>Weight</span>
+              <select
+                className='outline-none text-sm text-gray-700 border rounded-lg'
+                onChange={(e) => props.setFlatOptions({ ...props.flatOptions, valueWeight: e.target.value as FontWeight })}
+                value={props.flatOptions.valueWeight}>
+                <option value="lighter">Lighter</option>
+                <option value="normal">Normal</option>
+                <option value="bold">Bold</option>
+                <option value="bolder">Bolder</option>
+              </select>
+            </div>
+          </div>
+          <div className='flex gap-2'>
+            <span >Font</span>
             <select
-              className='outline-none text-sm text-gray-700 border rounded-lg'
-              onChange={(e) => props.setFlatOptions({ ...props.flatOptions, textWeight: e.target.value as FontWeight })}
-              value={props.flatOptions.textWeight}>
-              <option value="lighter">Lighter</option>
-              <option value="normal">Normal</option>
-              <option value="bold">Bold</option>
-              <option value="bolder">Bolder</option>
+              value={props.flatOptions.valueFamily}
+              onChange={(e) => props.setFlatOptions({ ...props.flatOptions, valueFamily: e.target.value as FontFamily })}
+              className='outline-none text-sm text-gray-700 border rounded-lg'>
+              {fontFamilies.map((font) => (
+                <option key={font} value={font}>{font}</option>
+              ))}
             </select>
           </div>
         </div>
       </div>
-      <div className='flex gap-3'>
-        <div className='flex gap-3'>
-          <span>Weight</span>
-          <select
-            className='outline-none text-sm text-gray-700 border rounded-lg'
-            onChange={(e) => props.setFlatOptions({ ...props.flatOptions, valueWeight: e.target.value as FontWeight })}
-            value={props.flatOptions.valueWeight}>
-            <option value="lighter">Lighter</option>
-            <option value="normal">Normal</option>
-            <option value="bold">Bold</option>
-            <option value="bolder">Bolder</option>
-          </select>
-        </div>
-        {/* <div className='flex gap-3'>
-          <span>Weight</span>
-          <select
-            className='outline-none text-sm text-gray-700 border rounded-lg'
-            onChange={(e) => props.setFlatOptions({ ...props.flatOptions, textWeight: e.target.value as FontWeight })}
-            value={props.flatOptions.textWeight}>
-            <option value="lighter">Lighter</option>
-            <option value="normal">Normal</option>
-            <option value="bold">Bold</option>
-            <option value="bolder">Bolder</option>
-          </select>
-        </div> */}
-      </div>
-      <div className='flex justify-between'>
-        <span>Value font</span>
-        <select
-          value={props.flatOptions.valueFamily}
-          onChange={(e) => props.setFlatOptions({ ...props.flatOptions, valueFamily: e.target.value as FontFamily })}
-          className='outline-none text-sm text-gray-700 border rounded-lg'>
-          {fontFamilies.map((font) => (
-            <option key={font} value={font}>{font}</option>
-          ))}
-        </select>
-      </div>
-      <div className='flex justify-between'>
-        <span>Text font</span>
-        <select
-          value={props.flatOptions.textFamily}
-          onChange={(e) => props.setFlatOptions({ ...props.flatOptions, textFamily: e.target.value as FontFamily })}
-          className='outline-none text-sm text-gray-700 border rounded-lg'>
-          {fontFamilies.map((font, index) => (
-            <option key={font} value={font}>{font}</option>
-          ))}
-        </select>
-      </div>
       <hr />
-      <div className='flex'>
-        <div className='flex flex-col gap-2 basis-1/2 items-center justify-center'>
-          <span className='text-center'>Text color</span>
-          <input type="color"
-            onChange={(e) => props.setFlatOptions({ ...props.flatOptions, textColor: e.target.value })}
-            value={props.flatOptions.textColor}
-            className=''/>
-
+      <div className='flex flex-col gap-3 relative'>
+        <label className='absolute left-0 -top-[25px] w-full text-center flex justify-center items-center'>
+          <div className='bg-white pl-3'>
+            <input
+              type="checkbox"
+              className='cursor-pointer'
+              defaultChecked
+              onChange={handleTextCheck} />
+          </div>
+          <span className='text-sm text-purple-500 font-semibold bg-white pr-3 pl-3'>Text</span>
+        </label>
+        <div ref={textSection} className='flex flex-col gap-3 transition-all'>
+          <div className='flex justify-between'>
+            <div className='flex gap-2'>
+              <span>Size</span>
+              <input
+                type="number"
+                value={props.flatOptions.textSize}
+                onChange={(e) => props.setFlatOptions({ ...props.flatOptions, textSize: parseInt(e.target.value) })}
+                className='w-14 border text-sm rounded-lg focus:border-gray-400 outline-none pl-2' />
+            </div>
+            <div className='flex gap-2'>
+              <span>Weight</span>
+              <select
+                className='outline-none text-sm text-gray-700 border rounded-lg'
+                onChange={(e) => props.setFlatOptions({ ...props.flatOptions, textWeight: e.target.value as FontWeight })}
+                value={props.flatOptions.textWeight}>
+                <option value="lighter">Lighter</option>
+                <option value="normal">Normal</option>
+                <option value="bold">Bold</option>
+                <option value="bolder">Bolder</option>
+              </select>
+            </div>
+          </div>
+          <div className='flex gap-2'>
+            <span >Font</span>
+            <select
+              value={props.flatOptions.textFamily}
+              onChange={(e) => props.setFlatOptions({ ...props.flatOptions, textFamily: e.target.value as FontFamily })}
+              className='outline-none text-sm text-gray-700 border rounded-lg'>
+              {fontFamilies.map((font) => (
+                <option key={font} value={font}>{font}</option>
+              ))}
+            </select>
+          </div>
         </div>
-        <div className='flex flex-col gap-2 basis-1/2 items-center justify-center'>
-          <span className='text-center'>Value color</span>
-          <input type="color"
-            onChange={(e) => props.setFlatOptions({ ...props.flatOptions, valueColor: e.target.value })}
-            value={props.flatOptions.valueColor}
-            className=''/>
-        </div>
-      </div>
-      <div className='flex'>
-        <div className='flex flex-col items-center justify-center gap-2 basis-1/2'>
-          <span className='text-center'>Stroke color</span>
-          <input
-            type="color"
-            onChange={(e) => props.setFlatOptions({ ...props.flatOptions, strokeColor: e.target.value })}
-            value={props.flatOptions.strokeColor} className='w-12 mx-auto'
-          />
-        </div>
-      </div>
-      <hr />
-      <div className='flex justify-start items-center gap-2'>
-        <span className=''>Loading time {'(ms)'}</span>
-        <input
-          type="text"
-          value={props.flatOptions.loadingTime}
-          onChange={(e) => props.setFlatOptions({ ...props.flatOptions, loadingTime: parseInt(e.target.value) })}
-          className='border rounded-lg outline-none pl-2 focus:bordersetflatOptions-400 w-20 '/>
       </div>
     </div>
   );
