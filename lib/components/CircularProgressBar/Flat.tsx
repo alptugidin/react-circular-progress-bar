@@ -5,6 +5,7 @@ const Flat: React.FC<IFlat> = ({
   progress = 0,
   text = undefined,
   showValue = true,
+  showText = false,
   sx
 }) => {
   const [afterProgress, setAfterProgress] = useState(0);
@@ -12,44 +13,38 @@ const Flat: React.FC<IFlat> = ({
   const {
     valueSize = 30,
     valueColor = 'black',
-    valueWeight = 'normal',
+    valueWeight = 'lighter',
     textSize = 13,
-    valueFamily = 'Microsoft Sans Serif MS',
-    textFamily = 'Microsoft Sans Serif MS',
+    valueFamily = 'Trebuchet MS',
+    textFamily = 'Trebuchet MS',
     textColor = 'black',
-    textWeight = 'normal',
+    textWeight = 'lighter',
     loadingTime = 500,
-    bgColor = 'black',
-    bgOpacity = 0.0
+    bgColor = 'white'
   } = sx;
 
   useEffect(() => {
     setAfterProgress(progress);
   }, [progress]);
 
+  // useEffect(() => {
+  //   setInterval(() => {
+  //     setAfterProgress(Math.floor(Math.random() * 100));
+  //   }, 1000);
+  // }, []);
+
   const dasharray = 2 * Math.PI * 50;
   const dashoffset = (1 - afterProgress / 100) * dasharray;
   return (
-    <div style={{ '--transitionDuration': loadingTime.toString().concat('ms') } as CSSProperties}>
-      <svg viewBox='0 0 110 110' className='drop-shadow-lg'>
+    <div className='relative' style={{ '--transitionDuration': loadingTime.toString().concat('ms') } as CSSProperties}>
+      <svg viewBox='0 0 110 110' className=''>
         <circle
           cx="55"
           cy="55"
           r="50"
-          fill="none"
-          stroke={sx.barColor}
-          strokeWidth={sx.barWidth - 0.1}
-          strokeOpacity='0.1'
-          strokeDasharray='0'
-          strokeDashoffset='0'
-        />
-        <circle
-          cx="145"
-          cy="55"
-          r="50"
           className='transition-effect'
           strokeWidth={sx.barWidth}
-          transform='rotate(-90 100 100)'
+          transform='rotate(-90 55 55)'
           fill="none"
           stroke={sx.barColor}
           strokeDasharray={dasharray}
@@ -63,11 +58,11 @@ const Flat: React.FC<IFlat> = ({
           fontFamily={valueFamily}
           fill={valueColor}
         >
-          <tspan alignmentBaseline={text !== undefined ? 'baseline' : 'central'}>
+          <tspan alignmentBaseline={showText ? 'baseline' : 'central'}>
             {progress}%
           </tspan>
         </text>}
-        {text !== undefined &&
+        {showText &&
         <text x="50%" y="50%"
           fontSize={textSize}
           fontWeight={textWeight}
@@ -80,6 +75,16 @@ const Flat: React.FC<IFlat> = ({
           </tspan>
         </text>
         }
+      </svg>
+      <svg viewBox='0 0 110 110' className='absolute drop-shadow-lg top-0 -z-10'>
+        <circle
+          cx="55"
+          cy="55"
+          r="50"
+          fill="none"
+          stroke={'white'}
+          strokeWidth={sx.barWidth - 0.1}
+        />
       </svg>
     </div>
   );
