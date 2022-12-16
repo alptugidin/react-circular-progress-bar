@@ -15,6 +15,8 @@ export interface IHeatOptions {
    revertColor: boolean
    loadingTime: number
    text: string
+   bgColor: string
+
  }
 export interface IHeatSettings {
    heatOptions: IHeatOptions
@@ -37,6 +39,8 @@ export interface IFlatOptions {
    showText: boolean
    loadingTime: number
    text: string
+   bgColor: string
+   strokeLinecap: StrokeLineCap
 }
 
 export interface IFlatSettings {
@@ -59,3 +63,5 @@ export type FontFamily =
 'Comic Sans MS' |
 'Goudy Bookletter 1911' |
 'Monospace'
+
+export type StrokeLineCap = 'butt' | 'round' | 'square'
