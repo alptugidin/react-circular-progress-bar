@@ -12,11 +12,61 @@ body {
 
 input[type='color'] {
   -webkit-appearance: none;
-  @apply drop-shadow-lg rounded-full overflow-hidden w-8 h-8 border hover:scale-110 transition-all;
+  @apply drop-shadow-lg rounded-full overflow-hidden w-8 h-8 border hover:scale-110 transition-all cursor-pointer;
 }
 input[type='color']::-webkit-color-swatch-wrapper {
   padding: 0;
 }
 input[type='color']::-webkit-color-swatch {
   border: none;
+}
+
+select {
+  @apply cursor-pointer
+}
+
+.main {
+  perspective: 1000px;
+  position: relative;
+  width: 296px;
+  height: 487px;
+}
+
+.settings {
+  backface-visibility: hidden;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 487px;
+}
+
+.back {
+  transform: rotateY(-180deg);
+
+}
+
+.rotate {
+  transform: rotateY(180deg);
+}
+
+.rotate-back {
+  transform: rotateY(0deg);
+
+}
+
+.variable {
+  color: #D55FDE;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.operators {
+  color: #BBBBBB;
+  font-weight: bold;
+}
+
+.global {
+  color: #EF596F;
 }
