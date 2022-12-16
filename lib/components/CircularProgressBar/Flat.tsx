@@ -12,15 +12,16 @@ const Flat: React.FC<IFlat> = ({
 
   const {
     valueSize = 30,
-    valueColor = 'black',
+    valueColor = '#000000',
     valueWeight = 'lighter',
     textSize = 13,
     valueFamily = 'Trebuchet MS',
     textFamily = 'Trebuchet MS',
-    textColor = 'black',
+    textColor = '#000000',
     textWeight = 'lighter',
     loadingTime = 500,
-    bgColor = 'white'
+    bgColor = '#ffffff',
+    strokeLinecap = 'butt'
   } = sx;
 
   useEffect(() => {
@@ -47,6 +48,7 @@ const Flat: React.FC<IFlat> = ({
           transform='rotate(-90 55 55)'
           fill="none"
           stroke={sx.barColor}
+          strokeLinecap={strokeLinecap}
           strokeDasharray={dasharray}
           strokeDashoffset={dashoffset}
         />
@@ -82,7 +84,7 @@ const Flat: React.FC<IFlat> = ({
           cy="55"
           r="50"
           fill="none"
-          stroke={'white'}
+          stroke={bgColor}
           strokeWidth={sx.barWidth - 0.1}
         />
       </svg>
