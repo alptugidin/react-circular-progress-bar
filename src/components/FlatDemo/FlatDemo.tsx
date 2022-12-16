@@ -20,7 +20,9 @@ const FlatDemo: React.FC = () => {
       showValue: true,
       showText: true,
       loadingTime: 1000,
-      text: 'Lorem, ipsum.'
+      text: 'Lorem, ipsum.',
+      bgColor: '#ffffff',
+      strokeLinecap: 'butt'
     }
   );
   return (
@@ -43,8 +45,8 @@ const FlatDemo: React.FC = () => {
             textFamily: flatOptions.textFamily,
             valueColor: flatOptions.valueColor,
             textColor: flatOptions.textColor,
-            bgColor: 'black',
-            bgOpacity: 0.0
+            bgColor: flatOptions.bgColor,
+            strokeLinecap: flatOptions.strokeLinecap
           }}
         />
       </div>
