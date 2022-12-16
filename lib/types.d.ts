@@ -17,6 +17,7 @@ export interface IFlat {
       bgColor?: string
       bgOpacity?: number
       loadingTime?: number
+      strokeLinecap?: StrokeLineCap
    }
 }
 
@@ -37,7 +38,5 @@ type FontFamily =
 'Comic Sans MS' |
 'Goudy Bookletter 1911' |
 'Monospace'
-/**
- Arial
 
- */
+type StrokeLineCap = 'butt' | 'round' | 'square'
