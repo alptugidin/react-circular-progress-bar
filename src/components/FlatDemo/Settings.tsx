@@ -3,20 +3,34 @@ import { FontWeight, IFlatSettings, StrokeLineCap } from '../../types';
 import { fontFamilies } from '../../features/fontFamilies';
 import { FontFamily } from '../../../lib/types';
 import CodeHighlighter from '../CodeHighlighter/CodeHighlighter';
-import { template } from '../../features/jsTemplate';
 const Settings: React.FC<IFlatSettings> = (props) => {
+  const code = `<Flat
+\tprogress={${props.progress}}
+\tshowValue={${props.flatOptions.showValue ? 'true' : 'false'}}
+\ttext={'${props.flatOptions.text}'}
+\tshowText={${props.flatOptions.showText ? 'true' : 'false'}}
+\tsx={{
+\t\tbarColor: '${props.flatOptions.strokeColor}',
+\t\tbarWidth: ${props.flatOptions.strokeWidth},
+\t\tloadingTime: ${props.flatOptions.loadingTime},
+\t\tvalueSize: ${props.flatOptions.valueSize},  
+\t\ttextSize: ${props.flatOptions.textSize},
+\t\tvalueWeight: '${props.flatOptions.valueWeight}',
+\t\ttextWeight: '${props.flatOptions.textWeight}',
+\t\tvalueFamily: '${props.flatOptions.valueFamily}',
+\t\ttextFamily: '${props.flatOptions.textFamily}',
+\t\tvalueColor: '${props.flatOptions.valueColor}',
+\t\ttextColor: '${props.flatOptions.textColor}',
+\t\tbgColor: '${props.flatOptions.bgColor}',
+\t\tstrokeLinecap: '${props.flatOptions.strokeLinecap}'
+\t}}
+/>`;
   const valueSection = useRef<HTMLDivElement>(null);
   const textSection = useRef<HTMLDivElement>(null);
   const codeSection = useRef<HTMLDivElement>(null);
   const settingsSection = useRef<HTMLDivElement>(null);
-  const code = `
-  const foo = "bar";
-  console.log(foo);
-  `;
-  const [showValue, setShowValue] = useState(true);
-  const [showText, setShowText] = useState(true);
+  const copyBg = useRef<HTMLDivElement>(null);
   const handleValueCheck = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setShowValue(e.target.checked);
     props.setFlatOptions((prev) => ({ ...prev, showValue: e.target.checked }));
     if (e.target.checked) {
       valueSection.current?.classList.remove('opacity-50', 'pointer-events-none');
@@ -26,7 +40,6 @@ const Settings: React.FC<IFlatSettings> = (props) => {
   };
 
   const handleTextCheck = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setShowText(e.target.checked);
     props.setFlatOptions((prev) => ({ ...prev, showText: e.target.checked }));
     if (e.target.checked) {
       textSection.current?.classList.remove('opacity-50', 'pointer-events-none');
@@ -38,6 +51,14 @@ const Settings: React.FC<IFlatSettings> = (props) => {
   const getCode = (): void => {
     settingsSection.current?.classList.toggle('rotate');
     codeSection.current?.classList.toggle('rotate-back');
+  };
+
+  const copy = (): void => {
+    void navigator.clipboard.writeText(code);
+    copyBg.current?.classList.toggle('!bg-white/80');
+    setTimeout(() => {
+      copyBg.current?.classList.toggle('!bg-white/80');
+    }, 75);
   };
 
   return (
@@ -207,7 +228,7 @@ const Settings: React.FC<IFlatSettings> = (props) => {
               type="text"
               value={props.flatOptions.loadingTime}
               onChange={(e) => props.setFlatOptions({ ...props.flatOptions, loadingTime: parseInt(e.target.value) })}
-              className='border rounded-lg outline-none pl-2 focus:bordersetHeatOptions-400 w-20 '/>
+              className='border rounded-lg outline-none pl-2 focus:border-400 w-20 '/>
           </div>
           <div className='flex gap-2'>
             <span>Stroke Line cap</span>
@@ -231,10 +252,16 @@ const Settings: React.FC<IFlatSettings> = (props) => {
         </div>
       </div>
       <div ref={codeSection} className='settings back bg-white border drop-shadow-lg rounded-md transition-all duration-[800ms] overflow-hidden'>
+        <div
+          ref={copyBg}
+          onClick={copy}
+          className='absolute flex items-center justify-center opacity-0 hover:opacity-100 left-0 right-0 h-full transition-all bg-gradient-to-r from-indigo-600/20 via-purple-600/20 to-pink-600/20'>
+          <span className='text-white font-mono font-semibold text-3xl cursor-default'>Copy</span>
+        </div>
         <div>
-          {/* <CodeHighlighter>
-            {template}
-          </CodeHighlighter> */}
+          <CodeHighlighter>
+            {code}
+          </CodeHighlighter>
         </div>
         <div className='absolute bottom-0 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 w-full left-0'>
           <button type='button'
