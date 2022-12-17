@@ -1,7 +1,6 @@
 export interface IHeatOptions {
-   strokeColor: string
+   text: string
    strokeWidth: number
-   bgColor: string
    textSize: number
    valueSize: number
    valueWeight: FontWeight
@@ -14,9 +13,8 @@ export interface IHeatOptions {
    showText: boolean
    revertColor: boolean
    loadingTime: number
-   text: string
+   strokeLinecap: StrokeLineCap
    bgColor: string
-
  }
 export interface IHeatSettings {
    heatOptions: IHeatOptions
@@ -44,6 +42,7 @@ export interface IFlatOptions {
 }
 
 export interface IFlatSettings {
+   progress: number
    flatOptions: IFlatOptions
    setFlatOptions: React.Dispatch<React.SetStateAction<IFlatOptions>>
    progress: number
