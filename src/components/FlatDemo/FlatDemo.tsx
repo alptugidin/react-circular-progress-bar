@@ -31,8 +31,8 @@ const FlatDemo: React.FC = () => {
         <Flat
           progress={progress}
           showValue={flatOptions.showValue}
-          text={flatOptions.text}
           showText={flatOptions.showText}
+          text={flatOptions.text}
           sx={{
             barColor: flatOptions.strokeColor,
             barWidth: flatOptions.strokeWidth,
