@@ -1,14 +1,20 @@
 import React, { CSSProperties, useEffect, useState } from 'react';
 import { IHeat } from '../../types';
 
-const Heat: React.FC<IHeat> = ({ progress, sx, showValue, text, revertColor = false }) => {
+const Heat: React.FC<IHeat> = ({ progress, sx, showValue, showText, text, revertColor = false }) => {
   const {
     valueSize = 30,
-    textSize = 13,
+    textSize = 14,
+    textFamily = 'Trebuchet MS',
+    valueFamily = 'Trebuchet MS',
     textColor = '#000000',
     valueColor = '#000000',
     textWeight = 'normal',
-    loadingTime = 500
+    valueWeight = 'normal',
+    strokeLinecap = 'round',
+    loadingTime = 500,
+    bgColor = '#ffffff'
+
   } = sx;
 
   const [afterProgress, setAfterProgress] = useState(0);
@@ -30,8 +36,8 @@ const Heat: React.FC<IHeat> = ({ progress, sx, showValue, text, revertColor = fa
           strokeDasharray={dasharray}
           strokeDashoffset={(1 - 75 / 100) * dasharray}
           strokeWidth={sx.barWidth}
-          stroke={'white'}
-          strokeLinecap='round'
+          stroke={bgColor}
+          strokeLinecap={strokeLinecap}
           transform='rotate(135, 55, 55)'
         />
       </svg>
@@ -68,13 +74,14 @@ const Heat: React.FC<IHeat> = ({ progress, sx, showValue, text, revertColor = fa
           strokeDashoffset={dashoffset}
           strokeWidth={sx.barWidth}
           stroke='url(#gradient)'
-          strokeLinecap='round'
+          strokeLinecap={strokeLinecap}
           transform='rotate(135, 55, 55)'
         />
         {showValue &&
         <text x="50%" y="50%"
           fontSize={valueSize}
-          fontWeight={textWeight}
+          fontWeight={valueWeight}
+          fontFamily={valueFamily}
           textAnchor='middle'
           fill={textColor}
         >
@@ -82,9 +89,10 @@ const Heat: React.FC<IHeat> = ({ progress, sx, showValue, text, revertColor = fa
             {progress}%
           </tspan>
         </text>}
-        {text !== undefined &&
+        {showText &&
         <text x="50%" y="50%"
           fontSize={textSize}
+          fontFamily={textFamily}
           fontWeight={textWeight}
           textAnchor='middle'
           fill={valueColor}
