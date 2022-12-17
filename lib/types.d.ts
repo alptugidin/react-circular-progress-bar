@@ -21,8 +21,27 @@ export interface IFlat {
    }
 }
 
-export interface IHeat extends Pick<IFlat, 'progress' | 'sx' | 'showValue' | 'text' > {
+export interface IHeat {
+   progress: number
+   showValue?: boolean
+   showText?: boolean
+   text?: string
    revertColor?: boolean
+   sx: {
+      barWidth: number
+      bgColor?: string
+      valueSize?: number
+      valueWeight?: FontWeight
+      valueColor?: string
+      valueFamily?: FontFamily
+      textSize?: number
+      textWeight?: FontWeight
+      textColor?: string
+      textFamily?: FontFamily
+      loadingTime?: number
+      strokeLinecap?: StrokeLineCap
+   }
+
 }
 
 type FontWeight = 'normal' | 'bold' | 'bolder' | 'lighter'
