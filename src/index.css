@@ -56,17 +56,18 @@ select {
 
 }
 
-.variable {
+.va, .fu {
   color: #D55FDE;
   font-weight: bold;
   font-style: italic;
 }
 
-.operators {
+.op {
   color: #BBBBBB;
   font-weight: bold;
 }
 
-.global {
+
+.gl {
   color: #EF596F;
 }
