@@ -6,6 +6,7 @@ import CodeHighlighter from '../CodeHighlighter/CodeHighlighter';
 const Settings: React.FC<IFlatSettings> = (props) => {
   const code = `<Flat
 \tprogress={${props.progress}}
+\trange={{ from: ${props.flatOptions.range.from}, to: ${props.flatOptions.range.to} }}
 \tshowValue={${props.flatOptions.showValue ? 'true' : 'false'}}
 \ttext={'${props.flatOptions.text}'}
 \tshowText={${props.flatOptions.showText ? 'true' : 'false'}}
@@ -25,6 +26,7 @@ const Settings: React.FC<IFlatSettings> = (props) => {
 \t\tstrokeLinecap: '${props.flatOptions.strokeLinecap}'
 \t}}
 />`;
+
   const valueSection = useRef<HTMLDivElement>(null);
   const textSection = useRef<HTMLDivElement>(null);
   const codeSection = useRef<HTMLDivElement>(null);
@@ -63,13 +65,17 @@ const Settings: React.FC<IFlatSettings> = (props) => {
 
   return (
     <div className='main'>
-      <div ref={settingsSection} className='settings front flex flex-col overflow-hidden gap-3 bg-white rounded-lg border py-3 px-2 shadow-lg text-sm transition-all duration-[800ms]'>
+      <div ref={settingsSection} className='settings front flex flex-col overflow-hidden gap-3 bg-white rounded-lg border py-3 px-2 shadow-lg text-sm transition-all duration-[800ms] pb-11'>
         <div className='flex items-center gap-5'>
           <div className='flex flex-col gap-2'>
             <span className='text-center'>Value
               <span className='font-semibold text-sm text-purple-600'> {`{ ${props.progress} }`}</span>
             </span>
-            <input type="range" min='0' max='100' value={props.progress}
+            <input
+              type="range"
+              value={props.progress}
+              min={props.flatOptions.range.from}
+              max={props.flatOptions.range.to}
               onChange={(e) => props.setProgress(parseInt(e.target.value))}
               className='cursor-grab' />
           </div>
@@ -80,6 +86,23 @@ const Settings: React.FC<IFlatSettings> = (props) => {
             <input type="range" min='1' max='10' value={props.flatOptions.strokeWidth}
               onChange={(e) => props.setFlatOptions({ ...props.flatOptions, strokeWidth: parseInt(e.target.value) })}
               className='cursor-grab' />
+          </div>
+        </div>
+        <div className='flex gap-2'>
+          <span>Range</span>
+          <div>
+            <input
+              type="number"
+              value={props.flatOptions.range.from}
+              onChange={(e) => props.setFlatOptions((prev) => ({ ...prev, range: { ...prev.range, from: parseInt(e.target.value) } }))}
+              className='border rounded-lg w-20 pl-2'
+            />
+            <span> - </span>
+            <input
+              type="number"
+              value={props.flatOptions.range.to}
+              onChange={(e) => props.setFlatOptions((prev) => ({ ...prev, range: { ...prev.range, to: parseInt(e.target.value) } }))}
+              className='border rounded-lg w-20 pl-2' />
           </div>
         </div>
         <hr />

@@ -11,6 +11,7 @@ const Settings: React.FC<IHeatSettings> = (props) => {
   const copyBg = useRef<HTMLDivElement>(null);
   const code = `<Heat
 \tprogress={${props.progress}}
+\trange={{ from: ${props.heatOptions.range.from}, to: ${props.heatOptions.range.to} }}
 \tshowValue={${props.heatOptions.showValue ? 'true' : 'false'}}
 \tshowText={${props.heatOptions.showText ? 'true' : 'false'}}
 \ttext={'${props.heatOptions.text}'}
@@ -63,13 +64,17 @@ const Settings: React.FC<IHeatSettings> = (props) => {
 
   return (
     <div className='main'>
-      <div ref={settingsSection} className='settings front flex flex-col overflow-hidden gap-3 bg-white rounded-lg border py-3 px-2 shadow-lg text-sm transition-all duration-[800ms]'>
+      <div ref={settingsSection} className='settings front flex flex-col overflow-hidden gap-3 bg-white rounded-lg border py-3 px-2 shadow-lg text-sm transition-all duration-[800ms] pb-11'>
         <div className='flex items-center gap-5'>
           <div className='flex flex-col gap-2'>
             <span className='text-center'>Value
               <span className='font-semibold text-sm text-purple-600'> {`{ ${props.progress} }`}</span>
             </span>
-            <input type="range" min='0' max='100' value={props.progress}
+            <input
+              type="range"
+              min={props.heatOptions.range.from}
+              max={props.heatOptions.range.to}
+              value={props.progress}
               onChange={(e) => props.setProgress(parseInt(e.target.value))}
               className='cursor-grab' />
           </div>
@@ -80,6 +85,23 @@ const Settings: React.FC<IHeatSettings> = (props) => {
             <input type="range" min='1' max='10' value={props.heatOptions.strokeWidth}
               onChange={(e) => props.setHeatOptions({ ...props.heatOptions, strokeWidth: parseInt(e.target.value) })}
               className='cursor-grab' />
+          </div>
+        </div>
+        <div className='flex gap-2'>
+          <span>Range</span>
+          <div>
+            <input
+              type="number"
+              value={props.heatOptions.range.from}
+              onChange={(e) => props.setHeatOptions((prev) => ({ ...prev, range: { ...prev.range, from: parseInt(e.target.value) } }))}
+              className='border rounded-lg w-20 pl-2'
+            />
+            <span> - </span>
+            <input
+              type="number"
+              value={props.heatOptions.range.to}
+              onChange={(e) => props.setHeatOptions((prev) => ({ ...prev, range: { ...prev.range, to: parseInt(e.target.value) } }))}
+              className='border rounded-lg w-20 pl-2' />
           </div>
         </div>
         <hr />

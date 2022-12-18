@@ -22,14 +22,16 @@ const HeatDemo: React.FC = () => {
       loadingTime: 1000,
       text: 'Lorem, ipsum.',
       strokeLinecap: 'round',
-      bgColor: '#ffffff'
+      bgColor: '#ffffff',
+      range: { from: 0, to: 100 }
     }
   );
   return (
-    <div className='flex flex-col items-center'>
+    <div className='flex flex-col items-center gap-2'>
       <div className='w-48'>
         <Heat
           progress={progress}
+          range = { { from: heatOptions.range.from, to: heatOptions.range.to }}
           showValue={heatOptions.showValue}
           showText={heatOptions.showText}
           text={heatOptions.text}
