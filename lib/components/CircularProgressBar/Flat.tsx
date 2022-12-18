@@ -6,6 +6,7 @@ const Flat: React.FC<IFlat> = ({
   text = undefined,
   showValue = true,
   showText = false,
+  range = { from: 0, to: 100 },
   sx
 }) => {
   const [afterProgress, setAfterProgress] = useState(0);
@@ -28,14 +29,8 @@ const Flat: React.FC<IFlat> = ({
     setAfterProgress(progress);
   }, [progress]);
 
-  // useEffect(() => {
-  //   setInterval(() => {
-  //     setAfterProgress(Math.floor(Math.random() * 100));
-  //   }, 1000);
-  // }, []);
-
   const dasharray = 2 * Math.PI * 50;
-  const dashoffset = (1 - afterProgress / 100) * dasharray;
+  const dashoffset = (1 - (afterProgress + range.from) / range.to) * dasharray;
   return (
     <div className='relative' style={{ '--transitionDuration': loadingTime.toString().concat('ms') } as CSSProperties}>
       <svg viewBox='0 0 110 110' className=''>
@@ -48,6 +43,7 @@ const Flat: React.FC<IFlat> = ({
           transform='rotate(-90 55 55)'
           fill="none"
           stroke={sx.barColor}
+          shapeRendering='geometricPrecision'
           strokeLinecap={strokeLinecap}
           strokeDasharray={dasharray}
           strokeDashoffset={dashoffset}
@@ -85,7 +81,8 @@ const Flat: React.FC<IFlat> = ({
           r="50"
           fill="none"
           stroke={bgColor}
-          strokeWidth={sx.barWidth - 0.1}
+          strokeWidth={sx.barWidth - 0.3}
+          shapeRendering='geometricPrecision'
         />
       </svg>
     </div>
