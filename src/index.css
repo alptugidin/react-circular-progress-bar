@@ -22,14 +22,19 @@ input[type='color']::-webkit-color-swatch {
 }
 
 select {
-  @apply cursor-pointer
+  @apply cursor-pointer;
+}
+
+input,
+select {
+  @apply focus:border-gray-400 outline-none;
 }
 
 .main {
   perspective: 1000px;
   position: relative;
   width: 296px;
-  height: 487px;
+  height: 521px;
 }
 
 .settings {
@@ -39,12 +44,11 @@ select {
   top: 0;
   left: 0;
   right: 0;
-  height: 487px;
 }
 
 .back {
   transform: rotateY(-180deg);
-
+  height: 521px;
 }
 
 .rotate {
@@ -53,21 +57,4 @@ select {
 
 .rotate-back {
   transform: rotateY(0deg);
-
-}
-
-.va, .fu {
-  color: #D55FDE;
-  font-weight: bold;
-  font-style: italic;
-}
-
-.op {
-  color: #BBBBBB;
-  font-weight: bold;
-}
-
-
-.gl {
-  color: #EF596F;
 }
