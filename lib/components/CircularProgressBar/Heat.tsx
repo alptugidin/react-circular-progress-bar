@@ -1,7 +1,16 @@
 import React, { CSSProperties, useEffect, useState } from 'react';
 import { IHeat } from '../../types';
 
-const Heat: React.FC<IHeat> = ({ progress, sx, showValue, showText, text, revertColor = false }) => {
+const Heat: React.FC<IHeat> = ({
+  progress,
+  sx,
+  showValue,
+  showText,
+  text,
+  revertColor = false,
+  range = { from: 0, to: 100 }
+
+}) => {
   const {
     valueSize = 30,
     textSize = 14,
@@ -24,7 +33,7 @@ const Heat: React.FC<IHeat> = ({ progress, sx, showValue, showText, text, revert
   }, [progress]);
 
   const dasharray = 2 * Math.PI * 50;
-  const dashoffset = (1 - afterProgress / 100) * dasharray;
+  const dashoffset = (1 - (afterProgress + range.from) / range.to) * dasharray;
   return (
     <div className='relative'>
       <svg viewBox='0 0 110 110' className='drop-shadow-lg absolute -z-10'>
