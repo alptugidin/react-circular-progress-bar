@@ -4,10 +4,10 @@ import { IFlatOptions } from '../../types';
 import Settings from './Settings';
 
 const FlatDemo: React.FC = () => {
-  const [progress, setProgress] = useState(50);
   const [flatOptions, setFlatOptions] = useState<IFlatOptions>(
     {
       strokeColor: '#ff0000',
+      range: { from: 0, to: 100 },
       strokeWidth: 5,
       valueSize: 30,
       textSize: 14,
@@ -25,11 +25,13 @@ const FlatDemo: React.FC = () => {
       strokeLinecap: 'butt'
     }
   );
+  const [progress, setProgress] = useState(flatOptions.range.to / 2);
   return (
-    <div className='flex flex-col items-center'>
+    <div className='flex flex-col items-center gap-2'>
       <div className='w-48'>
         <Flat
           progress={progress}
+          range={{ from: flatOptions.range.from, to: flatOptions.range.to }}
           showValue={flatOptions.showValue}
           showText={flatOptions.showText}
           text={flatOptions.text}
