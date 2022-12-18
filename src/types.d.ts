@@ -1,6 +1,7 @@
 export interface IHeatOptions {
    text: string
    strokeWidth: number
+   range: { from: number, to: number }
    textSize: number
    valueSize: number
    valueWeight: FontWeight
@@ -24,6 +25,7 @@ export interface IHeatSettings {
 }
 export interface IFlatOptions {
    strokeColor: string
+   range: { from: number, to: number }
    strokeWidth: number
    textSize: number
    valueSize: number

@@ -1,5 +1,6 @@
 export interface IFlat {
    progress: number
+   range?: { from: number, to: number }
    showValue?: boolean
    showText?: boolean
    text?: string
@@ -23,6 +24,7 @@ export interface IFlat {
 
 export interface IHeat {
    progress: number
+   range?: { from: number, to: number }
    showValue?: boolean
    showText?: boolean
    text?: string
