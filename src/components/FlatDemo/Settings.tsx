@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { FontWeight, IFlatSettings, StrokeLineCap } from '../../types';
+import { FontWeight, IFlatSettings, Shape, StrokeLineCap } from '../../types';
 import { fontFamilies } from '../../features/fontFamilies';
 import { FontFamily } from '../../../lib/types';
 import CodeHighlighter from '../CodeHighlighter/CodeHighlighter';
@@ -13,6 +13,7 @@ const Settings: React.FC<IFlatSettings> = (props) => {
 \tsx={{
 \t\tbarColor: '${props.flatOptions.strokeColor}',
 \t\tbarWidth: ${props.flatOptions.strokeWidth},
+\t\tshape: '${props.flatOptions.shape}',
 \t\tloadingTime: ${props.flatOptions.loadingTime},
 \t\tvalueSize: ${props.flatOptions.valueSize},  
 \t\ttextSize: ${props.flatOptions.textSize},
@@ -246,12 +247,15 @@ const Settings: React.FC<IFlatSettings> = (props) => {
             <span className='text-purple-500 font-semibold bg-white pr-3 pl-3'>Options</span>
           </label>
           <div className='flex gap-2'>
-            <span className=''>Loading time {'(ms)'}</span>
-            <input
-              type="text"
-              value={props.flatOptions.loadingTime}
-              onChange={(e) => props.setFlatOptions({ ...props.flatOptions, loadingTime: parseInt(e.target.value) })}
-              className='border rounded-lg outline-none pl-2 focus:border-400 w-20 '/>
+            <span>Shape</span>
+            <select className='border rounded-lg outline-none'
+              value={props.flatOptions.shape}
+              onChange={(e) => props.setFlatOptions((prev) => ({ ...prev, shape: e.target.value as Shape }))}
+            >
+              <option value="full">Full</option>
+              <option value="threequarters">Three quarters</option>
+              <option value="half">Half</option>
+            </select>
           </div>
           <div className='flex gap-2'>
             <span>Stroke Line cap</span>
@@ -263,6 +267,14 @@ const Settings: React.FC<IFlatSettings> = (props) => {
               <option value="round">Round</option>
               <option value="square">Square</option>
             </select>
+          </div>
+          <div className='flex gap-2'>
+            <span className=''>Loading time {'(ms)'}</span>
+            <input
+              type="text"
+              value={props.flatOptions.loadingTime}
+              onChange={(e) => props.setFlatOptions({ ...props.flatOptions, loadingTime: parseInt(e.target.value) })}
+              className='border rounded-lg outline-none pl-2 focus:border-400 w-20 '/>
           </div>
         </div>
         <div className='absolute bottom-0 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 w-full left-0'>

@@ -22,7 +22,8 @@ const FlatDemo: React.FC = () => {
       loadingTime: 1000,
       text: 'Lorem, ipsum.',
       bgColor: '#ffffff',
-      strokeLinecap: 'butt'
+      strokeLinecap: 'butt',
+      shape: 'full'
     }
   );
   const [progress, setProgress] = useState(flatOptions.range.to / 2);
@@ -38,6 +39,7 @@ const FlatDemo: React.FC = () => {
           sx={{
             barColor: flatOptions.strokeColor,
             barWidth: flatOptions.strokeWidth,
+            shape: flatOptions.shape,
             loadingTime: flatOptions.loadingTime,
             valueSize: flatOptions.valueSize,
             textSize: flatOptions.textSize,
