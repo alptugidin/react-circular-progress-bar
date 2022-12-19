@@ -16,6 +16,7 @@ export interface IHeatOptions {
    loadingTime: number
    strokeLinecap: StrokeLineCap
    bgColor: string
+   shape: Shape
  }
 export interface IHeatSettings {
    heatOptions: IHeatOptions
@@ -41,6 +42,7 @@ export interface IFlatOptions {
    text: string
    bgColor: string
    strokeLinecap: StrokeLineCap
+   shape: Shape
 }
 
 export interface IFlatSettings {
@@ -66,3 +68,4 @@ export type FontFamily =
 'Monospace'
 
 export type StrokeLineCap = 'butt' | 'round' | 'square'
+export type Shape = 'full' | 'threequarters' | 'half'

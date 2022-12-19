@@ -7,6 +7,7 @@ export interface IFlat {
    sx: {
       barColor: string
       barWidth: number
+      shape?: Shape
       valueSize?: number
       valueWeight?: FontWeight
       valueColor?: string
@@ -32,6 +33,7 @@ export interface IHeat {
    sx: {
       barWidth: number
       bgColor?: string
+      shape?: Shape
       valueSize?: number
       valueWeight?: FontWeight
       valueColor?: string
@@ -61,3 +63,4 @@ type FontFamily =
 'Monospace'
 
 type StrokeLineCap = 'butt' | 'round' | 'square'
+type Shape = 'full' | 'threequarters' | 'half'
