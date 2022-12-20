@@ -23,7 +23,8 @@ const HeatDemo: React.FC = () => {
       text: 'Lorem, ipsum.',
       strokeLinecap: 'round',
       bgColor: '#ffffff',
-      range: { from: 0, to: 100 }
+      range: { from: 0, to: 100 },
+      shape: 'threequarters'
     }
   );
   return (
@@ -39,6 +40,7 @@ const HeatDemo: React.FC = () => {
           sx={{
             barWidth: heatOptions.strokeWidth,
             bgColor: heatOptions.bgColor,
+            shape: heatOptions.shape,
             valueSize: heatOptions.valueSize,
             textSize: heatOptions.textSize,
             valueFamily: heatOptions.valueFamily,
