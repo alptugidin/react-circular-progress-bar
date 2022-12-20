@@ -5,10 +5,7 @@
 body {
   @apply bg-green-100;
 }
-.transition-effect {
-  transition: stroke-dashoffset ease-in-out;
-  transition-duration: var(--transitionDuration);
-}
+
 
 input[type='color'] {
   -webkit-appearance: none;
@@ -25,12 +22,21 @@ select {
   @apply cursor-pointer;
 }
 
-input,
 select {
   @apply focus:border-gray-400 outline-none;
 }
+input {
+  @apply focus:border-gray-400 outline-none border-gray-200 border rounded-lg;
+}
 
-.main {
+.main-flat {
+  perspective: 1000px;
+  position: relative;
+  width: 296px;
+  height: 563px;
+}
+
+.main-heat {
   perspective: 1000px;
   position: relative;
   width: 296px;
@@ -46,7 +52,12 @@ select {
   right: 0;
 }
 
-.back {
+.back-flat {
+  transform: rotateY(-180deg);
+  height: 563px;
+}
+
+.back-heat {
   transform: rotateY(-180deg);
   height: 521px;
 }
@@ -58,3 +69,8 @@ select {
 .rotate-back {
   transform: rotateY(0deg);
 }
+
+
+
+
+
