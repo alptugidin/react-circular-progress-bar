@@ -1,30 +1,32 @@
 import React, { useRef, useState } from 'react';
-import { FontWeight, IFlatSettings, Shape, StrokeLineCap } from '../../types';
+import { FontWeight, IFlatSettings, StrokeLineCap } from '../../types';
 import { fontFamilies } from '../../features/fontFamilies';
-import { FontFamily } from '../../../lib/types';
+import { FlatShape, FontFamily } from '../../../lib/types';
 import CodeHighlighter from '../CodeHighlighter/CodeHighlighter';
 const Settings: React.FC<IFlatSettings> = (props) => {
   const code = `<Flat
 \tprogress={${props.progress}}
 \trange={{ from: ${props.flatOptions.range.from}, to: ${props.flatOptions.range.to} }}
-\tshowValue={${props.flatOptions.showValue ? 'true' : 'false'}}
+\tshowMiniCircle={ ${props.flatOptions.showMiniCircle ? 'true' : 'false'} }
+\tshowValue={ ${props.flatOptions.showValue ? 'true' : 'false'} }
+\tshowText={ ${props.flatOptions.showText ? 'true' : 'false'}}
 \ttext={'${props.flatOptions.text}'}
-\tshowText={${props.flatOptions.showText ? 'true' : 'false'}}
 \tsx={{
 \t\tbarColor: '${props.flatOptions.strokeColor}',
 \t\tbarWidth: ${props.flatOptions.strokeWidth},
-\t\tshape: '${props.flatOptions.shape}',
-\t\tloadingTime: ${props.flatOptions.loadingTime},
-\t\tvalueSize: ${props.flatOptions.valueSize},  
-\t\ttextSize: ${props.flatOptions.textSize},
-\t\tvalueWeight: '${props.flatOptions.valueWeight}',
-\t\ttextWeight: '${props.flatOptions.textWeight}',
-\t\tvalueFamily: '${props.flatOptions.valueFamily}',
-\t\ttextFamily: '${props.flatOptions.textFamily}',
-\t\tvalueColor: '${props.flatOptions.valueColor}',
-\t\ttextColor: '${props.flatOptions.textColor}',
 \t\tbgColor: '${props.flatOptions.bgColor}',
-\t\tstrokeLinecap: '${props.flatOptions.strokeLinecap}'
+\t\tshape: '${props.flatOptions.shape}',
+\t\tstrokeLinecap: '${props.flatOptions.strokeLinecap}',
+\t\tvalueSize: ${props.flatOptions.valueSize},  
+\t\tvalueWeight: '${props.flatOptions.valueWeight}',
+\t\tvalueColor: '${props.flatOptions.valueColor}',
+\t\tvalueFamily: '${props.flatOptions.valueFamily}',
+\t\ttextSize: ${props.flatOptions.textSize},
+\t\ttextWeight: '${props.flatOptions.textWeight}',
+\t\ttextColor: '${props.flatOptions.textColor}',
+\t\ttextFamily: '${props.flatOptions.textFamily}',
+\t\tloadingTime: ${props.flatOptions.loadingTime},
+\t\tminiCircleColor: '${props.flatOptions.miniCircleColor}'
 \t}}
 />`;
 
@@ -65,7 +67,7 @@ const Settings: React.FC<IFlatSettings> = (props) => {
   };
 
   return (
-    <div className='main'>
+    <div className='main-flat'>
       <div ref={settingsSection} className='settings front flex flex-col overflow-hidden gap-3 bg-white rounded-lg border py-3 px-2 shadow-lg text-sm transition-all duration-[800ms] pb-11'>
         <div className='flex items-center gap-5'>
           <div className='flex flex-col gap-2'>
@@ -166,6 +168,15 @@ const Settings: React.FC<IFlatSettings> = (props) => {
             </div>
             <span className='text-purple-500 font-semibold bg-white pr-3 pl-3'>Text</span>
           </label>
+          <div className='flex gap-2'>
+            <span>Text</span>
+            <input
+              type="text"
+              className='pl-2'
+              value={props.flatOptions.text}
+              onChange={(e) => props.setFlatOptions((prev) => ({ ...prev, text: e.target.value }))}
+            />
+          </div>
           <div ref={textSection} className='flex flex-col gap-3 transition-all'>
             <div className='flex justify-between'>
               <div className='flex gap-2'>
@@ -239,6 +250,13 @@ const Settings: React.FC<IFlatSettings> = (props) => {
                 value={props.flatOptions.bgColor}
               />
             </div>
+            <div className='flex flex-col w-fit justify-center items-center basis-1/3'>
+              <span className=''>Mini circle</span>
+              <input type="color"
+                value={props.flatOptions.miniCircleColor}
+                onChange={(e) => props.setFlatOptions({ ...props.flatOptions, miniCircleColor: e.target.value })}
+              />
+            </div>
           </div>
         </div>
         <hr />
@@ -250,7 +268,7 @@ const Settings: React.FC<IFlatSettings> = (props) => {
             <span>Shape</span>
             <select className='border rounded-lg outline-none'
               value={props.flatOptions.shape}
-              onChange={(e) => props.setFlatOptions((prev) => ({ ...prev, shape: e.target.value as Shape }))}
+              onChange={(e) => props.setFlatOptions((prev) => ({ ...prev, shape: e.target.value as FlatShape }))}
             >
               <option value="full">Full</option>
               <option value="threequarters">Three quarters</option>
@@ -267,6 +285,14 @@ const Settings: React.FC<IFlatSettings> = (props) => {
               <option value="round">Round</option>
               <option value="square">Square</option>
             </select>
+          </div>
+          <div className='flex gap-2'>
+            <input
+              type="checkbox"
+              className='cursor-pointer'
+              // defaultChecked
+              onChange={(e) => props.setFlatOptions((prev) => ({ ...prev, showMiniCircle: e.target.checked }))} />
+            <span className=''>Show mini circle</span>
           </div>
           <div className='flex gap-2'>
             <span className=''>Loading time {'(ms)'}</span>
@@ -286,7 +312,7 @@ const Settings: React.FC<IFlatSettings> = (props) => {
           </button>
         </div>
       </div>
-      <div ref={codeSection} className='settings back bg-white border drop-shadow-lg rounded-md transition-all duration-[800ms] overflow-hidden'>
+      <div ref={codeSection} className='settings back-flat bg-white border drop-shadow-lg rounded-md transition-all duration-[800ms] overflow-hidden'>
         <div
           ref={copyBg}
           onClick={copy}
