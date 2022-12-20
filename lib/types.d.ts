@@ -3,11 +3,14 @@ export interface IFlat {
    range?: { from: number, to: number }
    showValue?: boolean
    showText?: boolean
+   showMiniCircle?: boolean
    text?: string
    sx: {
       barColor: string
       barWidth: number
-      shape?: Shape
+      bgColor?: string
+      shape?: FlatShape
+      strokeLinecap?: StrokeLineCap
       valueSize?: number
       valueWeight?: FontWeight
       valueColor?: string
@@ -16,10 +19,8 @@ export interface IFlat {
       textWeight?: FontWeight
       textColor?: string
       textFamily?: FontFamily
-      bgColor?: string
-      bgOpacity?: number
       loadingTime?: number
-      strokeLinecap?: StrokeLineCap
+      miniCircleColor?: string
    }
 }
 
@@ -28,12 +29,14 @@ export interface IHeat {
    range?: { from: number, to: number }
    showValue?: boolean
    showText?: boolean
+   showMiniCircle?: boolean
    text?: string
    revertColor?: boolean
    sx: {
       barWidth: number
       bgColor?: string
-      shape?: Shape
+      shape?: HeatShape
+      strokeLinecap?: StrokeLineCap
       valueSize?: number
       valueWeight?: FontWeight
       valueColor?: string
@@ -43,7 +46,7 @@ export interface IHeat {
       textColor?: string
       textFamily?: FontFamily
       loadingTime?: number
-      strokeLinecap?: StrokeLineCap
+      miniCircleColor?: string
    }
 
 }
@@ -63,4 +66,5 @@ type FontFamily =
 'Monospace'
 
 type StrokeLineCap = 'butt' | 'round' | 'square'
-type Shape = 'full' | 'threequarters' | 'half'
+type FlatShape = 'full' | 'threequarters' | 'half'
+type HeatShape = 'threequarters' | 'half'
