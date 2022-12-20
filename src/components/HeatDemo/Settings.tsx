@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { HeatShape } from '../../../lib/types';
 import { fontFamilies } from '../../features/fontFamilies';
 import { FontFamily, FontWeight, IHeatSettings, StrokeLineCap } from '../../types';
 import CodeHighlighter from '../CodeHighlighter/CodeHighlighter';
@@ -19,16 +20,17 @@ const Settings: React.FC<IHeatSettings> = (props) => {
 \tsx={{
 \t\tbarWidth: ${props.heatOptions.strokeWidth},
 \t\tbgColor: '${props.heatOptions.bgColor}',
+\t\tshape: '${props.heatOptions.shape}',
+\t\tstrokeLinecap: '${props.heatOptions.strokeLinecap}'
 \t\tvalueSize: ${props.heatOptions.valueSize},
-\t\ttextSize: ${props.heatOptions.textSize},
 \t\tvalueFamily: '${props.heatOptions.valueFamily}',
 \t\ttextFamily: '${props.heatOptions.textFamily}',
+\t\ttextColor: '${props.heatOptions.textColor}',
 \t\tvalueWeight: '${props.heatOptions.valueWeight}',
+\t\ttextSize: ${props.heatOptions.textSize},
 \t\ttextWeight: '${props.heatOptions.textWeight}',
 \t\tvalueColor: '${props.heatOptions.valueColor}',
-\t\ttextColor: '${props.heatOptions.textColor}',
-\t\tloadingTime: '${props.heatOptions.loadingTime}',
-\t\tstrokeLinecap: '${props.heatOptions.strokeLinecap}'
+\t\tloadingTime: '${props.heatOptions.loadingTime}'
 \t}}
 />`;
   const handleValueCheck = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -63,7 +65,7 @@ const Settings: React.FC<IHeatSettings> = (props) => {
   };
 
   return (
-    <div className='main'>
+    <div className='main-heat'>
       <div ref={settingsSection} className='settings front flex flex-col overflow-hidden gap-3 bg-white rounded-lg border py-3 px-2 shadow-lg text-sm transition-all duration-[800ms] pb-11'>
         <div className='flex items-center gap-5'>
           <div className='flex flex-col gap-2'>
@@ -164,6 +166,7 @@ const Settings: React.FC<IHeatSettings> = (props) => {
             </div>
             <span className='text-purple-500 font-semibold bg-white pr-3 pl-3'>Text</span>
           </label>
+
           <div ref={textSection} className='flex flex-col gap-3 transition-all'>
             <div className='flex justify-between'>
               <div className='flex gap-2'>
@@ -230,17 +233,20 @@ const Settings: React.FC<IHeatSettings> = (props) => {
           </div>
         </div>
         <hr />
+
         <div className='relative flex flex-col gap-3'>
           <label className='absolute left-0 -top-[23px] w-full text-center flex justify-center items-center'>
             <span className='text-purple-500 font-semibold bg-white pr-3 pl-3'>Options</span>
           </label>
           <div className='flex gap-2'>
-            <span className=''>Loading time {'(ms)'}</span>
-            <input
-              type="text"
-              value={props.heatOptions.loadingTime}
-              onChange={(e) => props.setHeatOptions({ ...props.heatOptions, loadingTime: parseInt(e.target.value) })}
-              className='border rounded-lg outline-none pl-2 focus:bordersetHeatOptions-400 w-20 '/>
+            <span>Shape</span>
+            <select className='border rounded-lg outline-none'
+              value={props.heatOptions.shape}
+              onChange={(e) => props.setHeatOptions((prev) => ({ ...prev, shape: e.target.value as HeatShape }))}
+            >
+              <option value="threequarters">Three quarters</option>
+              <option value="half">Half</option>
+            </select>
           </div>
           <div className='flex gap-2'>
             <span>Stroke Line cap</span>
@@ -253,6 +259,15 @@ const Settings: React.FC<IHeatSettings> = (props) => {
               <option value="square">Square</option>
             </select>
           </div>
+          <div className='flex gap-2'>
+            <span className=''>Loading time {'(ms)'}</span>
+            <input
+              type="text"
+              value={props.heatOptions.loadingTime}
+              onChange={(e) => props.setHeatOptions({ ...props.heatOptions, loadingTime: parseInt(e.target.value) })}
+              className='border rounded-lg outline-none pl-2 focus:bordersetHeatOptions-400 w-20 '/>
+          </div>
+
           <div className='flex gap-2'>
             <input
               type="checkbox"
@@ -271,7 +286,7 @@ const Settings: React.FC<IHeatSettings> = (props) => {
           </button>
         </div>
       </div>
-      <div ref={codeSection} className='settings back bg-white border drop-shadow-lg rounded-md transition-all duration-[800ms] overflow-hidden'>
+      <div ref={codeSection} className='settings back-heat bg-white border drop-shadow-lg rounded-md transition-all duration-[800ms] overflow-hidden'>
         <div
           ref={copyBg}
           onClick={copy}
