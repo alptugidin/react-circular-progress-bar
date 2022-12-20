@@ -10,7 +10,7 @@ const CodeHighlighter: React.FC<ICodeHighlighter> = ({ children }) => {
     Prism.highlightAll();
   }, [children]);
   return (
-    <pre className={'language-jsx h-[487px] pt-1 pl-1 text-sm !mt-0 !overflow-hidden'}>
+    <pre className={'language-jsx pt-1 pl-1 text-sm !mt-0 !overflow-hidden'}>
       <code>
         {children}
       </code>
