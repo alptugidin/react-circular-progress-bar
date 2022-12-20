@@ -3,14 +3,14 @@ import { IFlat } from '../../types';
 
 const Flat: React.FC<IFlat> = ({
   progress = 0,
+  range = { from: 0, to: 100 },
+  showMiniCircle = true,
   text = undefined,
   showValue = true,
   showText = false,
-  range = { from: 0, to: 100 },
   sx
 }) => {
   const [afterProgress, setAfterProgress] = useState(0);
-
   const {
     valueSize = 30,
     valueColor = '#000000',
@@ -59,14 +59,14 @@ const Flat: React.FC<IFlat> = ({
     }
   };
 
-  const setBaseline = (): string => {
+  const setAngle = (): number => {
     switch (shape) {
     case 'full':
-      return 'rotate(-90, 55, 55)';
+      return 0;
     case 'threequarters':
-      return 'rotate(135, 55, 55)';
+      return 135;
     case 'half':
-      return 'rotate(180, 55, 55)'; ;
+      return 90; ;
     }
   };
 
@@ -76,14 +76,18 @@ const Flat: React.FC<IFlat> = ({
 
   const dasharray = 2 * Math.PI * 50;
   const dashoffset = (1 - (afterProgress + range.from) / range.to) * dasharray;
+
   return (
-    <div className='relative' style={{ '--transitionDuration': loadingTime.toString().concat('ms') } as CSSProperties}>
-      <svg viewBox='0 0 110 110' className=''>
+    <div className='relative'>
+      <svg viewBox='0 0 110 110'>
         <circle
           cx="55"
           cy="55"
           r="50"
-          className='transition-effect'
+          style={{
+            transition: 'stroke-dashoffset ease-in-out',
+            transitionDuration: loadingTime.toString().concat('ms')
+          }}
           strokeWidth={sx.barWidth}
           transform={setRotate()}
           fill="none"
@@ -137,6 +141,24 @@ const Flat: React.FC<IFlat> = ({
           shapeRendering='geometricPrecision'
         />
       </svg>
+      {showMiniCircle &&
+      <svg
+        viewBox='0 0 110 110'
+        className='absolute top-0 '
+        style={{
+          transition: 'transform ease-in-out',
+          transitionDuration: loadingTime.toString().concat('ms')
+        }}
+        transform={`rotate(${afterProgress * 3.6 - setAngle()}, 0, 0)`}>
+        <circle
+          cx='55'
+          cy='5'
+          r="5"
+          fill={sx.miniCircleColor}
+        >
+        </circle>
+      </svg>
+      }
     </div>
   );
 };
