@@ -23,7 +23,9 @@ const FlatDemo: React.FC = () => {
       text: 'Lorem, ipsum.',
       bgColor: '#ffffff',
       strokeLinecap: 'butt',
-      shape: 'full'
+      shape: 'full',
+      showMiniCircle: true,
+      miniCircleColor: '#ff0000'
     }
   );
   const [progress, setProgress] = useState(flatOptions.range.to / 2);
@@ -33,24 +35,26 @@ const FlatDemo: React.FC = () => {
         <Flat
           progress={progress}
           range={{ from: flatOptions.range.from, to: flatOptions.range.to }}
+          showMiniCircle={flatOptions.showMiniCircle}
           showValue={flatOptions.showValue}
           showText={flatOptions.showText}
           text={flatOptions.text}
           sx={{
             barColor: flatOptions.strokeColor,
             barWidth: flatOptions.strokeWidth,
-            shape: flatOptions.shape,
-            loadingTime: flatOptions.loadingTime,
-            valueSize: flatOptions.valueSize,
-            textSize: flatOptions.textSize,
-            valueWeight: flatOptions.valueWeight,
-            textWeight: flatOptions.textWeight,
-            valueFamily: flatOptions.valueFamily,
-            textFamily: flatOptions.textFamily,
-            valueColor: flatOptions.valueColor,
-            textColor: flatOptions.textColor,
             bgColor: flatOptions.bgColor,
-            strokeLinecap: flatOptions.strokeLinecap
+            shape: flatOptions.shape,
+            strokeLinecap: flatOptions.strokeLinecap,
+            valueSize: flatOptions.valueSize,
+            valueWeight: flatOptions.valueWeight,
+            valueColor: flatOptions.valueColor,
+            valueFamily: flatOptions.valueFamily,
+            textSize: flatOptions.textSize,
+            textWeight: flatOptions.textWeight,
+            textColor: flatOptions.textColor,
+            textFamily: flatOptions.textFamily,
+            loadingTime: flatOptions.loadingTime,
+            miniCircleColor: flatOptions.miniCircleColor
           }}
         />
       </div>
