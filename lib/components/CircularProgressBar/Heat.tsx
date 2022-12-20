@@ -22,15 +22,41 @@ const Heat: React.FC<IHeat> = ({
     valueWeight = 'normal',
     strokeLinecap = 'round',
     loadingTime = 500,
-    bgColor = '#ffffff'
-
+    bgColor = '#ffffff',
+    shape = 'threequarters'
   } = sx;
 
   const [afterProgress, setAfterProgress] = useState(0);
+  const setShape = (): number => {
+    switch (shape) {
+    case 'threequarters':
+      return 75;
+    case 'half':
+      return 50; ;
+    }
+  };
+
+  const setRotate = (): string => {
+    switch (shape) {
+    case 'threequarters':
+      return 'rotate(135, 55, 55)';
+    case 'half':
+      return 'rotate(180, 55, 55)'; ;
+    }
+  };
+
+  const setRatio = (): number => {
+    switch (shape) {
+    case 'threequarters':
+      return 0.75;
+    case 'half':
+      return 0.5; ;
+    }
+  };
 
   useEffect(() => {
-    setAfterProgress(progress * 0.75);
-  }, [progress]);
+    setAfterProgress(progress * setRatio());
+  }, [progress, shape]);
 
   const dasharray = 2 * Math.PI * 50;
   const dashoffset = (1 - (afterProgress + range.from) / range.to) * dasharray;
@@ -43,30 +69,51 @@ const Heat: React.FC<IHeat> = ({
           cy='55'
           fill='none'
           strokeDasharray={dasharray}
-          strokeDashoffset={(1 - 75 / 100) * dasharray}
+          strokeDashoffset={(1 - setShape() / 100) * dasharray}
           strokeWidth={sx.barWidth}
           stroke={bgColor}
           strokeLinecap={strokeLinecap}
-          transform='rotate(135, 55, 55)'
+          transform={setRotate()}
         />
       </svg>
       <svg viewBox='0 0 110 110' className='  '>
         {!revertColor
-          ? (
-            <linearGradient id="gradient" x1="90.7089" y1="75.1526" x2="33.7868" y2="18.2305" gradientUnits="userSpaceOnUse">
-              <stop stopColor="#00FF00"/>
-              <stop offset="0.34691" stopColor="#C1FF00"/>
-              <stop offset="0.775843" stopColor="#FFB800"/>
-              <stop offset="1" stopColor="#FF0000"/>
-            </linearGradient>
+          ? (shape === 'threequarters'
+            ? (
+
+              <linearGradient id="gradient" x1="90.7089" y1="75.1526" x2="33.7868" y2="18.2305" gradientUnits="userSpaceOnUse">
+                <stop stopColor="#00FF00"/>
+                <stop offset="0.34691" stopColor="#C1FF00"/>
+                <stop offset="0.775843" stopColor="#FFB800"/>
+                <stop offset="1" stopColor="#FF0000"/>
+              </linearGradient>
+            )
+            : (
+              <linearGradient id="gradient" gradientUnits="userSpaceOnUse">
+                <stop stopColor="#FF0000"/>
+                <stop offset="0.274348" stopColor="#FFB800"/>
+                <stop offset="0.676789" stopColor="#C1FF00"/>
+                <stop offset="1" stopColor="#00FF00"/>
+              </linearGradient>
+            )
           )
-          : (
-            <linearGradient id="gradient" x1="90.7089" y1="75.1526" x2="33.7868" y2="18.2305" gradientUnits="userSpaceOnUse">
-              <stop stopColor="#FF0000"/>
-              <stop offset="0.34691" stopColor="#FFB800"/>
-              <stop offset="0.775843" stopColor="#C1FF00"/>
-              <stop offset="1" stopColor="#00FF00"/>
-            </linearGradient>
+          : (shape === 'threequarters'
+            ? (
+              <linearGradient id="gradient" x1="90.7089" y1="75.1526" x2="33.7868" y2="18.2305" gradientUnits="userSpaceOnUse">
+                <stop stopColor="#FF0000"/>
+                <stop offset="0.34691" stopColor="#FFB800"/>
+                <stop offset="0.775843" stopColor="#C1FF00"/>
+                <stop offset="1" stopColor="#00FF00"/>
+              </linearGradient>
+            )
+            : (
+              <linearGradient id="gradient" gradientUnits="userSpaceOnUse">
+                <stop stopColor="#00FF00"/>
+                <stop offset="0.274348" stopColor="#C1FF00"/>
+                <stop offset="0.676789" stopColor="#FFB800"/>
+                <stop offset="1" stopColor="#FF0000"/>
+              </linearGradient>
+            )
           )
         }
 
@@ -84,29 +131,33 @@ const Heat: React.FC<IHeat> = ({
           strokeWidth={sx.barWidth}
           stroke='url(#gradient)'
           strokeLinecap={strokeLinecap}
-          transform='rotate(135, 55, 55)'
+          transform={setRotate()}
         />
         {showValue &&
-        <text x="50%" y="50%"
+        <text
+          x="50%"
+          y={shape === 'half' ? '40%' : '50%' }
           fontSize={valueSize}
           fontWeight={valueWeight}
           fontFamily={valueFamily}
           textAnchor='middle'
           fill={textColor}
         >
-          <tspan alignmentBaseline={text !== undefined ? 'baseline' : 'central'}>
+          <tspan alignmentBaseline={showText ? 'baseline' : 'central'}>
             {progress}%
           </tspan>
         </text>}
         {showText &&
-        <text x="50%" y="50%"
+        <text
+          x="50%"
+          y={shape === 'half' ? '40%' : '50%' }
           fontSize={textSize}
           fontFamily={textFamily}
           fontWeight={textWeight}
           textAnchor='middle'
           fill={valueColor}
           dominantBaseline={showValue ? 'hanging' : 'start'} >
-          <tspan alignmentBaseline={showValue ? 'hanging' : 'central'}>
+          <tspan alignmentBaseline={showValue ? 'hanging' : (shape === 'half' ? 'hanging' : 'middle')}>
             {text}
           </tspan>
         </text>
