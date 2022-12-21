@@ -51,6 +51,24 @@ export interface IHeat {
 
 }
 
+export interface INested {
+   circles: {
+      circle1: number
+      circle2: number
+      circle3?: number
+      circle4?: number
+      circle5?: number
+   }
+   sx: {
+      circle1Color?: string
+      circle2Color?: string
+      circle3Color?: string
+      circle4Color?: string
+      circle5Color?: string
+      strokeLinecap?: StrokeLineCap
+   }
+}
+
 type FontWeight = 'normal' | 'bold' | 'bolder' | 'lighter'
 type FontFamily =
 'Arial' |
