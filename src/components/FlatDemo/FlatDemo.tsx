@@ -31,7 +31,7 @@ const FlatDemo: React.FC = () => {
   const [progress, setProgress] = useState(flatOptions.range.to / 2);
   return (
     <div className='flex flex-col items-center gap-2'>
-      <div className='w-48'>
+      <div className='w-56'>
         <Flat
           progress={progress}
           range={{ from: flatOptions.range.from, to: flatOptions.range.to }}
