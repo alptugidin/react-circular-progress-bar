@@ -29,7 +29,7 @@ const HeatDemo: React.FC = () => {
   );
   return (
     <div className='flex flex-col items-center gap-2'>
-      <div className='w-48'>
+      <div className='w-56'>
         <Heat
           progress={progress}
           range = { { from: heatOptions.range.from, to: heatOptions.range.to }}
