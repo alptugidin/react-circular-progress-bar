@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 body {
-  @apply bg-green-100;
+  /* @apply bg-green-100; */
+  @apply bg-white;
 }
 
 
@@ -16,6 +17,10 @@ input[type='color']::-webkit-color-swatch-wrapper {
 }
 input[type='color']::-webkit-color-swatch {
   border: none;
+}
+
+input[type='range']{
+  @apply cursor-pointer
 }
 
 select {
