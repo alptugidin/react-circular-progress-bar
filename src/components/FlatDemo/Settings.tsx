@@ -68,7 +68,7 @@ const Settings: React.FC<IFlatSettings> = (props) => {
 
   return (
     <div className='main-flat'>
-      <div ref={settingsSection} className='settings front flex flex-col overflow-hidden gap-3 bg-white rounded-lg border py-3 px-2 shadow-lg text-sm transition-all duration-[800ms] pb-11'>
+      <div ref={settingsSection} className='settings flex flex-col overflow-hidden gap-3 bg-white rounded-lg border py-3 px-2 shadow-lg text-sm transition-all duration-[800ms] pb-11'>
         <div className='flex items-center gap-5'>
           <div className='flex flex-col gap-2'>
             <span className='text-center'>Value
