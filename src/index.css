@@ -75,7 +75,9 @@ input {
   transform: rotateY(0deg);
 }
 
-
-
+.transition-bg {
+  transition: background;
+  transition-duration: 500ms;
+}
 
 
