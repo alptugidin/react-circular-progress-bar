@@ -1,51 +1,45 @@
 import React from 'react';
-import { INestedSettings } from '../../types';
+import { INestedOptions, INestedSettings } from '../../types';
 
 const Settings: React.FC<INestedSettings> = (props) => {
+  type circle = 'circle1' | 'circle2' | 'circle3' | 'circle4' | 'circle5'
+  const circles: circle[] = ['circle1', 'circle2', 'circle3', 'circle4', 'circle5'];
+
   const handleCheckBox = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    if (e.target.checked) {
-      props.setNestedOptions((prev) => (
-        {
-          ...prev,
-          progress:
-        { ...props.nestedOptions.progress, [`circle${e.target.dataset.id as string}`]: 100 }
-        }));
+    const id = Number(e.target.dataset.circle);
+    if (!e.target.checked) {
+      props.setNestedOptions((prev) => ({ ...prev, [circles[id]]: { ...prev[circles[id]], value: -1 } }));
     } else {
-      props.setNestedOptions((prev) => (
-        { ...prev, progress: { ...props.nestedOptions.progress, [`circle${e.target.dataset.id as string}`]: -1 } }));
+      props.setNestedOptions((prev) => ({ ...prev, [circles[id]]: { ...prev[circles[id]], value: Math.floor(Math.random() * 50) } }));
     }
   };
+
   return (
     <div className='main-heat'>
       <div className='flex flex-col settings front overflow-hidden gap-3 bg-white rounded-lg border py-3 px-2 shadow-lg text-sm transition-all duration-[800ms]'>
-        {Object.entries(props.nestedOptions.progress).map((circle, index) => (
-          <div key={index} className='flex items-center gap-2'>
-            <div className='flex basis-3/12 gap-1'>
-              <input
-                type="checkbox"
-                data-id={index + 1}
-                className={`cursor-pointer ${index < 2 ? 'opacity-0 pointer-events-none' : ''}`}
-                defaultChecked
-                onChange={handleCheckBox}
-              />
-              <span>Circle {index + 1}</span>
-            </div>
+        {[...Array(5).keys()].map((_, i) => (
+          <div key={i} className='flex gap-2'>
+            <input
+              data-circle={i}
+              type="checkbox"
+              defaultChecked
+              onChange={handleCheckBox}
+              className={i < 2 ? 'opacity-0 pointer-events-none' : '' } />
+            <input
+              type="text"
+              value={props.nestedOptions[circles[i]].text}
+              onChange={(e) => props.setNestedOptions((prev) => ({ ...prev, [circles[i]]: { ...prev[circles[i]], text: e.target.value } }))}
+              className='pl-2 w-2/6' />
             <input
               type="range"
               min='0'
               max='100'
-              className={`basis-6/12 ${circle[1] === -1 ? 'pointer-events-none opacity-50' : ''}`}
-              value={circle[1]}
-              onChange={(e) => props.setNestedOptions((prev) =>
-                ({ ...prev, progress: { ...props.nestedOptions.progress, [circle[0]]: parseInt(e.target.value) } }
-                ))}
-            />
-            <span className='text-purple-500 font-semibold basis-3/12 text-center'>
-              {`{ ${circle[1] !== -1 ? circle[1] as number : ' ~ '} 
-            }`}</span>
+              value={props.nestedOptions[circles[i]].value}
+              onChange={(e) => props.setNestedOptions((prev) => ({ ...prev, [circles[i]]: { ...prev[circles[i]], value: parseInt(e.target.value) } }))}
+              className='w-[110px]' />
+            <span className='text-purple-500 font-semibold'>{`{ ${props.nestedOptions[circles[i]].value} }`}</span>
           </div>
         ))}
-
       </div>
     </div>
   );
