@@ -52,19 +52,14 @@ export interface IHeat {
 }
 
 export interface INested {
-   circles: {
-      circle1: number
-      circle2: number
-      circle3?: number
-      circle4?: number
-      circle5?: number
-   }
+   circles: [
+      circle1: { value: number, text: string, color: string },
+      circle2: { value: number, text: string, color: string },
+      circle3?: { value: number, text: string, color: string },
+      circle4?: { value: number, text: string, color: string },
+      circle5?: { value: number, text: string, color: string }
+   ]
    sx: {
-      circle1Color?: string
-      circle2Color?: string
-      circle3Color?: string
-      circle4Color?: string
-      circle5Color?: string
       strokeLinecap?: StrokeLineCap
    }
 }
