@@ -64,19 +64,16 @@ interface IProgress {
       circle5: number
 }
 export interface INestedOptions {
-   progress: IProgress
-   circle1color: string
-   circle2color: string
-   circle3color: string
-   circle4color: string
-   circle5color: string
+   circle1: { text: string, value: number, color: string }
+   circle2: { text: string, value: number, color: string }
+   circle3: { text: string, value: number, color: string }
+   circle4: { text: string, value: number, color: string }
+   circle5: { text: string, value: number, color: string }
 }
 
 export interface INestedSettings {
    nestedOptions: INestedOptions
    setNestedOptions: React.Dispatch<React.SetStateAction<INestedOptions>>
-   // progress: IProgress
-   // setProgress: React.Dispatch<React.SetStateAction<IProgress>>
 }
 
 type FontWeight = 'normal' | 'bold' | 'bolder' | 'lighter'
