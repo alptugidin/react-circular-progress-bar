@@ -68,9 +68,9 @@ const Settings: React.FC<IFlatSettings> = (props) => {
 
   return (
     <div className='main-flat'>
-      <div ref={settingsSection} className='settings flex flex-col overflow-hidden gap-3 bg-white rounded-lg border py-3 px-2 shadow-lg text-sm transition-all duration-[800ms] pb-11'>
-        <div className='flex items-center gap-5'>
-          <div className='flex flex-col gap-2'>
+      <div ref={settingsSection} className='settings flex flex-col overflow-hidden gap-4 bg-white rounded-lg border py-3 px-2 shadow-lg text-sm transition-all duration-[800ms] pb-11'>
+        <div className='flex items-center justify-center gap-5'>
+          <div className='flex flex-col gap-2 basis-1/2'>
             <span className='text-center'>Value
               <span className='font-semibold text-sm text-purple-600'> {`{ ${props.progress} }`}</span>
             </span>
@@ -82,7 +82,7 @@ const Settings: React.FC<IFlatSettings> = (props) => {
               onChange={(e) => props.setProgress(parseInt(e.target.value))}
               className='cursor-grab' />
           </div>
-          <div className='flex flex-col gap-2'>
+          <div className='flex flex-col gap-2 basis-1/2'>
             <span className='text-center'>Stroke width
               <span className='font-semibold text-sm text-purple-600'> {`{ ${props.flatOptions.strokeWidth} }`}</span>
             </span>
@@ -91,23 +91,7 @@ const Settings: React.FC<IFlatSettings> = (props) => {
               className='cursor-grab' />
           </div>
         </div>
-        <div className='flex gap-2'>
-          <span>Range</span>
-          <div>
-            <input
-              type="number"
-              value={props.flatOptions.range.from}
-              onChange={(e) => props.setFlatOptions((prev) => ({ ...prev, range: { ...prev.range, from: parseInt(e.target.value) } }))}
-              className='border rounded-lg w-20 pl-2'
-            />
-            <span> - </span>
-            <input
-              type="number"
-              value={props.flatOptions.range.to}
-              onChange={(e) => props.setFlatOptions((prev) => ({ ...prev, range: { ...prev.range, to: parseInt(e.target.value) } }))}
-              className='border rounded-lg w-20 pl-2' />
-          </div>
-        </div>
+
         <hr />
         <div className='flex flex-col gap-3 relative'>
           <label className='absolute left-0 -top-[23px] w-full text-center flex justify-center items-center'>
@@ -142,17 +126,17 @@ const Settings: React.FC<IFlatSettings> = (props) => {
                   <option value="bolder">Bolder</option>
                 </select>
               </div>
-            </div>
-            <div className='flex gap-2'>
-              <span >Font</span>
-              <select
-                value={props.flatOptions.valueFamily}
-                onChange={(e) => props.setFlatOptions({ ...props.flatOptions, valueFamily: e.target.value as FontFamily })}
-                className='outline-none text-sm text-gray-700 border rounded-lg'>
-                {fontFamilies.map((font) => (
-                  <option key={font} value={font}>{font}</option>
-                ))}
-              </select>
+              <div className='flex gap-2'>
+                <span >Font</span>
+                <select
+                  value={props.flatOptions.valueFamily}
+                  onChange={(e) => props.setFlatOptions({ ...props.flatOptions, valueFamily: e.target.value as FontFamily })}
+                  className='outline-none text-sm text-gray-700 border rounded-lg'>
+                  {fontFamilies.map((font) => (
+                    <option key={font} value={font}>{font}</option>
+                  ))}
+                </select>
+              </div>
             </div>
           </div>
         </div>
@@ -172,13 +156,24 @@ const Settings: React.FC<IFlatSettings> = (props) => {
             <span>Text</span>
             <input
               type="text"
-              className='pl-2'
+              className='pl-2 w-40'
               value={props.flatOptions.text}
               onChange={(e) => props.setFlatOptions((prev) => ({ ...prev, text: e.target.value }))}
             />
           </div>
           <div ref={textSection} className='flex flex-col gap-3 transition-all'>
             <div className='flex justify-between'>
+              <div className='flex gap-2'>
+                <span >Font</span>
+                <select
+                  value={props.flatOptions.textFamily}
+                  onChange={(e) => props.setFlatOptions({ ...props.flatOptions, textFamily: e.target.value as FontFamily })}
+                  className='outline-none text-sm text-gray-700 border rounded-lg'>
+                  {fontFamilies.map((font) => (
+                    <option key={font} value={font}>{font}</option>
+                  ))}
+                </select>
+              </div>
               <div className='flex gap-2'>
                 <span>Size</span>
                 <input
@@ -200,17 +195,7 @@ const Settings: React.FC<IFlatSettings> = (props) => {
                 </select>
               </div>
             </div>
-            <div className='flex gap-2'>
-              <span >Font</span>
-              <select
-                value={props.flatOptions.textFamily}
-                onChange={(e) => props.setFlatOptions({ ...props.flatOptions, textFamily: e.target.value as FontFamily })}
-                className='outline-none text-sm text-gray-700 border rounded-lg'>
-                {fontFamilies.map((font) => (
-                  <option key={font} value={font}>{font}</option>
-                ))}
-              </select>
-            </div>
+
           </div>
         </div>
         <hr />
@@ -264,6 +249,23 @@ const Settings: React.FC<IFlatSettings> = (props) => {
           <label className='absolute left-0 -top-[23px] w-full text-center flex justify-center items-center'>
             <span className='text-purple-500 font-semibold bg-white pr-3 pl-3'>Options</span>
           </label>
+          <div className='flex gap-2'>
+            <span>Range</span>
+            <div>
+              <input
+                type="number"
+                value={props.flatOptions.range.from}
+                onChange={(e) => props.setFlatOptions((prev) => ({ ...prev, range: { ...prev.range, from: parseInt(e.target.value) } }))}
+                className='border rounded-lg w-20 pl-2'
+              />
+              <span> - </span>
+              <input
+                type="number"
+                value={props.flatOptions.range.to}
+                onChange={(e) => props.setFlatOptions((prev) => ({ ...prev, range: { ...prev.range, to: parseInt(e.target.value) } }))}
+                className='border rounded-lg w-20 pl-2' />
+            </div>
+          </div>
           <div className='flex gap-2'>
             <span>Shape</span>
             <select className='border rounded-lg outline-none'
