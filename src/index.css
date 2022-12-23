@@ -28,7 +28,8 @@ select {
 }
 
 select {
-  @apply focus:border-gray-400 outline-none;
+  @apply focus:border-gray-400 outline-none border rounded-lg;
+  
 }
 input {
   @apply focus:border-gray-400 outline-none border-gray-200 border rounded-lg;
@@ -37,17 +38,22 @@ input {
 .main-flat {
   perspective: 1000px;
   position: relative;
-  width: 296px;
+  width: 450px;
   height: 563px;
 }
 
 .main-heat {
   perspective: 1000px;
   position: relative;
-  width: 296px;
+  width: 450px;
   height: 521px;
 }
-
+.main-nested {
+  perspective: 1000px;
+  position: relative;
+  width: 450px;
+  height: 459px;
+}
 .settings {
   backface-visibility: hidden;
   position: absolute;
@@ -65,6 +71,11 @@ input {
 .back-heat {
   transform: rotateY(-180deg);
   height: 521px;
+}
+
+.back-nested {
+  transform: rotateY(-180deg);
+  height: 353px;
 }
 
 .rotate {
