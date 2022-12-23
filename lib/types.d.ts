@@ -60,7 +60,10 @@ export interface INested {
       circle5?: { value: number, text: string, color: string }
    ]
    sx: {
+      bgColor?: string
       strokeLinecap?: StrokeLineCap
+      fontFamily?: FontFamily
+      fontWeight?: FontWeight
    }
 }
 
