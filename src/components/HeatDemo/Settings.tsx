@@ -66,9 +66,11 @@ const Settings: React.FC<IHeatSettings> = (props) => {
 
   return (
     <div className='main-heat'>
-      <div ref={settingsSection} className='settings front flex flex-col overflow-hidden gap-3 bg-white rounded-lg border py-3 px-2 shadow-lg text-sm transition-all duration-[800ms] pb-11'>
+      <div
+        ref={settingsSection}
+        className='settings front flex flex-col overflow-hidden gap-4 bg-white rounded-lg border py-3 px-2 shadow-lg text-sm transition-all duration-[800ms] pb-11'>
         <div className='flex items-center gap-5'>
-          <div className='flex flex-col gap-2'>
+          <div className='flex flex-col gap-2 basis-1/2'>
             <span className='text-center'>Value
               <span className='font-semibold text-sm text-purple-600'> {`{ ${props.progress} }`}</span>
             </span>
@@ -80,32 +82,20 @@ const Settings: React.FC<IHeatSettings> = (props) => {
               onChange={(e) => props.setProgress(parseInt(e.target.value))}
               className='cursor-grab' />
           </div>
-          <div className='flex flex-col gap-2'>
+          <div className='flex flex-col gap-2 basis-1/2'>
             <span className='text-center'>Stroke width
               <span className='font-semibold text-sm text-purple-600'> {`{ ${props.heatOptions.strokeWidth} }`}</span>
             </span>
-            <input type="range" min='1' max='10' value={props.heatOptions.strokeWidth}
+            <input
+              type="range"
+              min='1'
+              max='10'
+              value={props.heatOptions.strokeWidth}
               onChange={(e) => props.setHeatOptions({ ...props.heatOptions, strokeWidth: parseInt(e.target.value) })}
               className='cursor-grab' />
           </div>
         </div>
-        <div className='flex gap-2'>
-          <span>Range</span>
-          <div>
-            <input
-              type="number"
-              value={props.heatOptions.range.from}
-              onChange={(e) => props.setHeatOptions((prev) => ({ ...prev, range: { ...prev.range, from: parseInt(e.target.value) } }))}
-              className='border rounded-lg w-20 pl-2'
-            />
-            <span> - </span>
-            <input
-              type="number"
-              value={props.heatOptions.range.to}
-              onChange={(e) => props.setHeatOptions((prev) => ({ ...prev, range: { ...prev.range, to: parseInt(e.target.value) } }))}
-              className='border rounded-lg w-20 pl-2' />
-          </div>
-        </div>
+
         <hr />
         <div className='flex flex-col gap-3 relative'>
           <label className='absolute left-0 -top-[23px] w-full text-center flex justify-center items-center'>
@@ -120,6 +110,17 @@ const Settings: React.FC<IHeatSettings> = (props) => {
           </label>
           <div ref={valueSection} className='flex flex-col gap-3 transition-all'>
             <div className='flex justify-between'>
+              <div className='flex gap-2'>
+                <span >Font</span>
+                <select
+                  value={props.heatOptions.valueFamily}
+                  onChange={(e) => props.setHeatOptions({ ...props.heatOptions, valueFamily: e.target.value as FontFamily })}
+                  className='outline-none text-sm text-gray-700 border rounded-lg'>
+                  {fontFamilies.map((font) => (
+                    <option key={font} value={font}>{font}</option>
+                  ))}
+                </select>
+              </div>
               <div className='flex gap-2'>
                 <span>Size</span>
                 <input
@@ -141,17 +142,7 @@ const Settings: React.FC<IHeatSettings> = (props) => {
                 </select>
               </div>
             </div>
-            <div className='flex gap-2'>
-              <span >Font</span>
-              <select
-                value={props.heatOptions.valueFamily}
-                onChange={(e) => props.setHeatOptions({ ...props.heatOptions, valueFamily: e.target.value as FontFamily })}
-                className='outline-none text-sm text-gray-700 border rounded-lg'>
-                {fontFamilies.map((font) => (
-                  <option key={font} value={font}>{font}</option>
-                ))}
-              </select>
-            </div>
+
           </div>
         </div>
         <hr />
@@ -169,6 +160,17 @@ const Settings: React.FC<IHeatSettings> = (props) => {
 
           <div ref={textSection} className='flex flex-col gap-3 transition-all'>
             <div className='flex justify-between'>
+              <div className='flex gap-2'>
+                <span >Font</span>
+                <select
+                  value={props.heatOptions.textFamily}
+                  onChange={(e) => props.setHeatOptions({ ...props.heatOptions, textFamily: e.target.value as FontFamily })}
+                  className='outline-none text-sm text-gray-700 border rounded-lg'>
+                  {fontFamilies.map((font) => (
+                    <option key={font} value={font}>{font}</option>
+                  ))}
+                </select>
+              </div>
               <div className='flex gap-2'>
                 <span>Size</span>
                 <input
@@ -190,17 +192,7 @@ const Settings: React.FC<IHeatSettings> = (props) => {
                 </select>
               </div>
             </div>
-            <div className='flex gap-2'>
-              <span >Font</span>
-              <select
-                value={props.heatOptions.textFamily}
-                onChange={(e) => props.setHeatOptions({ ...props.heatOptions, textFamily: e.target.value as FontFamily })}
-                className='outline-none text-sm text-gray-700 border rounded-lg'>
-                {fontFamilies.map((font) => (
-                  <option key={font} value={font}>{font}</option>
-                ))}
-              </select>
-            </div>
+
           </div>
         </div>
         <hr />
@@ -238,6 +230,23 @@ const Settings: React.FC<IHeatSettings> = (props) => {
           <label className='absolute left-0 -top-[23px] w-full text-center flex justify-center items-center'>
             <span className='text-purple-500 font-semibold bg-white pr-3 pl-3'>Options</span>
           </label>
+          <div className='flex gap-2'>
+            <span>Range</span>
+            <div>
+              <input
+                type="number"
+                value={props.heatOptions.range.from}
+                onChange={(e) => props.setHeatOptions((prev) => ({ ...prev, range: { ...prev.range, from: parseInt(e.target.value) } }))}
+                className='border rounded-lg w-20 pl-2'
+              />
+              <span> - </span>
+              <input
+                type="number"
+                value={props.heatOptions.range.to}
+                onChange={(e) => props.setHeatOptions((prev) => ({ ...prev, range: { ...prev.range, to: parseInt(e.target.value) } }))}
+                className='border rounded-lg w-20 pl-2' />
+            </div>
+          </div>
           <div className='flex gap-2'>
             <span>Shape</span>
             <select className='border rounded-lg outline-none'
