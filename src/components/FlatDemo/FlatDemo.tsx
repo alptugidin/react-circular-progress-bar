@@ -22,7 +22,7 @@ const FlatDemo: React.FC = () => {
       loadingTime: 1000,
       text: 'Lorem, ipsum.',
       bgColor: '#ffffff',
-      strokeLinecap: 'butt',
+      strokeLinecap: 'round',
       shape: 'full',
       showMiniCircle: true,
       miniCircleColor: '#ff0000'
