@@ -69,6 +69,10 @@ export interface INestedOptions {
    circle3: { text: string, value: number, color: string }
    circle4: { text: string, value: number, color: string }
    circle5: { text: string, value: number, color: string }
+   background: string
+   fontWeight: FontWeight
+   fontFamily: FontFamily
+   strokeLinecap: StrokeLineCap
 }
 
 export interface INestedSettings {
