@@ -64,6 +64,7 @@ export interface INested {
       strokeLinecap?: StrokeLineCap
       fontFamily?: FontFamily
       fontWeight?: FontWeight
+      loadingTime?: number
    }
 }
 
