@@ -5,7 +5,13 @@ const Nested: React.FC<INested> = ({
   circles,
   sx
 }) => {
-  const { strokeLinecap = 'round', bgColor = '#cbd5e1', fontWeight = 'bold', fontFamily = 'Trebuchet MS' } = sx;
+  const {
+    strokeLinecap = 'round',
+    bgColor = '#cbd5e1',
+    fontWeight = 'bold',
+    fontFamily = 'Trebuchet MS',
+    loadingTime = 1000
+  } = sx;
   const [afterProgress, setAfterProgress] = useState(
     { circle1: 0, circle2: 0, circle3: 0, circle4: 0, circle5: 0 }
   );
@@ -17,8 +23,6 @@ const Nested: React.FC<INested> = ({
   const c4p = 20;
   const c5p = 10;
   const cp = [c1p, c2p, c3p, c4p, c5p];
-  // const textGap = [7, 18, 29, 40, 51];
-  // const textGap = [7.5, 18.5, 29, 40, 51];
   const textGap = [8.5, 19.5, 31.5, 43.5, 54.5];
   const dashoffset1 = (1 - (afterProgress.circle1 * 0.75) / 100) * 2 * Math.PI * c1p;
   const dashoffset2 = (1 - (afterProgress.circle2 * 0.75) / 100) * 2 * Math.PI * c2p;
@@ -79,7 +83,7 @@ const Nested: React.FC<INested> = ({
                 cy='55'
                 r={cp[i]}
                 style={{
-                  transition: 'stroke 100ms, stroke-dashoffset 1000ms ease-in-out'
+                  transition: `stroke 100ms, stroke-dashoffset ${loadingTime.toString().concat('ms')} ease-in-out`
                 }}
                 fill='none'
                 transform='rotate(-90, 55, 55)'
