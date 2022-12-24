@@ -72,7 +72,36 @@ const Flat: React.FC<IFlat> = ({
 
   useEffect(() => {
     setAfterProgress(progress * setRatio());
+    prevCountRef.current = afterProgress;
   }, [progress, shape]);
+  /// /////////////////////////////////////////////////////////////////////////////////////////
+  const [count, setcount] = useState(0);
+  const prevCountRef = useRef<number>();
+  const current = afterProgress;
+  let prev = prevCountRef.current as number;
+  const diff = current - prev;
+
+  useEffect(() => {
+    const countEffect = (): void => {
+      if (diff >= 0) {
+        if (prev <= current) {
+          setcount(prev);
+          prev++;
+        } else {
+          clearInterval(interval);
+        }
+      } else {
+        if (prev >= current) {
+          setcount(prev);
+          prev--;
+        } else {
+          clearInterval(interval);
+        }
+      }
+    };
+    const interval = setInterval(countEffect, loadingTime / Math.abs(diff));
+  }, [afterProgress]);
+  /// /////////////////////////////////////////////////////////////////////////////////////////
 
   const dasharray = 2 * Math.PI * 50;
   const dashoffset = (1 - (afterProgress + range.from) / range.to) * dasharray;
@@ -108,7 +137,8 @@ const Flat: React.FC<IFlat> = ({
           fill={valueColor}
         >
           <tspan alignmentBaseline={showText ? 'auto' : 'central'}>
-            {progress}%
+            {/* {progress}% */}
+            {count}%
           </tspan>
         </text>}
         {showText &&
@@ -142,23 +172,27 @@ const Flat: React.FC<IFlat> = ({
         />
       </svg>
       {showMiniCircle &&
-      <svg
-        viewBox='0 0 110 110'
-        className='absolute top-0 '
-        style={{
-          transition: 'transform ease-in-out',
-          transitionDuration: loadingTime.toString().concat('ms')
-        }}
-        transform={`rotate(${afterProgress * 3.6 - setAngle()}, 0, 0)`}>
-        <circle
-          cx='55'
-          cy='5'
-          r="5"
-          fill={sx.miniCircleColor}
-        >
-        </circle>
-      </svg>
+        <svg
+
+          viewBox='0 0 110 110'
+          className='absolute top-0 '
+          style={{
+            transition: 'transform ease-in-out',
+            transitionDuration: loadingTime.toString().concat('ms')
+          }}
+          transform={`rotate(${afterProgress * 3.6 - setAngle()}, 0, 0)`}>
+          <circle
+            cx='55'
+            cy='5'
+            r="5"
+            fill={sx.miniCircleColor}
+          >
+          </circle>
+        </svg>
       }
+      <div>
+        {count}
+      </div>
     </div>
   );
 };
