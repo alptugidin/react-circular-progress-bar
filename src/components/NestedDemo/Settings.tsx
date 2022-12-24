@@ -56,7 +56,7 @@ ${checkValid().join('\n')}
 
   return (
     <div className='main-nested'>
-      <div ref={settingsSection} className='flex flex-col settings front overflow-hidden gap-3 bg-white rounded-lg border py-3 px-2 shadow-lg text-sm transition-all duration-[800ms]'>
+      <div ref={settingsSection} className='flex flex-col settings front overflow-hidden gap-3 bg-white rounded-lg border py-3 px-2 shadow-lg text-sm transition-all duration-[800ms] pb-[41px]'>
         {[...Array(5).keys()].map((_, i) => (
           <div key={i} className='flex gap-2'>
             <input
@@ -75,7 +75,7 @@ ${checkValid().join('\n')}
               min='0'
               max='100'
               value={props.nestedOptions[circles[i]].value}
-              onChange={(e) => props.setNestedOptions((prev) => ({ ...prev, [circles[i]]: { ...prev[circles[i]], value: parseInt(e.target.value) } }))}
+              onChange={(e) => props.setNestedOptions((prev) => ({ ...prev, [circles[i]]: { ...prev[circles[i]], value: Number(e.target.value) } }))}
               className='w-48' />
             <div className='w-14 justify-center flex'>
               <span className='text-purple-500 font-semibold'>
@@ -160,6 +160,15 @@ ${checkValid().join('\n')}
                 <option key={font} value={font}>{font}</option>
               ))}
             </select>
+          </div>
+          <div className='flex gap-2'>
+            <span>Loading time {'(ms)'}</span>
+            <input
+              type="number"
+              className='pl-2 w-20'
+              value={props.nestedOptions.loadingTime}
+              onChange={(e) => props.setNestedOptions((prev) => ({ ...prev, loadingTime: Number(e.target.value) }))}
+            />
           </div>
         </div>
         <div className='absolute bottom-0 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 w-full left-0'>
