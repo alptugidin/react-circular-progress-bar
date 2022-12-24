@@ -13,7 +13,8 @@ const NestedDemo: React.FC = () => {
     background: '#cbd5e1',
     fontWeight: 'bold',
     strokeLinecap: 'round',
-    fontFamily: 'Trebuchet MS'
+    fontFamily: 'Trebuchet MS',
+    loadingTime: 1000
   });
   const a = 5;
   return (
@@ -51,7 +52,8 @@ const NestedDemo: React.FC = () => {
             bgColor: nestedOptions.background,
             fontWeight: nestedOptions.fontWeight,
             fontFamily: nestedOptions.fontFamily,
-            strokeLinecap: nestedOptions.strokeLinecap
+            strokeLinecap: nestedOptions.strokeLinecap,
+            loadingTime: nestedOptions.loadingTime
           }}
         />
       </div>
