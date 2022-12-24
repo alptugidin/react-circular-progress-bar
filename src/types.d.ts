@@ -73,6 +73,7 @@ export interface INestedOptions {
    fontWeight: FontWeight
    fontFamily: FontFamily
    strokeLinecap: StrokeLineCap
+   loadingTime: number
 }
 
 export interface INestedSettings {
