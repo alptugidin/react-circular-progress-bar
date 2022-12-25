@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useAnimatedValue } from '../../hooks/useAnimatedValue';
 import { INested } from '../../types';
 
 const Nested: React.FC<INested> = ({
@@ -10,11 +11,18 @@ const Nested: React.FC<INested> = ({
     bgColor = '#cbd5e1',
     fontWeight = 'bold',
     fontFamily = 'Trebuchet MS',
-    loadingTime = 1000
+    loadingTime = 1000,
+    valueAnimation = true
   } = sx;
   const [afterProgress, setAfterProgress] = useState(
     { circle1: 0, circle2: 0, circle3: 0, circle4: 0, circle5: 0 }
   );
+
+  const prevCountRef1 = useRef(0);
+  const prevCountRef2 = useRef(0);
+  const prevCountRef3 = useRef(0);
+  const prevCountRef4 = useRef(0);
+  const prevCountRef5 = useRef(0);
 
   circles.sort((a: any, b: any) => b.value - a.value);
   const c1p = 50;
@@ -32,6 +40,13 @@ const Nested: React.FC<INested> = ({
   const dashoffsets = [dashoffset1, dashoffset2, dashoffset3, dashoffset4, dashoffset5];
   const strokeWidth = 6;
   const fontsize = 7;
+
+  const { animatedValue: animatedValue1 } = useAnimatedValue(prevCountRef1.current, afterProgress.circle1, loadingTime);
+  const { animatedValue: animatedValue2 } = useAnimatedValue(prevCountRef2.current, afterProgress.circle2, loadingTime);
+  const { animatedValue: animatedValue3 } = useAnimatedValue(prevCountRef3.current, afterProgress.circle3, loadingTime);
+  const { animatedValue: animatedValue4 } = useAnimatedValue(prevCountRef4.current, afterProgress.circle4, loadingTime);
+  const { animatedValue: animatedValue5 } = useAnimatedValue(prevCountRef5.current, afterProgress.circle5, loadingTime);
+
   useEffect(() => {
     setAfterProgress({
       circle1: circles[0].value,
@@ -40,8 +55,14 @@ const Nested: React.FC<INested> = ({
       circle4: circles[3] !== undefined ? circles[3].value : -1,
       circle5: circles[4] !== undefined ? circles[4].value : -1
     });
-  }, [circles]);
 
+    prevCountRef1.current = afterProgress.circle1;
+    prevCountRef2.current = afterProgress.circle2;
+    prevCountRef3.current = afterProgress.circle3;
+    prevCountRef4.current = afterProgress.circle4;
+    prevCountRef5.current = afterProgress.circle5;
+  }, [circles]);
+  const animatedValues = [animatedValue1, animatedValue2, animatedValue3, animatedValue4, animatedValue5].sort((a, b) => b - a);
   return (
     <div className='relative'>
       <svg id='texts' viewBox='0 0 55 60' width={'43%'} className='absolute transition-all'>
@@ -55,7 +76,7 @@ const Nested: React.FC<INested> = ({
             fontWeight={fontWeight}
             fontFamily={fontFamily}
             textAnchor='end'>
-            {circle?.text} {circle?.value}%
+            {circle?.text} {valueAnimation ? Math.round(animatedValues[i]) : circle?.value}%
           </text>
         ))}
       </svg>
