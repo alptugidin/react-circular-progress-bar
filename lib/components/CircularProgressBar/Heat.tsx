@@ -1,4 +1,5 @@
-import React, { CSSProperties, useEffect, useState } from 'react';
+import React, { CSSProperties, useEffect, useRef, useState } from 'react';
+import { useAnimatedValue } from '../../hooks/useAnimatedValue';
 import { IHeat } from '../../types';
 
 const Heat: React.FC<IHeat> = ({
@@ -23,10 +24,13 @@ const Heat: React.FC<IHeat> = ({
     strokeLinecap = 'round',
     loadingTime = 500,
     bgColor = '#ffffff',
-    shape = 'threequarters'
+    shape = 'threequarters',
+    valueAnimation = true
   } = sx;
 
   const [afterProgress, setAfterProgress] = useState(0);
+  const prevRef = useRef(0);
+
   const setShape = (): number => {
     switch (shape) {
     case 'threequarters':
@@ -53,9 +57,10 @@ const Heat: React.FC<IHeat> = ({
       return 0.5; ;
     }
   };
-
+  const { animatedValue } = useAnimatedValue(prevRef.current / setRatio(), afterProgress / setRatio(), loadingTime);
   useEffect(() => {
     setAfterProgress(progress * setRatio());
+    prevRef.current = afterProgress;
   }, [progress, shape]);
 
   const dasharray = 2 * Math.PI * 50;
@@ -143,8 +148,8 @@ const Heat: React.FC<IHeat> = ({
           textAnchor='middle'
           fill={textColor}
         >
-          <tspan alignmentBaseline={showText ? 'baseline' : 'central'}>
-            {progress}%
+          <tspan dominantBaseline={showText ? 'baseline' : 'central'}>
+            {valueAnimation ? animatedValue : progress}%
           </tspan>
         </text>}
         {showText &&
@@ -157,13 +162,12 @@ const Heat: React.FC<IHeat> = ({
           textAnchor='middle'
           fill={valueColor}
           dominantBaseline={showValue ? 'hanging' : 'start'} >
-          <tspan alignmentBaseline={showValue ? 'hanging' : (shape === 'half' ? 'hanging' : 'middle')}>
+          <tspan dominantBaseline={showValue ? 'hanging' : (shape === 'half' ? 'hanging' : 'middle')}>
             {text}
           </tspan>
         </text>
         }
       </svg>
-
     </div>
   );
 };
