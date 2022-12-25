@@ -46,7 +46,8 @@ ${checkValid().join('\n')}
     bgColor: '${props.nestedOptions.background}',
     fontWeight: '${props.nestedOptions.fontWeight}',
     fontFamily: '${props.nestedOptions.fontFamily}',
-    strokeLinecap: '${props.nestedOptions.strokeLinecap}'
+    strokeLinecap: '${props.nestedOptions.strokeLinecap}',
+    valueAnimation: ${props.nestedOptions.valueAnimation ? 'true' : 'false'}
   }}
 />`;
 
@@ -89,9 +90,9 @@ ${checkValid().join('\n')}
           <label className='absolute left-0 -top-[23px] w-full text-center flex justify-center items-center'>
             <span className='text-sm text-purple-500 font-semibold bg-white pr-3 pl-3'>Colors</span>
           </label>
-          <div className='flex flex-wrap justify-start gap-y-2'>
+          <div className='flex gap-y-2'>
             {[...Array(5).keys()].map((_, i) => (
-              <div key={i} className='flex flex-col items-center basis-1/3'>
+              <div key={i} className='flex flex-col items-center basis-1/6'>
                 <span>Circle {i + 1}</span>
                 <input
                   type="color"
@@ -104,7 +105,7 @@ ${checkValid().join('\n')}
                 />
               </div>
             ))}
-            <div className='flex flex-col items-center basis-1/3 justify-center'>
+            <div className='flex flex-col items-center basis-1/6 justify-center'>
               <span>Background</span>
               <input
                 type="color"
@@ -126,6 +127,14 @@ ${checkValid().join('\n')}
               type="checkbox"
             />
             <span>Show Background</span>
+          </div>
+          <div className='flex gap-2'>
+            <input
+              type="checkbox"
+              defaultChecked
+              onChange={(e) => props.setNestedOptions((prev) => ({ ...prev, valueAnimation: e.target.checked }))}
+            />
+            <span>Value animation</span>
           </div>
           <div className='flex gap-2'>
             <span>Stroke line cap</span>
