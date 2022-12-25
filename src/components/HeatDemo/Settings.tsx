@@ -30,7 +30,8 @@ const Settings: React.FC<IHeatSettings> = (props) => {
 \t\ttextSize: ${props.heatOptions.textSize},
 \t\ttextWeight: '${props.heatOptions.textWeight}',
 \t\tvalueColor: '${props.heatOptions.valueColor}',
-\t\tloadingTime: '${props.heatOptions.loadingTime}'
+\t\tloadingTime: '${props.heatOptions.loadingTime}',
+\t\tvalueAnimation: ${props.heatOptions.valueAnimation ? 'true' : 'false'}
 \t}}
 />`;
   const handleValueCheck = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -68,7 +69,7 @@ const Settings: React.FC<IHeatSettings> = (props) => {
     <div className='main-heat'>
       <div
         ref={settingsSection}
-        className='settings front flex flex-col overflow-hidden gap-4 bg-white rounded-lg border py-3 px-2 shadow-lg text-sm transition-all duration-[800ms] pb-11'>
+        className='settings flex flex-col overflow-hidden gap-4 bg-white rounded-lg border py-3 px-2 shadow-lg text-sm transition-all duration-[800ms] pb-11'>
         <div className='flex items-center gap-5'>
           <div className='flex flex-col gap-2 basis-1/2'>
             <span className='text-center'>Value
@@ -231,6 +232,21 @@ const Settings: React.FC<IHeatSettings> = (props) => {
             <span className='text-purple-500 font-semibold bg-white pr-3 pl-3'>Options</span>
           </label>
           <div className='flex gap-2'>
+            <input
+              type="checkbox"
+              className='cursor-pointer'
+              onChange={(e) => props.setHeatOptions((prev) => ({ ...prev, revertColor: e.target.checked }))} />
+            <span className=''>Revert Background</span>
+          </div>
+          <div className='flex gap-2'>
+            <input
+              type="checkbox"
+              className='cursor-pointer'
+              defaultChecked
+              onChange={(e) => props.setHeatOptions((prev) => ({ ...prev, valueAnimation: e.target.checked }))} />
+            <span className=''>Value animation</span>
+          </div>
+          <div className='flex gap-2'>
             <span>Range</span>
             <div>
               <input
@@ -257,6 +273,7 @@ const Settings: React.FC<IHeatSettings> = (props) => {
               <option value="half">Half</option>
             </select>
           </div>
+
           <div className='flex gap-2'>
             <span>Stroke Line cap</span>
             <select className='border rounded-lg outline-none'
@@ -277,14 +294,6 @@ const Settings: React.FC<IHeatSettings> = (props) => {
               className='border rounded-lg outline-none pl-2 focus:bordersetHeatOptions-400 w-20 '/>
           </div>
 
-          <div className='flex gap-2'>
-            <input
-              type="checkbox"
-              className='cursor-pointer'
-              // defaultChecked
-              onChange={(e) => props.setHeatOptions((prev) => ({ ...prev, revertColor: e.target.checked }))} />
-            <span className=''>Revert Background</span>
-          </div>
         </div>
         <div className='absolute bottom-0 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 w-full left-0'>
           <button type='button'
