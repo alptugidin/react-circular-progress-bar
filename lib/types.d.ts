@@ -21,6 +21,7 @@ export interface IFlat {
       textFamily?: FontFamily
       loadingTime?: number
       miniCircleColor?: string
+      valueAnimation?: boolean
    }
 }
 
@@ -47,6 +48,7 @@ export interface IHeat {
       textFamily?: FontFamily
       loadingTime?: number
       miniCircleColor?: string
+      valueAnimation?: boolean
    }
 
 }
@@ -65,6 +67,7 @@ export interface INested {
       fontFamily?: FontFamily
       fontWeight?: FontWeight
       loadingTime?: number
+      valueAnimation?: boolean
    }
 }
 

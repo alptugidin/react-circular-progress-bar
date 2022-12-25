@@ -19,6 +19,7 @@ export interface IHeatOptions {
    strokeLinecap: StrokeLineCap
    bgColor: string
    shape: HeatShape
+   valueAnimation: boolean
  }
 export interface IHeatSettings {
    heatOptions: IHeatOptions
@@ -47,6 +48,7 @@ export interface IFlatOptions {
    shape: FlatShape
    showMiniCircle: boolean
    miniCircleColor: string
+   valueAnimation: boolean
 }
 
 export interface IFlatSettings {
@@ -74,6 +76,7 @@ export interface INestedOptions {
    fontFamily: FontFamily
    strokeLinecap: StrokeLineCap
    loadingTime: number
+   valueAnimation: boolean
 }
 
 export interface INestedSettings {
