@@ -26,7 +26,8 @@ const Settings: React.FC<IFlatSettings> = (props) => {
 \t\ttextColor: '${props.flatOptions.textColor}',
 \t\ttextFamily: '${props.flatOptions.textFamily}',
 \t\tloadingTime: ${props.flatOptions.loadingTime},
-\t\tminiCircleColor: '${props.flatOptions.miniCircleColor}'
+\t\tminiCircleColor: '${props.flatOptions.miniCircleColor}',
+\t\tvalueAnimation: ${props.flatOptions.valueAnimation ? 'true' : 'false'}
 \t}}
 />`;
 
@@ -65,7 +66,7 @@ const Settings: React.FC<IFlatSettings> = (props) => {
       copyBg.current?.classList.toggle('!bg-white/80');
     }, 75);
   };
-
+  // ettings front flex flex-col overflow-hidden gap-4 bg-white rounded-lg border py-3 px-2 shadow-lg text-sm transition-all duration-[800ms] pb-11
   return (
     <div className='main-flat'>
       <div ref={settingsSection} className='settings flex flex-col overflow-hidden gap-4 bg-white rounded-lg border py-3 px-2 shadow-lg text-sm transition-all duration-[800ms] pb-11'>
@@ -204,38 +205,35 @@ const Settings: React.FC<IFlatSettings> = (props) => {
             <span className='text-sm text-purple-500 font-semibold bg-white pr-3 pl-3'>Colors</span>
           </label>
           <div className='flex'>
-            <div className='flex flex-col w-fit justify-center items-center basis-1/3'>
+            <div className='flex flex-col w-fit justify-center items-center basis-1/5'>
               <span className=''>Value</span>
               <input type="color"
                 onChange={(e) => props.setFlatOptions({ ...props.flatOptions, valueColor: e.target.value })}
                 value={props.flatOptions.valueColor}
               />
             </div>
-            <div className='flex flex-col w-fit justify-center items-center basis-1/3'>
+            <div className='flex flex-col w-fit justify-center items-center basis-1/5 '>
               <span className=''>Text</span>
               <input type="color"
                 onChange={(e) => props.setFlatOptions({ ...props.flatOptions, textColor: e.target.value })}
                 value={props.flatOptions.textColor}
               />
             </div>
-            <div className='flex flex-col w-fit justify-center items-center basis-1/3'>
+            <div className='flex flex-col w-fit justify-center items-center basis-1/5'>
               <span className=''>Progress</span>
               <input type="color"
                 onChange={(e) => props.setFlatOptions({ ...props.flatOptions, strokeColor: e.target.value })}
                 value={props.flatOptions.strokeColor}
               />
             </div>
-          </div>
-          {/*  */}
-          <div className='flex'>
-            <div className='flex flex-col w-fit justify-center items-center basis-1/3'>
+            <div className='flex flex-col w-fit justify-center items-center basis-1/5'>
               <span className=''>Background</span>
               <input type="color"
                 onChange={(e) => props.setFlatOptions({ ...props.flatOptions, bgColor: e.target.value })}
                 value={props.flatOptions.bgColor}
               />
             </div>
-            <div className='flex flex-col w-fit justify-center items-center basis-1/3'>
+            <div className='flex flex-col w-fit justify-center items-center basis-1/5'>
               <span className=''>Mini circle</span>
               <input type="color"
                 value={props.flatOptions.miniCircleColor}
@@ -249,6 +247,22 @@ const Settings: React.FC<IFlatSettings> = (props) => {
           <label className='absolute left-0 -top-[23px] w-full text-center flex justify-center items-center'>
             <span className='text-purple-500 font-semibold bg-white pr-3 pl-3'>Options</span>
           </label>
+          <div className='flex gap-2'>
+            <input
+              type="checkbox"
+              className='cursor-pointer'
+              defaultChecked
+              onChange={(e) => props.setFlatOptions((prev) => ({ ...prev, showMiniCircle: e.target.checked }))} />
+            <span className=''>Show mini circle</span>
+          </div>
+          <div className='flex gap-2'>
+            <input
+              type="checkbox"
+              defaultChecked
+              onChange={(e) => props.setFlatOptions((prev) => ({ ...prev, valueAnimation: e.target.checked }))}
+            />
+            <span>Value animation</span>
+          </div>
           <div className='flex gap-2'>
             <span>Range</span>
             <div>
@@ -288,14 +302,7 @@ const Settings: React.FC<IFlatSettings> = (props) => {
               <option value="square">Square</option>
             </select>
           </div>
-          <div className='flex gap-2'>
-            <input
-              type="checkbox"
-              className='cursor-pointer'
-              // defaultChecked
-              onChange={(e) => props.setFlatOptions((prev) => ({ ...prev, showMiniCircle: e.target.checked }))} />
-            <span className=''>Show mini circle</span>
-          </div>
+
           <div className='flex gap-2'>
             <span className=''>Loading time {'(ms)'}</span>
             <input
@@ -304,6 +311,7 @@ const Settings: React.FC<IFlatSettings> = (props) => {
               onChange={(e) => props.setFlatOptions({ ...props.flatOptions, loadingTime: parseInt(e.target.value) })}
               className='border rounded-lg outline-none pl-2 focus:border-400 w-20 '/>
           </div>
+
         </div>
         <div className='absolute bottom-0 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 w-full left-0'>
           <button type='button'
