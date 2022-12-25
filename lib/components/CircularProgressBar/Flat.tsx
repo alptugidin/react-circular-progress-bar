@@ -1,4 +1,5 @@
 import React, { CSSProperties, useEffect, useRef, useState } from 'react';
+import { useAnimatedValue } from '../../hooks/useAnimatedValue';
 import { IFlat } from '../../types';
 
 const Flat: React.FC<IFlat> = ({
@@ -10,7 +11,6 @@ const Flat: React.FC<IFlat> = ({
   showText = false,
   sx
 }) => {
-  const [afterProgress, setAfterProgress] = useState(0);
   const {
     valueSize = 30,
     valueColor = '#000000',
@@ -23,8 +23,12 @@ const Flat: React.FC<IFlat> = ({
     loadingTime = 500,
     bgColor = '#ffffff',
     strokeLinecap = 'butt',
-    shape = 'full'
+    shape = 'full',
+    valueAnimation = true
   } = sx;
+
+  const [afterProgress, setAfterProgress] = useState(0);
+  const prevCountRef = useRef(0);
 
   const setShape = (): number => {
     switch (shape) {
@@ -70,38 +74,12 @@ const Flat: React.FC<IFlat> = ({
     }
   };
 
+  const { animatedValue } = useAnimatedValue(prevCountRef.current / setRatio(), afterProgress / setRatio(), loadingTime);
+
   useEffect(() => {
     setAfterProgress(progress * setRatio());
     prevCountRef.current = afterProgress;
   }, [progress, shape]);
-  /// /////////////////////////////////////////////////////////////////////////////////////////
-  const [count, setcount] = useState(0);
-  const prevCountRef = useRef<number>();
-  const current = afterProgress;
-  let prev = prevCountRef.current as number;
-  const diff = current - prev;
-
-  useEffect(() => {
-    const countEffect = (): void => {
-      if (diff >= 0) {
-        if (prev <= current) {
-          setcount(prev);
-          prev++;
-        } else {
-          clearInterval(interval);
-        }
-      } else {
-        if (prev >= current) {
-          setcount(prev);
-          prev--;
-        } else {
-          clearInterval(interval);
-        }
-      }
-    };
-    const interval = setInterval(countEffect, loadingTime / Math.abs(diff));
-  }, [afterProgress]);
-  /// /////////////////////////////////////////////////////////////////////////////////////////
 
   const dasharray = 2 * Math.PI * 50;
   const dashoffset = (1 - (afterProgress + range.from) / range.to) * dasharray;
@@ -136,11 +114,11 @@ const Flat: React.FC<IFlat> = ({
           fontFamily={valueFamily}
           fill={valueColor}
         >
-          <tspan alignmentBaseline={showText ? 'auto' : 'central'}>
-            {/* {progress}% */}
-            {count}%
+          <tspan dominantBaseline={showText ? 'auto' : 'central'}>
+            {valueAnimation ? animatedValue : progress}%
           </tspan>
-        </text>}
+        </text>
+        }
         {showText &&
         <text
           x="50%"
@@ -150,7 +128,7 @@ const Flat: React.FC<IFlat> = ({
           textAnchor='middle'
           fill={textColor}
           fontFamily={textFamily}>
-          <tspan alignmentBaseline={showValue ? 'hanging' : (shape === 'half' ? 'hanging' : 'middle')}>
+          <tspan dominantBaseline={showValue ? 'hanging' : (shape === 'half' ? 'hanging' : 'middle')}>
             {text}
           </tspan>
         </text>
@@ -173,11 +151,11 @@ const Flat: React.FC<IFlat> = ({
       </svg>
       {showMiniCircle &&
         <svg
-
           viewBox='0 0 110 110'
           className='absolute top-0 '
           style={{
             transition: 'transform ease-in-out',
+            MozTransition: 'transform ease-in-out',
             transitionDuration: loadingTime.toString().concat('ms')
           }}
           transform={`rotate(${afterProgress * 3.6 - setAngle()}, 0, 0)`}>
@@ -190,9 +168,6 @@ const Flat: React.FC<IFlat> = ({
           </circle>
         </svg>
       }
-      <div>
-        {count}
-      </div>
     </div>
   );
 };
