@@ -24,7 +24,8 @@ const HeatDemo: React.FC = () => {
       strokeLinecap: 'round',
       bgColor: '#ffffff',
       range: { from: 0, to: 100 },
-      shape: 'threequarters'
+      shape: 'threequarters',
+      valueAnimation: true
     }
   );
   return (
@@ -50,7 +51,8 @@ const HeatDemo: React.FC = () => {
             textColor: heatOptions.textColor,
             valueColor: heatOptions.valueColor,
             loadingTime: heatOptions.loadingTime,
-            strokeLinecap: heatOptions.strokeLinecap
+            strokeLinecap: heatOptions.strokeLinecap,
+            valueAnimation: heatOptions.valueAnimation
           }}
         />
       </div>
