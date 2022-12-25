@@ -39,7 +39,7 @@ input {
   perspective: 1000px;
   position: relative;
   width: 450px;
-  height: 563px;
+  height: 500px;
 }
 
 .main-heat {
@@ -65,17 +65,17 @@ input {
 
 .back-flat {
   transform: rotateY(-180deg);
-  height: 563px;
+  height: 584px;
 }
 
 .back-heat {
   transform: rotateY(-180deg);
-  height: 521px;
+  height: 542px;
 }
 
 .back-nested {
   transform: rotateY(-180deg);
-  height: 353px;
+  height: 374px;
 }
 
 .rotate {
