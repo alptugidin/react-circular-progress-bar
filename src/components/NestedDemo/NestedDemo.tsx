@@ -14,9 +14,10 @@ const NestedDemo: React.FC = () => {
     fontWeight: 'bold',
     strokeLinecap: 'round',
     fontFamily: 'Trebuchet MS',
-    loadingTime: 1000
+    loadingTime: 1000,
+    valueAnimation: true
   });
-  const a = 5;
+
   return (
     <div className='flex flex-col items-center gap-2'>
       <div className='w-56'>
@@ -53,7 +54,8 @@ const NestedDemo: React.FC = () => {
             fontWeight: nestedOptions.fontWeight,
             fontFamily: nestedOptions.fontFamily,
             strokeLinecap: nestedOptions.strokeLinecap,
-            loadingTime: nestedOptions.loadingTime
+            loadingTime: nestedOptions.loadingTime,
+            valueAnimation: nestedOptions.valueAnimation
           }}
         />
       </div>
