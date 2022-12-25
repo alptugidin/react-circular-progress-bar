@@ -25,7 +25,8 @@ const FlatDemo: React.FC = () => {
       strokeLinecap: 'round',
       shape: 'full',
       showMiniCircle: true,
-      miniCircleColor: '#ff0000'
+      miniCircleColor: '#ff0000',
+      valueAnimation: true
     }
   );
   const [progress, setProgress] = useState(flatOptions.range.to / 2);
@@ -54,7 +55,8 @@ const FlatDemo: React.FC = () => {
             textColor: flatOptions.textColor,
             textFamily: flatOptions.textFamily,
             loadingTime: flatOptions.loadingTime,
-            miniCircleColor: flatOptions.miniCircleColor
+            miniCircleColor: flatOptions.miniCircleColor,
+            valueAnimation: flatOptions.valueAnimation
           }}
         />
       </div>
