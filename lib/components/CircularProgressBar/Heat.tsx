@@ -1,5 +1,6 @@
 import React, { CSSProperties, useEffect, useRef, useState } from 'react';
 import { useAnimatedValue } from '../../hooks/useAnimatedValue';
+import { useIntersection } from '../../hooks/useIntersection';
 import { IHeat } from '../../types';
 
 const Heat: React.FC<IHeat> = ({
@@ -25,11 +26,14 @@ const Heat: React.FC<IHeat> = ({
     loadingTime = 500,
     bgColor = '#ffffff',
     shape = 'threequarters',
-    valueAnimation = true
+    valueAnimation = true,
+    intersectionEnabled = true
   } = sx;
 
   const [afterProgress, setAfterProgress] = useState(0);
   const prevRef = useRef(0);
+  const heatRef = useRef<HTMLDivElement>(null);
+  const { isVisible } = useIntersection(heatRef);
 
   const setShape = (): number => {
     switch (shape) {
@@ -59,14 +63,16 @@ const Heat: React.FC<IHeat> = ({
   };
   const { animatedValue } = useAnimatedValue(prevRef.current / setRatio(), afterProgress / setRatio(), loadingTime);
   useEffect(() => {
-    setAfterProgress(progress * setRatio());
-    prevRef.current = afterProgress;
-  }, [progress, shape]);
+    if ((intersectionEnabled && isVisible) || !intersectionEnabled) {
+      setAfterProgress(progress * setRatio());
+      prevRef.current = afterProgress;
+    }
+  }, [progress, shape, isVisible]);
 
   const dasharray = 2 * Math.PI * 50;
   const dashoffset = (1 - (afterProgress + range.from) / range.to) * dasharray;
   return (
-    <div className='relative'>
+    <div ref={heatRef} className='relative'>
       <svg viewBox='0 0 110 110' className='drop-shadow-lg absolute -z-10'>
         <circle
           r='50'
@@ -141,7 +147,7 @@ const Heat: React.FC<IHeat> = ({
         {showValue &&
         <text
           x="50%"
-          y={shape === 'half' ? '40%' : '50%' }
+          y={shape === 'half' ? showText ? '35%' : '40%' : showText ? '45%' : '50%' }
           fontSize={valueSize}
           fontWeight={valueWeight}
           fontFamily={valueFamily}
@@ -155,7 +161,7 @@ const Heat: React.FC<IHeat> = ({
         {showText &&
         <text
           x="50%"
-          y={shape === 'half' ? '40%' : '50%' }
+          y={shape === 'half' ? '40%' : showValue ? '55%' : '50%' }
           fontSize={textSize}
           fontFamily={textFamily}
           fontWeight={textWeight}
