@@ -8,6 +8,7 @@ const Settings: React.FC<INestedSettings> = (props) => {
   const circles: circle[] = ['circle1', 'circle2', 'circle3', 'circle4', 'circle5'];
   const settingsSection = useRef<HTMLDivElement>(null);
   const codeSection = useRef<HTMLDivElement>(null);
+  const copyBg = useRef<HTMLDivElement>(null);
   let arr: string[] = [];
 
   const handleCheckBox = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -24,12 +25,18 @@ const Settings: React.FC<INestedSettings> = (props) => {
   };
 
   const getCode = (): void => {
-    // checkValid();
     settingsSection.current?.classList.toggle('rotate');
     codeSection.current?.classList.toggle('rotate-back');
   };
+  const copy = (): void => {
+    void navigator.clipboard.writeText(code);
+    copyBg.current?.classList.toggle('!bg-white/80');
+    setTimeout(() => {
+      copyBg.current?.classList.toggle('!bg-white/80');
+    }, 75);
+  };
 
-  const checkValid = (): string[] => {
+  const checkCircles = (): string[] => {
     arr = [];
     circles.forEach((circle) => {
       if (props.nestedOptions[circle].value !== -1) {
@@ -40,19 +47,20 @@ const Settings: React.FC<INestedSettings> = (props) => {
   };
   const code = `<Nested
   circles={[
-${checkValid().join('\n')}
+${checkCircles().join('\n')}
   ]}
   sx={{
     bgColor: '${props.nestedOptions.background}',
     fontWeight: '${props.nestedOptions.fontWeight}',
     fontFamily: '${props.nestedOptions.fontFamily}',
     strokeLinecap: '${props.nestedOptions.strokeLinecap}',
-    valueAnimation: ${props.nestedOptions.valueAnimation ? 'true' : 'false'}
+    valueAnimation: ${props.nestedOptions.valueAnimation ? 'true' : 'false'},
+    intersectionEnabled: ${props.nestedOptions.intersectionEnabled ? 'true' : 'false'}
   }}
 />`;
 
   useEffect(() => {
-    checkValid();
+    checkCircles();
   }, [props.nestedOptions]);
 
   return (
@@ -137,6 +145,14 @@ ${checkValid().join('\n')}
             <span>Value animation</span>
           </div>
           <div className='flex gap-2'>
+            <input
+              type="checkbox"
+              defaultChecked
+              onChange={(e) => props.setNestedOptions((prev) => ({ ...prev, intersectionEnabled: e.target.checked }))}
+            />
+            <span>Intersection Enabled</span>
+          </div>
+          <div className='flex gap-2'>
             <span>Stroke line cap</span>
             <select
               value={props.nestedOptions.strokeLinecap}
@@ -192,6 +208,12 @@ ${checkValid().join('\n')}
 
       </div>
       <div ref={codeSection} className='settings back-nested bg-white border drop-shadow-lg rounded-md transition-all duration-[800ms] overflow-hidden'>
+        <div
+          ref={copyBg}
+          onClick={copy}
+          className='absolute flex items-center justify-center opacity-0 hover:opacity-100 left-0 right-0 h-full transition-all bg-gradient-to-r from-indigo-600/20 via-purple-600/20 to-pink-600/20'>
+          <span className='text-white font-mono font-semibold text-3xl cursor-default'>Copy</span>
+        </div>
         <CodeHighlighter>
           {code}
         </CodeHighlighter>
