@@ -20,7 +20,11 @@ export interface IHeatOptions {
    bgColor: string
    shape: HeatShape
    valueAnimation: boolean
+   intersectionEnabled: boolean
+   sign: { value: string, position: SignPosition }
  }
+
+ type SignPosition = 'start' | 'end'
 export interface IHeatSettings {
    heatOptions: IHeatOptions
    setHeatOptions: React.Dispatch<React.SetStateAction<IHeatOptions>>
@@ -40,7 +44,6 @@ export interface IFlatOptions {
    valueColor: string
    textColor: string
    showValue: boolean
-   showText: boolean
    loadingTime: number
    text: string
    bgColor: string
@@ -48,7 +51,10 @@ export interface IFlatOptions {
    shape: FlatShape
    showMiniCircle: boolean
    miniCircleColor: string
+   miniCircleSize: number
+   miniCircleColor: string
    valueAnimation: boolean
+   intersectionEnabled: boolean
 }
 
 export interface IFlatSettings {
@@ -77,6 +83,7 @@ export interface INestedOptions {
    strokeLinecap: StrokeLineCap
    loadingTime: number
    valueAnimation: boolean
+   intersectionEnabled: boolean
 }
 
 export interface INestedSettings {

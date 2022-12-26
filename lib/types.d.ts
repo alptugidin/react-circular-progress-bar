@@ -1,10 +1,10 @@
 export interface IFlat {
    progress: number
    range?: { from: number, to: number }
-   showValue?: boolean
-   showText?: boolean
-   showMiniCircle?: boolean
    text?: string
+   showValue?: boolean
+   showMiniCircle?: boolean
+   sign?: { value: string, position: SignPosition }
    sx: {
       barColor: string
       barWidth: number
@@ -21,10 +21,13 @@ export interface IFlat {
       textFamily?: FontFamily
       loadingTime?: number
       miniCircleColor?: string
+      miniCircleSize?: number
       valueAnimation?: boolean
+      intersectionEnabled?: boolean
    }
 }
 
+type SignPosition = 'start' | 'end'
 export interface IHeat {
    progress: number
    range?: { from: number, to: number }
@@ -49,6 +52,7 @@ export interface IHeat {
       loadingTime?: number
       miniCircleColor?: string
       valueAnimation?: boolean
+      intersectionEnabled?: boolean
    }
 
 }
@@ -68,6 +72,7 @@ export interface INested {
       fontWeight?: FontWeight
       loadingTime?: number
       valueAnimation?: boolean
+      intersectionEnabled?: boolean
    }
 }
 
