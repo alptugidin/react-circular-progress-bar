@@ -65,17 +65,17 @@ input {
 
 .back-flat {
   transform: rotateY(-180deg);
-  height: 584px;
+  height: 626px;
 }
 
 .back-heat {
   transform: rotateY(-180deg);
-  height: 542px;
+  height: 563px;
 }
 
 .back-nested {
   transform: rotateY(-180deg);
-  height: 374px;
+  height: 395px;
 }
 
 .rotate {
