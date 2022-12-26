@@ -31,7 +31,8 @@ const Settings: React.FC<IHeatSettings> = (props) => {
 \t\ttextWeight: '${props.heatOptions.textWeight}',
 \t\tvalueColor: '${props.heatOptions.valueColor}',
 \t\tloadingTime: '${props.heatOptions.loadingTime}',
-\t\tvalueAnimation: ${props.heatOptions.valueAnimation ? 'true' : 'false'}
+\t\tvalueAnimation: ${props.heatOptions.valueAnimation ? 'true' : 'false'},
+\t\tintersectionEnabled: ${props.heatOptions.intersectionEnabled ? 'true' : 'false'}
 \t}}
 />`;
   const handleValueCheck = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -58,7 +59,7 @@ const Settings: React.FC<IHeatSettings> = (props) => {
   };
 
   const copy = (): void => {
-    void navigator.clipboard.writeText('code');
+    void navigator.clipboard.writeText(code);
     copyBg.current?.classList.toggle('!bg-white/80');
     setTimeout(() => {
       copyBg.current?.classList.toggle('!bg-white/80');
@@ -245,6 +246,14 @@ const Settings: React.FC<IHeatSettings> = (props) => {
               defaultChecked
               onChange={(e) => props.setHeatOptions((prev) => ({ ...prev, valueAnimation: e.target.checked }))} />
             <span className=''>Value animation</span>
+          </div>
+          <div className='flex gap-2'>
+            <input
+              type="checkbox"
+              defaultChecked
+              onChange={(e) => props.setHeatOptions((prev) => ({ ...prev, intersectionEnabled: e.target.checked }))}
+            />
+            <span>Intersection Enabled</span>
           </div>
           <div className='flex gap-2'>
             <span>Range</span>
