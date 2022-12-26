@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useAnimatedValue } from '../../hooks/useAnimatedValue';
+import { useIntersection } from '../../hooks/useIntersection';
 import { INested } from '../../types';
 
 const Nested: React.FC<INested> = ({
@@ -12,7 +13,8 @@ const Nested: React.FC<INested> = ({
     fontWeight = 'bold',
     fontFamily = 'Trebuchet MS',
     loadingTime = 1000,
-    valueAnimation = true
+    valueAnimation = true,
+    intersectionEnabled = true
   } = sx;
   const [afterProgress, setAfterProgress] = useState(
     { circle1: 0, circle2: 0, circle3: 0, circle4: 0, circle5: 0 }
@@ -23,6 +25,9 @@ const Nested: React.FC<INested> = ({
   const prevCountRef3 = useRef(0);
   const prevCountRef4 = useRef(0);
   const prevCountRef5 = useRef(0);
+
+  const nestedRef = useRef<HTMLDivElement>(null);
+  const { isVisible } = useIntersection(nestedRef);
 
   circles.sort((a: any, b: any) => b.value - a.value);
   const c1p = 50;
@@ -48,23 +53,25 @@ const Nested: React.FC<INested> = ({
   const { animatedValue: animatedValue5 } = useAnimatedValue(prevCountRef5.current, afterProgress.circle5, loadingTime);
 
   useEffect(() => {
-    setAfterProgress({
-      circle1: circles[0].value,
-      circle2: circles[1].value,
-      circle3: circles[2] !== undefined ? circles[2].value : -1,
-      circle4: circles[3] !== undefined ? circles[3].value : -1,
-      circle5: circles[4] !== undefined ? circles[4].value : -1
-    });
+    if ((intersectionEnabled && isVisible) || !intersectionEnabled) {
+      setAfterProgress({
+        circle1: circles[0].value,
+        circle2: circles[1].value,
+        circle3: circles[2] !== undefined ? circles[2].value : -1,
+        circle4: circles[3] !== undefined ? circles[3].value : -1,
+        circle5: circles[4] !== undefined ? circles[4].value : -1
+      });
 
-    prevCountRef1.current = afterProgress.circle1;
-    prevCountRef2.current = afterProgress.circle2;
-    prevCountRef3.current = afterProgress.circle3;
-    prevCountRef4.current = afterProgress.circle4;
-    prevCountRef5.current = afterProgress.circle5;
-  }, [circles]);
+      prevCountRef1.current = afterProgress.circle1;
+      prevCountRef2.current = afterProgress.circle2;
+      prevCountRef3.current = afterProgress.circle3;
+      prevCountRef4.current = afterProgress.circle4;
+      prevCountRef5.current = afterProgress.circle5;
+    }
+  }, [circles, isVisible]);
   const animatedValues = [animatedValue1, animatedValue2, animatedValue3, animatedValue4, animatedValue5].sort((a, b) => b - a);
   return (
-    <div className='relative'>
+    <div ref={nestedRef} className='relative'>
       <svg id='texts' viewBox='0 0 55 60' width={'43%'} className='absolute transition-all'>
         {circles.map((circle, i) => (
           circles[i]?.value !== -1 &&
