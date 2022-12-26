@@ -20,12 +20,13 @@ const HeatDemo: React.FC = () => {
       showText: true,
       revertColor: false,
       loadingTime: 1000,
-      text: 'Lorem, ipsum.',
+      text: 'Lorem ipsum',
       strokeLinecap: 'round',
       bgColor: '#ffffff',
       range: { from: 0, to: 100 },
       shape: 'threequarters',
-      valueAnimation: true
+      valueAnimation: true,
+      intersectionEnabled: true
     }
   );
   return (
@@ -52,7 +53,8 @@ const HeatDemo: React.FC = () => {
             valueColor: heatOptions.valueColor,
             loadingTime: heatOptions.loadingTime,
             strokeLinecap: heatOptions.strokeLinecap,
-            valueAnimation: heatOptions.valueAnimation
+            valueAnimation: heatOptions.valueAnimation,
+            intersectionEnabled: heatOptions.intersectionEnabled
           }}
         />
       </div>
