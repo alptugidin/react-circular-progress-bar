@@ -1,5 +1,6 @@
 import React, { CSSProperties, useEffect, useRef, useState } from 'react';
 import { useAnimatedValue } from '../../hooks/useAnimatedValue';
+import { useIntersection } from '../../hooks/useIntersection';
 import { IFlat } from '../../types';
 
 const Flat: React.FC<IFlat> = ({
@@ -8,7 +9,7 @@ const Flat: React.FC<IFlat> = ({
   showMiniCircle = true,
   text = undefined,
   showValue = true,
-  showText = false,
+  sign = { value: '%', position: 'end' },
   sx
 }) => {
   const {
@@ -24,12 +25,15 @@ const Flat: React.FC<IFlat> = ({
     bgColor = '#ffffff',
     strokeLinecap = 'butt',
     shape = 'full',
-    valueAnimation = true
+    valueAnimation = true,
+    intersectionEnabled = false,
+    miniCircleSize = 5
   } = sx;
 
   const [afterProgress, setAfterProgress] = useState(0);
+  const flatRef = useRef<HTMLDivElement>(null);
   const prevCountRef = useRef(0);
-
+  const { isVisible } = useIntersection(flatRef);
   const setShape = (): number => {
     switch (shape) {
     case 'full':
@@ -77,15 +81,17 @@ const Flat: React.FC<IFlat> = ({
   const { animatedValue } = useAnimatedValue(prevCountRef.current / setRatio(), afterProgress / setRatio(), loadingTime);
 
   useEffect(() => {
-    setAfterProgress(progress * setRatio());
-    prevCountRef.current = afterProgress;
-  }, [progress, shape]);
+    if ((intersectionEnabled && isVisible) || !intersectionEnabled) {
+      setAfterProgress(progress * setRatio());
+      prevCountRef.current = afterProgress;
+    }
+  }, [progress, shape, isVisible]);
 
   const dasharray = 2 * Math.PI * 50;
   const dashoffset = (1 - (afterProgress + range.from) / range.to) * dasharray;
 
   return (
-    <div className='relative'>
+    <div ref={flatRef} className='relative'>
       <svg viewBox='0 0 110 110'>
         <circle
           cx="55"
@@ -107,22 +113,25 @@ const Flat: React.FC<IFlat> = ({
         {showValue &&
         <text
           x="50%"
-          y={shape === 'half' ? '40%' : '50%' }
+          y={shape === 'half' ? (text !== undefined && text !== '') ? '35%' : '40%' : (text !== undefined && text !== '') ? '45%' : '50%' }
           fontSize={valueSize}
           fontWeight={valueWeight}
           textAnchor='middle'
           fontFamily={valueFamily}
           fill={valueColor}
         >
-          <tspan dominantBaseline={showText ? 'auto' : 'central'}>
-            {valueAnimation ? animatedValue : progress}%
+          <tspan dominantBaseline={(text !== undefined && text !== '') ? 'auto' : 'central'}>
+            {sign.position === 'start'
+              ? sign.value + (valueAnimation ? animatedValue : progress).toString()
+              : (valueAnimation ? animatedValue : progress).toString().concat(sign.value)
+            }
           </tspan>
         </text>
         }
-        {showText &&
+        {(text !== undefined && text !== '') &&
         <text
           x="50%"
-          y={shape === 'half' ? '40%' : '50%' }
+          y={shape === 'half' ? '40%' : showValue ? '55%' : '50%' }
           fontSize={textSize}
           fontWeight={textWeight}
           textAnchor='middle'
@@ -152,17 +161,17 @@ const Flat: React.FC<IFlat> = ({
       {showMiniCircle &&
         <svg
           viewBox='0 0 110 110'
-          className='absolute top-0 '
+          className='absolute top-0'
           style={{
             transition: 'transform ease-in-out',
             MozTransition: 'transform ease-in-out',
             transitionDuration: loadingTime.toString().concat('ms')
           }}
-          transform={`rotate(${afterProgress * 3.6 - setAngle()}, 0, 0)`}>
+          transform={`rotate(${(afterProgress) * (3.6 / (range.to / 100)) - setAngle()}, 0, 0)`}>
           <circle
             cx='55'
             cy='5'
-            r="5"
+            r={miniCircleSize}
             fill={sx.miniCircleColor}
           >
           </circle>
