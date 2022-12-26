@@ -9,7 +9,6 @@ const Settings: React.FC<IFlatSettings> = (props) => {
 \trange={{ from: ${props.flatOptions.range.from}, to: ${props.flatOptions.range.to} }}
 \tshowMiniCircle={ ${props.flatOptions.showMiniCircle ? 'true' : 'false'} }
 \tshowValue={ ${props.flatOptions.showValue ? 'true' : 'false'} }
-\tshowText={ ${props.flatOptions.showText ? 'true' : 'false'}}
 \ttext={'${props.flatOptions.text}'}
 \tsx={{
 \t\tbarColor: '${props.flatOptions.strokeColor}',
@@ -27,7 +26,9 @@ const Settings: React.FC<IFlatSettings> = (props) => {
 \t\ttextFamily: '${props.flatOptions.textFamily}',
 \t\tloadingTime: ${props.flatOptions.loadingTime},
 \t\tminiCircleColor: '${props.flatOptions.miniCircleColor}',
-\t\tvalueAnimation: ${props.flatOptions.valueAnimation ? 'true' : 'false'}
+\t\tminiCircleSize: ${props.flatOptions.miniCircleSize},
+\t\tvalueAnimation: ${props.flatOptions.valueAnimation ? 'true' : 'false'},
+\t\tintersectionEnabled: ${props.flatOptions.intersectionEnabled ? 'true' : 'false'}
 \t}}
 />`;
 
@@ -46,7 +47,7 @@ const Settings: React.FC<IFlatSettings> = (props) => {
   };
 
   const handleTextCheck = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    props.setFlatOptions((prev) => ({ ...prev, showText: e.target.checked }));
+    props.setFlatOptions((prev) => ({ ...prev, text: e.target.checked ? 'Lorem ipsum' : '' }));
     if (e.target.checked) {
       textSection.current?.classList.remove('opacity-50', 'pointer-events-none');
     } else {
@@ -247,13 +248,24 @@ const Settings: React.FC<IFlatSettings> = (props) => {
           <label className='absolute left-0 -top-[23px] w-full text-center flex justify-center items-center'>
             <span className='text-purple-500 font-semibold bg-white pr-3 pl-3'>Options</span>
           </label>
-          <div className='flex gap-2'>
-            <input
-              type="checkbox"
-              className='cursor-pointer'
-              defaultChecked
-              onChange={(e) => props.setFlatOptions((prev) => ({ ...prev, showMiniCircle: e.target.checked }))} />
-            <span className=''>Show mini circle</span>
+          <div className='flex gap-6'>
+            <div className='flex gap-2'>
+              <input
+                type="checkbox"
+                className='cursor-pointer'
+                defaultChecked
+                onChange={(e) => props.setFlatOptions((prev) => ({ ...prev, showMiniCircle: e.target.checked }))} />
+              <span className=''>Show mini circle</span>
+            </div>
+            <div className='flex gap-2'>
+              <span>Size</span>
+              <input
+                type="number"
+                className='w-12 pl-2'
+                value={props.flatOptions.miniCircleSize}
+                onChange={(e) => props.setFlatOptions((prev) => ({ ...prev, miniCircleSize: Number(e.target.value) }))}
+              />
+            </div>
           </div>
           <div className='flex gap-2'>
             <input
@@ -262,6 +274,14 @@ const Settings: React.FC<IFlatSettings> = (props) => {
               onChange={(e) => props.setFlatOptions((prev) => ({ ...prev, valueAnimation: e.target.checked }))}
             />
             <span>Value animation</span>
+          </div>
+          <div className='flex gap-2'>
+            <input
+              type="checkbox"
+              defaultChecked
+              onChange={(e) => props.setFlatOptions((prev) => ({ ...prev, intersectionEnabled: e.target.checked }))}
+            />
+            <span>Intersection Enabled</span>
           </div>
           <div className='flex gap-2'>
             <span>Range</span>
