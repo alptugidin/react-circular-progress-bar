@@ -18,15 +18,16 @@ const FlatDemo: React.FC = () => {
       valueColor: '#000000',
       textColor: '#000000',
       showValue: true,
-      showText: true,
       loadingTime: 1000,
-      text: 'Lorem, ipsum.',
-      bgColor: '#ffffff',
+      text: 'Lorem ipsum',
       strokeLinecap: 'round',
+      bgColor: '#ffffff',
       shape: 'full',
       showMiniCircle: true,
       miniCircleColor: '#ff0000',
-      valueAnimation: true
+      miniCircleSize: 5,
+      valueAnimation: true,
+      intersectionEnabled: true
     }
   );
   const [progress, setProgress] = useState(flatOptions.range.to / 2);
@@ -38,7 +39,7 @@ const FlatDemo: React.FC = () => {
           range={{ from: flatOptions.range.from, to: flatOptions.range.to }}
           showMiniCircle={flatOptions.showMiniCircle}
           showValue={flatOptions.showValue}
-          showText={flatOptions.showText}
+          sign={{ value: '%', position: 'end' }}
           text={flatOptions.text}
           sx={{
             barColor: flatOptions.strokeColor,
@@ -56,7 +57,9 @@ const FlatDemo: React.FC = () => {
             textFamily: flatOptions.textFamily,
             loadingTime: flatOptions.loadingTime,
             miniCircleColor: flatOptions.miniCircleColor,
-            valueAnimation: flatOptions.valueAnimation
+            miniCircleSize: flatOptions.miniCircleSize,
+            valueAnimation: flatOptions.valueAnimation,
+            intersectionEnabled: flatOptions.intersectionEnabled
           }}
         />
       </div>
