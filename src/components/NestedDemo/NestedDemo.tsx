@@ -15,7 +15,8 @@ const NestedDemo: React.FC = () => {
     strokeLinecap: 'round',
     fontFamily: 'Trebuchet MS',
     loadingTime: 1000,
-    valueAnimation: true
+    valueAnimation: true,
+    intersectionEnabled: true
   });
 
   return (
@@ -55,7 +56,8 @@ const NestedDemo: React.FC = () => {
             fontFamily: nestedOptions.fontFamily,
             strokeLinecap: nestedOptions.strokeLinecap,
             loadingTime: nestedOptions.loadingTime,
-            valueAnimation: nestedOptions.valueAnimation
+            valueAnimation: nestedOptions.valueAnimation,
+            intersectionEnabled: nestedOptions.intersectionEnabled
           }}
         />
       </div>
