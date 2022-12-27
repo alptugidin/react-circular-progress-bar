@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { fontFamilies } from '../../features/fontFamilies';
 import { FontFamily, FontWeight, INestedOptions, INestedSettings, StrokeLineCap } from '../../types';
+import { checkNestedSx } from '../../utils/checkNestedSx';
 import CodeHighlighter from '../CodeHighlighter/CodeHighlighter';
 
 const Settings: React.FC<INestedSettings> = (props) => {
@@ -40,22 +41,17 @@ const Settings: React.FC<INestedSettings> = (props) => {
     arr = [];
     circles.forEach((circle) => {
       if (props.nestedOptions[circle].value !== -1) {
-        arr.push(`\t\t{ text: '${props.nestedOptions[circle].text}' ,value: ${props.nestedOptions[circle].value}, color: '${props.nestedOptions[circle].color}'},`);
+        arr.push(`\t\t{ text: '${props.nestedOptions[circle].text}' ,value: ${props.nestedOptions[circle].value}, color: '${props.nestedOptions[circle].color}'}`);
       }
     });
     return arr;
   };
   const code = `<Nested
   circles={[
-${checkCircles().join('\n')}
+${checkCircles().join(',\n')}
   ]}
   sx={{
-    bgColor: '${props.nestedOptions.background}',
-    fontWeight: '${props.nestedOptions.fontWeight}',
-    fontFamily: '${props.nestedOptions.fontFamily}',
-    strokeLinecap: '${props.nestedOptions.strokeLinecap}',
-    valueAnimation: ${props.nestedOptions.valueAnimation ? 'true' : 'false'},
-    intersectionEnabled: ${props.nestedOptions.intersectionEnabled ? 'true' : 'false'}
+${checkNestedSx(props).reverse().join(',\n')}           
   }}
 />`;
 
