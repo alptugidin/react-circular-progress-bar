@@ -1,42 +1,17 @@
-import React, { useRef, useState } from 'react';
-import { FontWeight, IFlatSettings, StrokeLineCap } from '../../types';
+import React, { useEffect, useRef, useState } from 'react';
+import { FontWeight, IFlatSettings, SignPosition, StrokeLineCap } from '../../types';
 import { fontFamilies } from '../../features/fontFamilies';
 import { FlatShape, FontFamily } from '../../../lib/types';
 import CodeHighlighter from '../CodeHighlighter/CodeHighlighter';
+import { checkFlatProps } from '../../utils/checkFlatProps';
+import { checkFlatSx } from '../../utils/checkFlatSx';
 const Settings: React.FC<IFlatSettings> = (props) => {
-  const code = `<Flat
-\tprogress={${props.progress}}
-\trange={{ from: ${props.flatOptions.range.from}, to: ${props.flatOptions.range.to} }}
-\tshowMiniCircle={ ${props.flatOptions.showMiniCircle ? 'true' : 'false'} }
-\tshowValue={ ${props.flatOptions.showValue ? 'true' : 'false'} }
-\ttext={'${props.flatOptions.text}'}
-\tsx={{
-\t\tbarColor: '${props.flatOptions.strokeColor}',
-\t\tbarWidth: ${props.flatOptions.strokeWidth},
-\t\tbgColor: '${props.flatOptions.bgColor}',
-\t\tshape: '${props.flatOptions.shape}',
-\t\tstrokeLinecap: '${props.flatOptions.strokeLinecap}',
-\t\tvalueSize: ${props.flatOptions.valueSize},  
-\t\tvalueWeight: '${props.flatOptions.valueWeight}',
-\t\tvalueColor: '${props.flatOptions.valueColor}',
-\t\tvalueFamily: '${props.flatOptions.valueFamily}',
-\t\ttextSize: ${props.flatOptions.textSize},
-\t\ttextWeight: '${props.flatOptions.textWeight}',
-\t\ttextColor: '${props.flatOptions.textColor}',
-\t\ttextFamily: '${props.flatOptions.textFamily}',
-\t\tloadingTime: ${props.flatOptions.loadingTime},
-\t\tminiCircleColor: '${props.flatOptions.miniCircleColor}',
-\t\tminiCircleSize: ${props.flatOptions.miniCircleSize},
-\t\tvalueAnimation: ${props.flatOptions.valueAnimation ? 'true' : 'false'},
-\t\tintersectionEnabled: ${props.flatOptions.intersectionEnabled ? 'true' : 'false'}
-\t}}
-/>`;
-
   const valueSection = useRef<HTMLDivElement>(null);
   const textSection = useRef<HTMLDivElement>(null);
   const codeSection = useRef<HTMLDivElement>(null);
   const settingsSection = useRef<HTMLDivElement>(null);
   const copyBg = useRef<HTMLDivElement>(null);
+
   const handleValueCheck = (e: React.ChangeEvent<HTMLInputElement>): void => {
     props.setFlatOptions((prev) => ({ ...prev, showValue: e.target.checked }));
     if (e.target.checked) {
@@ -67,7 +42,14 @@ const Settings: React.FC<IFlatSettings> = (props) => {
       copyBg.current?.classList.toggle('!bg-white/80');
     }, 75);
   };
-  // ettings front flex flex-col overflow-hidden gap-4 bg-white rounded-lg border py-3 px-2 shadow-lg text-sm transition-all duration-[800ms] pb-11
+
+  const code = `<Flat
+${checkFlatProps(props).reverse().join('\n')}
+\tsx={{
+${checkFlatSx(props).reverse().join(',\n')}
+\t}}
+/>`;
+
   return (
     <div className='main-flat'>
       <div ref={settingsSection} className='settings flex flex-col overflow-hidden gap-4 bg-white rounded-lg border py-3 px-2 shadow-lg text-sm transition-all duration-[800ms] pb-11'>
@@ -107,7 +89,36 @@ const Settings: React.FC<IFlatSettings> = (props) => {
             <span className='text-sm text-purple-500 font-semibold bg-white pr-3 pl-3'>Value</span>
           </label>
           <div ref={valueSection} className='flex flex-col gap-3 transition-all'>
+            <div className='flex gap-2'>
+              <span>Sign</span>
+              <input
+                type="text"
+                className='pl-2 w-20'
+                value={props.flatOptions.sign.value}
+                onChange={(e) => props.setFlatOptions((prev) => ({ ...prev, sign: { ...prev.sign, value: e.target.value } }))}
+              />
+              <select
+                value={props.flatOptions.sign.position}
+                onChange={(e) => props.setFlatOptions(
+                  (prev) => ({ ...prev, sign: { ...prev.sign, position: e.target.value as SignPosition } })
+                )}
+              >
+                <option value="start">Start</option>
+                <option value="end">End</option>
+              </select>
+            </div>
             <div className='flex justify-between'>
+              <div className='flex gap-2'>
+                <span >Font</span>
+                <select
+                  value={props.flatOptions.valueFamily}
+                  onChange={(e) => props.setFlatOptions({ ...props.flatOptions, valueFamily: e.target.value as FontFamily })}
+                  className='outline-none text-sm text-gray-700 border rounded-lg'>
+                  {fontFamilies.map((font) => (
+                    <option key={font} value={font}>{font}</option>
+                  ))}
+                </select>
+              </div>
               <div className='flex gap-2'>
                 <span>Size</span>
                 <input
@@ -128,17 +139,7 @@ const Settings: React.FC<IFlatSettings> = (props) => {
                   <option value="bolder">Bolder</option>
                 </select>
               </div>
-              <div className='flex gap-2'>
-                <span >Font</span>
-                <select
-                  value={props.flatOptions.valueFamily}
-                  onChange={(e) => props.setFlatOptions({ ...props.flatOptions, valueFamily: e.target.value as FontFamily })}
-                  className='outline-none text-sm text-gray-700 border rounded-lg'>
-                  {fontFamilies.map((font) => (
-                    <option key={font} value={font}>{font}</option>
-                  ))}
-                </select>
-              </div>
+
             </div>
           </div>
         </div>
