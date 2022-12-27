@@ -1,7 +1,9 @@
 import React, { useRef } from 'react';
 import { HeatShape } from '../../../lib/types';
 import { fontFamilies } from '../../features/fontFamilies';
-import { FontFamily, FontWeight, IHeatSettings, StrokeLineCap } from '../../types';
+import { FontFamily, FontWeight, IHeatSettings, SignPosition, StrokeLineCap } from '../../types';
+import { checkHeatProps } from '../../utils/checkHeatProps';
+import { checkHeatSx } from '../../utils/checkHeatSx';
 import CodeHighlighter from '../CodeHighlighter/CodeHighlighter';
 
 const Settings: React.FC<IHeatSettings> = (props) => {
@@ -11,28 +13,9 @@ const Settings: React.FC<IHeatSettings> = (props) => {
   const settingsSection = useRef<HTMLDivElement>(null);
   const copyBg = useRef<HTMLDivElement>(null);
   const code = `<Heat
-\tprogress={${props.progress}}
-\trange={{ from: ${props.heatOptions.range.from}, to: ${props.heatOptions.range.to} }}
-\tshowValue={${props.heatOptions.showValue ? 'true' : 'false'}}
-\tshowText={${props.heatOptions.showText ? 'true' : 'false'}}
-\ttext={'${props.heatOptions.text}'}
-\trevertColor={${props.heatOptions.revertColor ? 'true' : 'false'}}
+${checkHeatProps(props).reverse().join('\n')}
 \tsx={{
-\t\tbarWidth: ${props.heatOptions.strokeWidth},
-\t\tbgColor: '${props.heatOptions.bgColor}',
-\t\tshape: '${props.heatOptions.shape}',
-\t\tstrokeLinecap: '${props.heatOptions.strokeLinecap}'
-\t\tvalueSize: ${props.heatOptions.valueSize},
-\t\tvalueFamily: '${props.heatOptions.valueFamily}',
-\t\ttextFamily: '${props.heatOptions.textFamily}',
-\t\ttextColor: '${props.heatOptions.textColor}',
-\t\tvalueWeight: '${props.heatOptions.valueWeight}',
-\t\ttextSize: ${props.heatOptions.textSize},
-\t\ttextWeight: '${props.heatOptions.textWeight}',
-\t\tvalueColor: '${props.heatOptions.valueColor}',
-\t\tloadingTime: '${props.heatOptions.loadingTime}',
-\t\tvalueAnimation: ${props.heatOptions.valueAnimation ? 'true' : 'false'},
-\t\tintersectionEnabled: ${props.heatOptions.intersectionEnabled ? 'true' : 'false'}
+${checkHeatSx(props).reverse().join(',\n')}
 \t}}
 />`;
   const handleValueCheck = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -45,7 +28,7 @@ const Settings: React.FC<IHeatSettings> = (props) => {
   };
 
   const handleTextCheck = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    props.setHeatOptions((prev) => ({ ...prev, showText: e.target.checked }));
+    props.setHeatOptions((prev) => ({ ...prev, text: e.target.checked ? 'Lorem ipsum' : '' }));
     if (e.target.checked) {
       textSection.current?.classList.remove('opacity-50', 'pointer-events-none');
     } else {
@@ -110,7 +93,26 @@ const Settings: React.FC<IHeatSettings> = (props) => {
             </div>
             <span className='text-sm text-purple-500 font-semibold bg-white pr-3 pl-3'>Value</span>
           </label>
+
           <div ref={valueSection} className='flex flex-col gap-3 transition-all'>
+            <div className='flex gap-2'>
+              <span>Sign</span>
+              <input
+                type="text"
+                className='pl-2 w-20'
+                value={props.heatOptions.sign.value}
+                onChange={(e) => props.setHeatOptions((prev) => ({ ...prev, sign: { ...prev.sign, value: e.target.value } }))}
+              />
+              <select
+                value={props.heatOptions.sign.position}
+                onChange={(e) => props.setHeatOptions(
+                  (prev) => ({ ...prev, sign: { ...prev.sign, position: e.target.value as SignPosition } })
+                )}
+              >
+                <option value="start">Start</option>
+                <option value="end">End</option>
+              </select>
+            </div>
             <div className='flex justify-between'>
               <div className='flex gap-2'>
                 <span >Font</span>
@@ -159,7 +161,15 @@ const Settings: React.FC<IHeatSettings> = (props) => {
             </div>
             <span className='text-purple-500 font-semibold bg-white pr-3 pl-3'>Text</span>
           </label>
-
+          <div className='flex gap-2'>
+            <span>Text</span>
+            <input
+              type="text"
+              className='pl-2 w-40'
+              value={props.heatOptions.text}
+              onChange={(e) => props.setHeatOptions((prev) => ({ ...prev, text: e.target.value }))}
+            />
+          </div>
           <div ref={textSection} className='flex flex-col gap-3 transition-all'>
             <div className='flex justify-between'>
               <div className='flex gap-2'>
