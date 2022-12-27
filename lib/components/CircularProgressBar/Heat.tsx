@@ -7,11 +7,10 @@ const Heat: React.FC<IHeat> = ({
   progress,
   sx,
   showValue,
-  showText,
   text,
   revertColor = false,
-  range = { from: 0, to: 100 }
-
+  range = { from: 0, to: 100 },
+  sign = { value: '%', position: 'end' }
 }) => {
   const {
     valueSize = 30,
@@ -24,7 +23,6 @@ const Heat: React.FC<IHeat> = ({
     valueWeight = 'normal',
     strokeLinecap = 'round',
     loadingTime = 500,
-    bgColor = '#ffffff',
     shape = 'threequarters',
     valueAnimation = true,
     intersectionEnabled = true
@@ -82,7 +80,7 @@ const Heat: React.FC<IHeat> = ({
           strokeDasharray={dasharray}
           strokeDashoffset={(1 - setShape() / 100) * dasharray}
           strokeWidth={sx.barWidth}
-          stroke={bgColor}
+          stroke={sx.bgColor}
           strokeLinecap={strokeLinecap}
           transform={setRotate()}
         />
@@ -147,18 +145,21 @@ const Heat: React.FC<IHeat> = ({
         {showValue &&
         <text
           x="50%"
-          y={shape === 'half' ? showText ? '35%' : '40%' : showText ? '45%' : '50%' }
+          y={shape === 'half' ? (text !== undefined && text !== '') ? '35%' : '40%' : (text !== undefined && text !== '') ? '45%' : '50%' }
           fontSize={valueSize}
           fontWeight={valueWeight}
           fontFamily={valueFamily}
           textAnchor='middle'
           fill={textColor}
         >
-          <tspan dominantBaseline={showText ? 'baseline' : 'central'}>
-            {valueAnimation ? animatedValue : progress}%
+          <tspan dominantBaseline={(text !== undefined && text !== '') ? 'baseline' : 'central'}>
+            {sign.position === 'start'
+              ? sign.value + (valueAnimation ? animatedValue : progress).toString()
+              : (valueAnimation ? animatedValue : progress).toString().concat(sign.value)
+            }
           </tspan>
         </text>}
-        {showText &&
+        {(text !== undefined && text !== '') &&
         <text
           x="50%"
           y={shape === 'half' ? '40%' : showValue ? '55%' : '50%' }
