@@ -27,7 +27,8 @@ const FlatDemo: React.FC = () => {
       miniCircleColor: '#ff0000',
       miniCircleSize: 5,
       valueAnimation: true,
-      intersectionEnabled: true
+      intersectionEnabled: true,
+      sign: { value: '%', position: 'end' }
     }
   );
   const [progress, setProgress] = useState(flatOptions.range.to / 2);
@@ -37,10 +38,10 @@ const FlatDemo: React.FC = () => {
         <Flat
           progress={progress}
           range={{ from: flatOptions.range.from, to: flatOptions.range.to }}
+          sign={flatOptions.sign}
+          text={flatOptions.text}
           showMiniCircle={flatOptions.showMiniCircle}
           showValue={flatOptions.showValue}
-          sign={{ value: '%', position: 'end' }}
-          text={flatOptions.text}
           sx={{
             barColor: flatOptions.strokeColor,
             barWidth: flatOptions.strokeWidth,
