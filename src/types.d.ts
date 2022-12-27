@@ -55,6 +55,7 @@ export interface IFlatOptions {
    miniCircleColor: string
    valueAnimation: boolean
    intersectionEnabled: boolean
+   sign: { value: string, position: SignPosition }
 }
 
 export interface IFlatSettings {
