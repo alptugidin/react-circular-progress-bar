@@ -26,7 +26,8 @@ const HeatDemo: React.FC = () => {
       range: { from: 0, to: 100 },
       shape: 'threequarters',
       valueAnimation: true,
-      intersectionEnabled: true
+      intersectionEnabled: true,
+      sign: { value: '%', position: 'end' }
     }
   );
   return (
@@ -35,8 +36,8 @@ const HeatDemo: React.FC = () => {
         <Heat
           progress={progress}
           range = { { from: heatOptions.range.from, to: heatOptions.range.to }}
+          sign={heatOptions.sign}
           showValue={heatOptions.showValue}
-          showText={heatOptions.showText}
           text={heatOptions.text}
           revertColor={heatOptions.revertColor}
           sx={{
