@@ -2,9 +2,9 @@ export interface IFlat {
    progress: number
    range?: { from: number, to: number }
    text?: string
+   sign?: { value: string, position: SignPosition }
    showValue?: boolean
    showMiniCircle?: boolean
-   sign?: { value: string, position: SignPosition }
    sx: {
       barColor: string
       barWidth: number
@@ -27,18 +27,18 @@ export interface IFlat {
    }
 }
 
-type SignPosition = 'start' | 'end'
+export type SignPosition = 'start' | 'end'
 export interface IHeat {
    progress: number
    range?: { from: number, to: number }
    showValue?: boolean
-   showText?: boolean
+   sign?: { value: string, position: SignPosition }
    showMiniCircle?: boolean
    text?: string
    revertColor?: boolean
    sx: {
       barWidth: number
-      bgColor?: string
+      bgColor: string
       shape?: HeatShape
       strokeLinecap?: StrokeLineCap
       valueSize?: number
@@ -66,7 +66,7 @@ export interface INested {
       circle5?: { value: number, text: string, color: string }
    ]
    sx: {
-      bgColor?: string
+      bgColor: string
       strokeLinecap?: StrokeLineCap
       fontFamily?: FontFamily
       fontWeight?: FontWeight
