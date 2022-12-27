@@ -9,7 +9,6 @@ const Nested: React.FC<INested> = ({
 }) => {
   const {
     strokeLinecap = 'round',
-    bgColor = '#cbd5e1',
     fontWeight = 'bold',
     fontFamily = 'Trebuchet MS',
     loadingTime = 1000,
@@ -98,7 +97,7 @@ const Nested: React.FC<INested> = ({
                 cy='55'
                 r={50 - (10 * i)}
                 fill='none'
-                stroke={bgColor}
+                stroke={sx.bgColor}
                 strokeWidth={6}
                 strokeDasharray={2 * Math.PI * (50 - 10 * i)}
                 strokeDashoffset={(1 - (75) / 100) * 2 * Math.PI * (50 - 10 * i)}
