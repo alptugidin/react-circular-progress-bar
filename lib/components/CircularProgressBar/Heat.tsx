@@ -7,7 +7,7 @@ const Heat: React.FC<IHeat> = ({
   progress,
   showValue = true,
   text,
-  revertColor = false,
+  revertBackground = false,
   range = { from: 0, to: 100 },
   sign = { value: '%', position: 'end' },
   sx
@@ -26,13 +26,12 @@ const Heat: React.FC<IHeat> = ({
     shape = 'threequarters',
     valueAnimation = true,
     intersectionEnabled = true
-    // revertColor = false
   } = sx;
 
   const [afterProgress, setAfterProgress] = useState(0);
   const prevRef = useRef(0);
   const heatRef = useRef<HTMLDivElement>(null);
-  const randomID = Math.floor(Math.random() * 1231).toString().concat(progress.toString());
+  const randomID = crypto.randomUUID().split('-')[0];
 
   const { isVisible } = useIntersection(heatRef);
 
@@ -75,8 +74,17 @@ const Heat: React.FC<IHeat> = ({
   const dasharray = 2 * Math.PI * 50;
   const dashoffset = (1 - (afterProgress + range.from) / range.to) * dasharray;
   return (
-    <div ref={heatRef} className='relative'>
-      <svg viewBox='0 0 110 110' className='drop-shadow-lg absolute -z-10'>
+    <div ref={heatRef} style={{ position: 'relative' }}>
+      <svg
+        viewBox='0 0 110 110'
+        style={{
+          '--ds1': 'drop-shadow(0 10px 8px rgb(0 0 0 / 0.04))',
+          '--ds2': 'drop-shadow(0 4px 3px rgb(0 0 0 / 0.1))',
+          filter: 'var(--ds1) var(--ds2)',
+          zIndex: -10,
+          position: 'absolute'
+        } as CSSProperties}
+      >
         <circle
           r='50'
           cx='55'
@@ -90,8 +98,8 @@ const Heat: React.FC<IHeat> = ({
           transform={setRotate()}
         />
       </svg>
-      <svg viewBox='0 0 110 110' className='  '>
-        {!revertColor
+      <svg viewBox='0 0 110 110'>
+        {!revertBackground
           ? (shape === 'threequarters'
             ? (
               <linearGradient id={randomID} x1="90.7089" y1="75.1526" x2="33.7868" y2="18.2305" gradientUnits="userSpaceOnUse">

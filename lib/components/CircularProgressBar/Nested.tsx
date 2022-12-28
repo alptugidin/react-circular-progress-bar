@@ -70,8 +70,14 @@ const Nested: React.FC<INested> = ({
   }, [circles, isVisible]);
   const animatedValues = [animatedValue1, animatedValue2, animatedValue3, animatedValue4, animatedValue5].sort((a, b) => b - a);
   return (
-    <div ref={nestedRef} className='relative'>
-      <svg id='texts' viewBox='0 0 55 60' width={'43%'} className='absolute transition-all'>
+    <div ref={nestedRef} style={{ position: 'relative' }}>
+      <svg id='texts' viewBox='0 0 55 60' width={'43%'}
+        style={{
+          position: 'absolute',
+          transitionProperty: 'all',
+          transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+          transitionDuration: '150ms'
+        }}>
         {circles.map((circle, i) => (
           circles[i]?.value !== -1 &&
           <text
@@ -118,7 +124,7 @@ const Nested: React.FC<INested> = ({
                 strokeDashoffset={dashoffsets[i]}
                 stroke={circle?.color}
                 strokeWidth={strokeWidth}
-                strokeLinecap={sx.strokeLinecap}
+                strokeLinecap={strokeLinecap}
               />
             </g>
             }

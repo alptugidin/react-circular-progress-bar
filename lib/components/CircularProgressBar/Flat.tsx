@@ -92,7 +92,7 @@ const Flat: React.FC<IFlat> = ({
   const dashoffset = (1 - (afterProgress + range.from) / range.to) * dasharray;
 
   return (
-    <div ref={flatRef} className='relative'>
+    <div ref={flatRef} style={{ position: 'relative' }}>
       <svg viewBox='0 0 110 110'>
         <circle
           cx="55"
@@ -144,7 +144,16 @@ const Flat: React.FC<IFlat> = ({
         </text>
         }
       </svg>
-      <svg viewBox='0 0 110 110' className='absolute drop-shadow-lg top-0 -z-10'>
+      <svg viewBox='0 0 110 110'
+        style={{
+          position: 'absolute',
+          top: 0,
+          zIndex: -10,
+          '--ds1': 'drop-shadow(0 10px 8px rgb(0 0 0 / 0.04))',
+          '--ds2': 'drop-shadow(0 4px 3px rgb(0 0 0 / 0.1))',
+          filter: 'var(--ds1) var(--ds2)'
+        } as CSSProperties}
+      >
         <circle
           cx="55"
           cy="55"
@@ -162,8 +171,9 @@ const Flat: React.FC<IFlat> = ({
       {showMiniCircle &&
         <svg
           viewBox='0 0 110 110'
-          className='absolute top-0'
           style={{
+            position: 'absolute',
+            top: 0,
             transition: 'transform ease-in-out',
             MozTransition: 'transform ease-in-out',
             transitionDuration: loadingTime.toString().concat('ms')
