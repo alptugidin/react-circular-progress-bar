@@ -35,11 +35,11 @@ const HeatDemo: React.FC = () => {
       <div className='w-56'>
         <Heat
           progress={progress}
-          range = { { from: heatOptions.range.from, to: heatOptions.range.to }}
+          range ={{ from: heatOptions.range.from, to: heatOptions.range.to }}
           sign={heatOptions.sign}
           showValue={heatOptions.showValue}
-          text={heatOptions.text}
           revertColor={heatOptions.revertColor}
+          text={heatOptions.text}
           sx={{
             barWidth: heatOptions.strokeWidth,
             bgColor: heatOptions.bgColor,
