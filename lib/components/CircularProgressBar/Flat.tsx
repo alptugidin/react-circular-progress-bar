@@ -21,13 +21,14 @@ const Flat: React.FC<IFlat> = ({
     textFamily = 'Trebuchet MS',
     textColor = '#000000',
     textWeight = 'lighter',
-    loadingTime = 500,
+    loadingTime = 1000,
     bgColor = '#ffffff',
-    strokeLinecap = 'butt',
+    strokeLinecap = 'round',
     shape = 'full',
     valueAnimation = true,
     intersectionEnabled = false,
-    miniCircleSize = 5
+    miniCircleSize = 5,
+    miniCircleColor = '#ff0000'
   } = sx;
 
   const [afterProgress, setAfterProgress] = useState(0);
@@ -172,7 +173,7 @@ const Flat: React.FC<IFlat> = ({
             cx='55'
             cy='5'
             r={miniCircleSize}
-            fill={sx.miniCircleColor}
+            fill={miniCircleColor}
           >
           </circle>
         </svg>
