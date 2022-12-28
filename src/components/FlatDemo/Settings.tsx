@@ -44,9 +44,9 @@ const Settings: React.FC<IFlatSettings> = (props) => {
   };
 
   const code = `<Flat
-${checkFlatProps(props).reverse().join('\n')}
+${checkFlatProps(props).join('\n')}
 \tsx={{
-${checkFlatSx(props).reverse().join(',\n')}
+${checkFlatSx(props).join(',\n')}
 \t}}
 />`;
 
