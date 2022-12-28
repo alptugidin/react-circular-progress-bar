@@ -18,7 +18,7 @@ const HeatDemo: React.FC = () => {
       textColor: '#000000',
       showValue: true,
       showText: true,
-      revertColor: false,
+      revertBackground: false,
       loadingTime: 1000,
       text: 'Lorem ipsum',
       strokeLinecap: 'round',
@@ -38,7 +38,7 @@ const HeatDemo: React.FC = () => {
           range ={{ from: heatOptions.range.from, to: heatOptions.range.to }}
           sign={heatOptions.sign}
           showValue={heatOptions.showValue}
-          revertColor={heatOptions.revertColor}
+          revertBackground={heatOptions.revertBackground}
           text={heatOptions.text}
           sx={{
             barWidth: heatOptions.strokeWidth,
