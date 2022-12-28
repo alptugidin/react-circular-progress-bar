@@ -51,7 +51,7 @@ const Settings: React.FC<INestedSettings> = (props) => {
 ${checkCircles().join(',\n')}
   ]}
   sx={{
-${checkNestedSx(props).reverse().join(',\n')}           
+${checkNestedSx(props).join(',\n')}           
   }}
 />`;
 
