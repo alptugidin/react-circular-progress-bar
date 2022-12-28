@@ -13,9 +13,9 @@ const Settings: React.FC<IHeatSettings> = (props) => {
   const settingsSection = useRef<HTMLDivElement>(null);
   const copyBg = useRef<HTMLDivElement>(null);
   const code = `<Heat
-${checkHeatProps(props).reverse().join('\n')}
+${checkHeatProps(props).join('\n')}
 \tsx={{
-${checkHeatSx(props).reverse().join(',\n')}
+${checkHeatSx(props).join(',\n')}
 \t}}
 />`;
   const handleValueCheck = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -246,7 +246,7 @@ ${checkHeatSx(props).reverse().join(',\n')}
             <input
               type="checkbox"
               className='cursor-pointer'
-              onChange={(e) => props.setHeatOptions((prev) => ({ ...prev, revertColor: e.target.checked }))} />
+              onChange={(e) => props.setHeatOptions((prev) => ({ ...prev, revertBackground: e.target.checked }))} />
             <span className=''>Revert Background</span>
           </div>
           <div className='flex gap-2'>
