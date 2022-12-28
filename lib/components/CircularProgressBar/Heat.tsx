@@ -5,12 +5,12 @@ import { IHeat } from '../../types';
 
 const Heat: React.FC<IHeat> = ({
   progress,
-  sx,
-  showValue,
+  showValue = true,
   text,
   revertColor = false,
   range = { from: 0, to: 100 },
-  sign = { value: '%', position: 'end' }
+  sign = { value: '%', position: 'end' },
+  sx
 }) => {
   const {
     valueSize = 30,
@@ -26,11 +26,14 @@ const Heat: React.FC<IHeat> = ({
     shape = 'threequarters',
     valueAnimation = true,
     intersectionEnabled = true
+    // revertColor = false
   } = sx;
 
   const [afterProgress, setAfterProgress] = useState(0);
   const prevRef = useRef(0);
   const heatRef = useRef<HTMLDivElement>(null);
+  const randomID = Math.floor(Math.random() * 1231).toString().concat(progress.toString());
+
   const { isVisible } = useIntersection(heatRef);
 
   const setShape = (): number => {
@@ -59,7 +62,9 @@ const Heat: React.FC<IHeat> = ({
       return 0.5; ;
     }
   };
+
   const { animatedValue } = useAnimatedValue(prevRef.current / setRatio(), afterProgress / setRatio(), loadingTime);
+
   useEffect(() => {
     if ((intersectionEnabled && isVisible) || !intersectionEnabled) {
       setAfterProgress(progress * setRatio());
@@ -89,8 +94,7 @@ const Heat: React.FC<IHeat> = ({
         {!revertColor
           ? (shape === 'threequarters'
             ? (
-
-              <linearGradient id="gradient" x1="90.7089" y1="75.1526" x2="33.7868" y2="18.2305" gradientUnits="userSpaceOnUse">
+              <linearGradient id={randomID} x1="90.7089" y1="75.1526" x2="33.7868" y2="18.2305" gradientUnits="userSpaceOnUse">
                 <stop stopColor="#00FF00"/>
                 <stop offset="0.34691" stopColor="#C1FF00"/>
                 <stop offset="0.775843" stopColor="#FFB800"/>
@@ -98,7 +102,7 @@ const Heat: React.FC<IHeat> = ({
               </linearGradient>
             )
             : (
-              <linearGradient id="gradient" gradientUnits="userSpaceOnUse">
+              <linearGradient id={randomID} gradientUnits="userSpaceOnUse">
                 <stop stopColor="#FF0000"/>
                 <stop offset="0.274348" stopColor="#FFB800"/>
                 <stop offset="0.676789" stopColor="#C1FF00"/>
@@ -108,7 +112,7 @@ const Heat: React.FC<IHeat> = ({
           )
           : (shape === 'threequarters'
             ? (
-              <linearGradient id="gradient" x1="90.7089" y1="75.1526" x2="33.7868" y2="18.2305" gradientUnits="userSpaceOnUse">
+              <linearGradient id={randomID} x1="90.7089" y1="75.1526" x2="33.7868" y2="18.2305" gradientUnits="userSpaceOnUse">
                 <stop stopColor="#FF0000"/>
                 <stop offset="0.34691" stopColor="#FFB800"/>
                 <stop offset="0.775843" stopColor="#C1FF00"/>
@@ -116,7 +120,7 @@ const Heat: React.FC<IHeat> = ({
               </linearGradient>
             )
             : (
-              <linearGradient id="gradient" gradientUnits="userSpaceOnUse">
+              <linearGradient id={randomID} gradientUnits="userSpaceOnUse">
                 <stop stopColor="#00FF00"/>
                 <stop offset="0.274348" stopColor="#C1FF00"/>
                 <stop offset="0.676789" stopColor="#FFB800"/>
@@ -138,7 +142,7 @@ const Heat: React.FC<IHeat> = ({
           strokeDasharray={dasharray}
           strokeDashoffset={dashoffset}
           strokeWidth={sx.barWidth}
-          stroke='url(#gradient)'
+          stroke={`url(#${randomID})`}
           strokeLinecap={strokeLinecap}
           transform={setRotate()}
         />
@@ -150,7 +154,7 @@ const Heat: React.FC<IHeat> = ({
           fontWeight={valueWeight}
           fontFamily={valueFamily}
           textAnchor='middle'
-          fill={textColor}
+          fill={valueColor}
         >
           <tspan dominantBaseline={(text !== undefined && text !== '') ? 'baseline' : 'central'}>
             {sign.position === 'start'
@@ -167,7 +171,7 @@ const Heat: React.FC<IHeat> = ({
           fontFamily={textFamily}
           fontWeight={textWeight}
           textAnchor='middle'
-          fill={valueColor}
+          fill={textColor}
           dominantBaseline={showValue ? 'hanging' : 'start'} >
           <tspan dominantBaseline={showValue ? 'hanging' : (shape === 'half' ? 'hanging' : 'middle')}>
             {text}
