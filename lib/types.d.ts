@@ -35,7 +35,7 @@ export interface IHeat {
    sign?: { value: string, position: SignPosition }
    showMiniCircle?: boolean
    text?: string
-   revertColor?: boolean
+   revertBackground?: boolean
    sx: {
       barWidth: number
       bgColor: string
@@ -76,20 +76,33 @@ export interface INested {
    }
 }
 
-type FontWeight = 'normal' | 'bold' | 'bolder' | 'lighter'
-type FontFamily =
-'Arial' |
-'Verdana' |
-'Tahoma' |
-'Trebuchet MS' |
-'Times New Roman' |
-'Georgia' |
-'Courier New' |
-'Brush Script MT' |
-'Comic Sans MS' |
-'Goudy Bookletter 1911' |
-'Monospace'
-
 type StrokeLineCap = 'butt' | 'round' | 'square'
 type FlatShape = 'full' | 'threequarters' | 'half'
 type HeatShape = 'threequarters' | 'half'
+type FontWeight = 'normal' | 'bold' | 'bolder' | 'lighter'
+type FontFamily =
+'Arial' |
+'Arial Black' |
+'Arial Narrow' |
+'Arial Rounded MT Bold' |
+'Arial Unicode MS' |
+'Calibri' |
+'Candara' |
+'Century Gothic' |
+'Comic Sans MS' |
+'Courier New' |
+'Geneva' |
+'Georgia' |
+'Gill Sans' |
+'Helvetica' |
+'Impact' |
+'Lucida Console' |
+'Lucida Grande' |
+'Lucida Sans Unicode' |
+'Palatino Linotype' |
+'Tahoma' |
+'Times New Roman' |
+'Trebuchet MS' |
+'Verdana' |
+'Webdings' |
+'Wingdings'
