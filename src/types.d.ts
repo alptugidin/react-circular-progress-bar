@@ -14,7 +14,7 @@ export interface IHeatOptions {
    textColor: string
    showValue: boolean
    showText: boolean
-   revertColor: boolean
+   revertBackground: boolean
    loadingTime: number
    strokeLinecap: StrokeLineCap
    bgColor: string
@@ -95,16 +95,30 @@ export interface INestedSettings {
 type FontWeight = 'normal' | 'bold' | 'bolder' | 'lighter'
 export type FontFamily =
 'Arial' |
-'Verdana' |
-'Tahoma' |
-'Trebuchet MS' |
-'Times New Roman' |
-'Georgia' |
-'Courier New' |
-'Brush Script MT' |
+'Arial Black' |
+'Arial Narrow' |
+'Arial Rounded MT Bold' |
+'Arial Unicode MS' |
+'Calibri' |
+'Candara' |
+'Century Gothic' |
 'Comic Sans MS' |
-'Goudy Bookletter 1911' |
-'Monospace'
+'Courier New' |
+'Geneva' |
+'Georgia' |
+'Gill Sans' |
+'Helvetica' |
+'Impact' |
+'Lucida Console' |
+'Lucida Grande' |
+'Lucida Sans Unicode' |
+'Palatino Linotype' |
+'Tahoma' |
+'Times New Roman' |
+'Trebuchet MS' |
+'Verdana' |
+'Webdings' |
+'Wingdings'
 
 export type StrokeLineCap = 'butt' | 'round' | 'square'
 export type FlatShape = 'full' | 'threequarters' | 'half'
