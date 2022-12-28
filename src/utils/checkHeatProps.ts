@@ -2,6 +2,7 @@ import { IHeatSettings } from '../types';
 
 export const checkHeatProps = (props: IHeatSettings): string[] => {
   const arr: string[] = [];
+  arr.push(`\tprogress={${props.progress}}`);
   if (props.heatOptions.range.to !== 100 && props.heatOptions.range.from !== 0) {
     arr.push(`\trange={{ from: ${props.heatOptions.range.from}, to: ${props.heatOptions.range.to} }}`);
   }
@@ -16,10 +17,9 @@ export const checkHeatProps = (props: IHeatSettings): string[] => {
     arr.push(`\tshowValue={ ${props.heatOptions.showValue ? 'true' : 'false'} }`);
   }
 
-  if (props.heatOptions.revertColor) {
-    arr.push(`\trevertColor={${props.heatOptions.revertColor ? 'true' : 'false'}}`);
+  if (props.heatOptions.revertBackground) {
+    arr.push(`\trevertBackground={${props.heatOptions.revertBackground ? 'true' : 'false'}}`);
   }
 
-  arr.push(`\tprogress={${props.progress}}`);
   return arr;
 };

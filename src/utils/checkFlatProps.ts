@@ -2,6 +2,7 @@ import { IFlatSettings } from '../types';
 
 export const checkFlatProps = (props: IFlatSettings): string[] => {
   const propsArr = [];
+  propsArr.push(`\tprogress={${props.progress}}`);
   if (props.flatOptions.range.to !== 100 && props.flatOptions.range.from !== 0) {
     propsArr.push(`\trange={{ from: ${props.flatOptions.range.from}, to: ${props.flatOptions.range.to} }}`);
   }
@@ -17,6 +18,6 @@ export const checkFlatProps = (props: IFlatSettings): string[] => {
   if (!props.flatOptions.showMiniCircle) {
     propsArr.push(`\tshowMiniCircle={ ${props.flatOptions.showMiniCircle ? 'true' : 'false'} }`);
   }
-  propsArr.push(`\tprogress={${props.progress}}`);
+
   return propsArr;
 };

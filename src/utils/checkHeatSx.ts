@@ -2,7 +2,8 @@ import { IHeatSettings } from '../types';
 
 export const checkHeatSx = (props: IHeatSettings): string[] => {
   const arr: string[] = [];
-
+  arr.push(`\t\tbgColor: '${props.heatOptions.bgColor}'`);
+  arr.push(`\t\tbarWidth: ${props.heatOptions.strokeWidth}`);
   if (props.heatOptions.shape !== 'threequarters') {
     arr.push(`\t\tshape: '${props.heatOptions.shape}'`);
   }
@@ -42,7 +43,6 @@ export const checkHeatSx = (props: IHeatSettings): string[] => {
   if (!props.heatOptions.intersectionEnabled) {
     arr.push(`\t\tintersectionEnabled: ${props.heatOptions.intersectionEnabled ? 'true' : 'false'}`);
   }
-  arr.push(`\t\tbarWidth: ${props.heatOptions.strokeWidth}`);
-  arr.push(`\t\tbgColor: '${props.heatOptions.bgColor}'`);
+
   return arr;
 };

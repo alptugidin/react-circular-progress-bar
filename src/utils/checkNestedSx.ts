@@ -2,6 +2,7 @@ import { INestedSettings } from '../types';
 
 export const checkNestedSx = (props: INestedSettings): string[] => {
   const arr: string[] = [];
+  arr.push(`\t\tbgColor: '${props.nestedOptions.background}'`);
   if (props.nestedOptions.fontWeight !== 'bold') {
     arr.push(`\t\tfontWeight: '${props.nestedOptions.fontWeight}'`);
   }
@@ -20,6 +21,6 @@ export const checkNestedSx = (props: INestedSettings): string[] => {
   if (props.nestedOptions.loadingTime !== 1000) {
     arr.push(`\t\tloadingTime: ${props.nestedOptions.loadingTime}`);
   }
-  arr.push(`\t\tbgColor: '${props.nestedOptions.background}'`);
+
   return arr;
 };
