@@ -93,3 +93,10 @@ input {
 }
 
 
+.header {
+  @apply transition-all;
+  box-shadow: 4px 4px;
+}
+.header:hover {
+  box-shadow: 6px 6px;
+}
