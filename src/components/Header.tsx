@@ -2,14 +2,11 @@ import React from 'react';
 
 const Header: React.FC = () => {
   return (
-  //  <div className='bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-red-600 h-24 rounded-lg mt-5 drop-shadow-lg pb-2 pr-2 pt-0.5 pl-0.5'>
-  // <div className='w-full h-full rounded-lg bg-white'>
-  // </div>
-  //  </div>
     <a
       href='https://github.com/alptugidin/react-circular-progress-bar'
       target='_blank'
-      className='w-1/3 mx-auto px-5 py-2 font-medium text-blue-600 border border-b-4 border-r-4 border-blue-600 rounded-lg mt-10 flex justify-center bg-yellow-100 items-center gap-2 group' rel="noreferrer">
+      className='w-[500px] header mx-auto px-5 py-2 font-medium text-blue-600 border xborder-b-4 xborder-r-4 border-blue-600 rounded-lg mt-10 flex justify-center bg-yellow-100 items-center gap-2 group'
+      rel="noreferrer">
       <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600">
          react-circular-progress-bar
       </span>
