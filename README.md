@@ -4,11 +4,20 @@
 <br>
 <a target="_blank" href="https://alptugidin.github.io/react-circular-progress-bar/">Demo</a>
 </p>
+<br>
+<p align="center">
+<a href="https://badge.fury.io/js/@alptugidin%2Freact-circular-progress-bar.svg">
+<img src="https://badge.fury.io/js/@alptugidin%2Freact-circular-progress-bar.svg" />
+<img alt="npm" src="https://img.shields.io/npm/dm/@alptugidin/react-circular-progress-bar.svg">
+</a>
+</p>
+
 <p align='center'>
 <br>
 <img src='https://user-images.githubusercontent.com/31244930/209894184-90420eb5-796f-4f75-83a0-8dcd9b6d7192.gif'/>
 </p>
 <br>
+
 
 # Installation
 ```bash
