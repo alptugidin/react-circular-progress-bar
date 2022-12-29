@@ -43,6 +43,7 @@ const App: React.FC = () => {
               showMiniCircle={false}
               sx={{
                 barColor: '#16a34a',
+                bgColor: '#dadada',
                 textSize: 20,
                 strokeLinecap: 'square',
                 barWidth: 5,
@@ -145,9 +146,6 @@ const App: React.FC = () => {
         <FlatDemo/>
         <HeatDemo/>
         <NestedDemo/>
-      </div>
-      <div className='mt-56'>
-        readme
       </div>
     </div>
   );
