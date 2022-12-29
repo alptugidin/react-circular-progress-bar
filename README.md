@@ -12,17 +12,17 @@
 
 # Installation
 ```bash
-npm install react-circular-progress-bar
+npm install @alptugidin/react-circular-progress-bar
 ```
 or
 ```bash
-yarn add react-circular-progress-bar
+yarn add @alptugidin/react-circular-progress-bar
 ```
 
 # Import
 
 ```javascript
-import {Flat, Heat, Nested} from 'react-circular-progress-bar'
+import {Flat, Heat, Nested} from '@alptugidin/react-circular-progress-bar'
 ```
 
 # Usage
