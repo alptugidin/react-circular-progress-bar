@@ -6,7 +6,7 @@
 </p>
 <br>
 <p align="center">
-<a href="https://badge.fury.io/js/@alptugidin%2Freact-circular-progress-bar.svg">
+<a href="https://www.npmjs.com/package/@alptugidin/react-circular-progress-bar">
 <img src="https://badge.fury.io/js/@alptugidin%2Freact-circular-progress-bar.svg" />
 <img alt="npm" src="https://img.shields.io/npm/dm/@alptugidin/react-circular-progress-bar.svg">
 </a>
