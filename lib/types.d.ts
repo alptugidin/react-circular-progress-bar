@@ -6,9 +6,10 @@ export interface IFlat {
    showValue?: boolean
    showMiniCircle?: boolean
    sx: {
-      barColor: string
-      barWidth: number
+      strokeColor: string
+      bgStrokeColor?: string
       bgColor?: string
+      barWidth: number
       shape?: FlatShape
       strokeLinecap?: StrokeLineCap
       valueSize?: number

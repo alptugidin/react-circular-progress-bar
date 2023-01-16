@@ -33,6 +33,7 @@ export interface IHeatSettings {
 }
 export interface IFlatOptions {
    strokeColor: string
+   bgStrokeColor: string
    range: { from: number, to: number }
    strokeWidth: number
    textSize: number
@@ -52,7 +53,6 @@ export interface IFlatOptions {
    showMiniCircle: boolean
    miniCircleColor: string
    miniCircleSize: number
-   miniCircleColor: string
    valueAnimation: boolean
    intersectionEnabled: boolean
    sign: { value: string, position: SignPosition }
@@ -65,13 +65,6 @@ export interface IFlatSettings {
    setProgress: React.Dispatch<React.SetStateAction<number>>
 }
 
-interface IProgress {
-      circle1: number
-      circle2: number
-      circle3: number
-      circle4: number
-      circle5: number
-}
 export interface INestedOptions {
    circle1: { text: string, value: number, color: string }
    circle2: { text: string, value: number, color: string }
