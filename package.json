@@ -3,12 +3,15 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://alptugidin.github.io/react-circular-progress-bar/",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "dist": "npx tsup",
-    "dist:css": "postcss src/index.css -o dist/index.css"
+    "dist:css": "postcss src/index.css -o dist/index.css",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "babel-plugin-prismjs": "^2.1.0",
@@ -29,6 +32,7 @@
     "eslint-plugin-n": "^15.6.0",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.31.11",
+    "gh-pages": "^4.0.0",
     "postcss": "^8.4.20",
     "postcss-cli": "^10.1.0",
     "tailwindcss": "^3.2.4",
