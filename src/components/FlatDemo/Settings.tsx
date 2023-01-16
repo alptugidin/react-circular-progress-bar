@@ -222,10 +222,17 @@ ${checkFlatSx(props).join(',\n')}
               />
             </div>
             <div className='flex flex-col w-fit justify-center items-center basis-1/5'>
-              <span className=''>Progress</span>
+              <span>Stroke</span>
               <input type="color"
                 onChange={(e) => props.setFlatOptions({ ...props.flatOptions, strokeColor: e.target.value })}
                 value={props.flatOptions.strokeColor}
+              />
+            </div>
+            <div className='flex flex-col w-fit justify-center items-center basis-1/5'>
+              <span>Bg Stroke</span>
+              <input type="color"
+                onChange={(e) => props.setFlatOptions({ ...props.flatOptions, bgStrokeColor: e.target.value })}
+                value={props.flatOptions.bgStrokeColor}
               />
             </div>
             <div className='flex flex-col w-fit justify-center items-center basis-1/5'>

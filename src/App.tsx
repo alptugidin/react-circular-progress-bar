@@ -7,12 +7,12 @@ import NestedDemo from './components/NestedDemo/NestedDemo';
 const App: React.FC = () => {
   const [randomValue, setRandomValue] = useState(50);
   const [randomMoney, setRandomMoney] = useState(500);
-  const [randomNestedValue, setrandomNestedValue] = useState({ v1: 0, v2: 0, v3: 0, v4: 0, v5: 0 });
+  const [randomNestedValue, setRandomNestedValue] = useState({ v1: 0, v2: 0, v3: 0, v4: 0, v5: 0 });
   useEffect(() => {
     setInterval(() => {
       setRandomValue(Math.floor(Math.random() * 100));
       setRandomMoney(Math.floor(Math.random() * 1500));
-      setrandomNestedValue({
+      setRandomNestedValue({
         v1: Math.floor(Math.random() * 100),
         v2: Math.floor(Math.random() * 100),
         v3: Math.floor(Math.random() * 100),
@@ -24,8 +24,8 @@ const App: React.FC = () => {
   return (
     <div className='container mx-auto'>
       <Header/>
-      <div className='h-screen flex flex-col justify-center'>
-        <div className='p-2 flex flex-wrap gap-x-48 gap-y-20 justify-center mb-40 mt-10 py-20 '>
+      <div className='h-screen flex flex-col justify-center hidden'>
+        <div className='p-2 flex flex-wrap gap-x-48 gap-y-20 justify-center mb-40 mt-10 py-20'>
           <div className='w-40'>
             <Flat
               progress={randomValue}
@@ -33,7 +33,7 @@ const App: React.FC = () => {
               sx={{
                 textSize: 20,
                 barWidth: 5,
-                barColor: '#ff0000'
+                strokeColor: '#ff0000'
               }}
             />
           </div>
@@ -42,7 +42,7 @@ const App: React.FC = () => {
               progress={randomValue}
               showMiniCircle={false}
               sx={{
-                barColor: '#16a34a',
+                strokeColor: '#16a34a',
                 bgColor: '#dadada',
                 textSize: 20,
                 strokeLinecap: 'square',
@@ -57,7 +57,7 @@ const App: React.FC = () => {
               text={'Match'}
               showMiniCircle={false}
               sx={{
-                barColor: '#111827',
+                strokeColor: '#111827',
                 textSize: 20,
                 strokeLinecap: 'square',
                 barWidth: 10,
@@ -79,7 +79,7 @@ const App: React.FC = () => {
                 shape: 'threequarters',
                 bgColor: '#ff0000',
                 barWidth: 3,
-                barColor: '#00f531'
+                strokeColor: '#00f531'
               }}
             />
           </div>
@@ -94,7 +94,7 @@ const App: React.FC = () => {
                 barWidth: 5,
                 valueSize: 20,
                 bgColor: '#d1d1d1',
-                barColor: '#0284c7',
+                strokeColor: '#0284c7',
                 strokeLinecap: 'butt',
                 valueAnimation: false
               }}

@@ -21,6 +21,7 @@ const FlatDemo: React.FC = () => {
       loadingTime: 1000,
       text: 'Lorem ipsum',
       strokeLinecap: 'round',
+      bgStrokeColor: '#ffffff',
       bgColor: '#ffffff',
       shape: 'full',
       showMiniCircle: true,
@@ -43,9 +44,10 @@ const FlatDemo: React.FC = () => {
           showMiniCircle={flatOptions.showMiniCircle}
           showValue={flatOptions.showValue}
           sx={{
-            barColor: flatOptions.strokeColor,
+            strokeColor: flatOptions.strokeColor,
+            bgStrokeColor: flatOptions.bgStrokeColor,
             barWidth: flatOptions.strokeWidth,
-            bgColor: flatOptions.bgColor,
+            bgColor: flatOptions.bgColor.concat('20'),
             shape: flatOptions.shape,
             strokeLinecap: flatOptions.strokeLinecap,
             valueSize: flatOptions.valueSize,

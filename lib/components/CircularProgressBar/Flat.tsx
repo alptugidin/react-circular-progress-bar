@@ -22,7 +22,8 @@ const Flat: React.FC<IFlat> = ({
     textColor = '#000000',
     textWeight = 'lighter',
     loadingTime = 1000,
-    bgColor = '#ffffff',
+    bgStrokeColor = '#ffffff',
+    bgColor = '#ff000020',
     strokeLinecap = 'round',
     shape = 'full',
     valueAnimation = true,
@@ -93,7 +94,7 @@ const Flat: React.FC<IFlat> = ({
 
   return (
     <div ref={flatRef} style={{ position: 'relative' }}>
-      <svg viewBox='0 0 110 110'>
+      <svg viewBox='0 0 110 110' style={{ position: 'relative', zIndex: 50 }}>
         <circle
           cx="55"
           cy="55"
@@ -105,7 +106,7 @@ const Flat: React.FC<IFlat> = ({
           strokeWidth={sx.barWidth}
           transform={setRotate()}
           fill="none"
-          stroke={sx.barColor}
+          stroke={sx.strokeColor}
           shapeRendering='geometricPrecision'
           strokeLinecap={strokeLinecap}
           strokeDasharray={dasharray}
@@ -159,7 +160,7 @@ const Flat: React.FC<IFlat> = ({
           cy="55"
           r="50"
           fill="none"
-          stroke={bgColor}
+          stroke={bgStrokeColor}
           strokeWidth={sx.barWidth - 0.3}
           strokeDasharray={dasharray}
           strokeLinecap={strokeLinecap}
@@ -167,10 +168,12 @@ const Flat: React.FC<IFlat> = ({
           transform={setRotate()}
           shapeRendering='geometricPrecision'
         />
+
       </svg>
       {showMiniCircle &&
         <svg
           viewBox='0 0 110 110'
+          className='z-50'
           style={{
             position: 'absolute',
             top: 0,
@@ -188,6 +191,14 @@ const Flat: React.FC<IFlat> = ({
           </circle>
         </svg>
       }
+      <svg viewBox='0 0 110 110' className='absolute top-0 z-30'>
+        <circle
+          cx='55'
+          cy='55'
+          r={50 - (sx.barWidth / 2)}
+          fill={bgColor}
+        />
+      </svg>
     </div>
   );
 };
