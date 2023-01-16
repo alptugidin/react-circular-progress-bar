@@ -39,6 +39,7 @@ module.exports = {
   },
   ignorePatterns: [
     'dist',
+    'build',
     'tsup.config.js',
     'vite.config.ts'
   ]
