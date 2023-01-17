@@ -8,7 +8,7 @@ export interface IFlat {
    sx: {
       strokeColor: string
       bgStrokeColor?: string
-      bgColor?: string
+      bgColor?: { value: string, transparency: string }
       barWidth: number
       shape?: FlatShape
       strokeLinecap?: StrokeLineCap

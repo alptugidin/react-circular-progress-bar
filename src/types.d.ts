@@ -47,7 +47,7 @@ export interface IFlatOptions {
    showValue: boolean
    loadingTime: number
    text: string
-   bgColor: string
+   bgColor: { value: string, transparency: string }
    strokeLinecap: StrokeLineCap
    shape: FlatShape
    showMiniCircle: boolean
