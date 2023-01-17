@@ -23,7 +23,7 @@ const Flat: React.FC<IFlat> = ({
     textWeight = 'lighter',
     loadingTime = 1000,
     bgStrokeColor = '#ffffff',
-    bgColor = '#ff000020',
+    bgColor = { value: '#ffffff', transparency: '20' },
     strokeLinecap = 'round',
     shape = 'full',
     valueAnimation = true,
@@ -196,7 +196,7 @@ const Flat: React.FC<IFlat> = ({
           cx='55'
           cy='55'
           r={50 - (sx.barWidth / 2)}
-          fill={bgColor}
+          fill={`${bgColor.value + bgColor.transparency}`}
         />
       </svg>
     </div>
