@@ -238,8 +238,8 @@ ${checkFlatSx(props).join(',\n')}
             <div className='flex flex-col w-fit justify-center items-center basis-1/5'>
               <span className=''>Background</span>
               <input type="color"
-                onChange={(e) => props.setFlatOptions({ ...props.flatOptions, bgColor: e.target.value })}
-                value={props.flatOptions.bgColor}
+                onChange={e => props.setFlatOptions(prev => ({ ...prev, bgColor: { ...prev.bgColor, value: e.target.value } }))}
+                value={props.flatOptions.bgColor.value}
               />
             </div>
             <div className='flex flex-col w-fit justify-center items-center basis-1/5'>
@@ -290,6 +290,14 @@ ${checkFlatSx(props).join(',\n')}
               onChange={(e) => props.setFlatOptions((prev) => ({ ...prev, intersectionEnabled: e.target.checked }))}
             />
             <span>Intersection Enabled</span>
+          </div>
+          <div className='flex gap-2'>
+            <span className=''>Background transparency</span>
+            <input
+              type="number"
+              onChange={e => props.setFlatOptions(prev => ({ ...prev, bgColor: { ...prev.bgColor, transparency: e.target.value.toString() } }))}
+              value={props.flatOptions.bgColor.transparency}
+              className='border rounded-lg outline-none pl-2 focus:border-400 w-20 '/>
           </div>
           <div className='flex gap-2'>
             <span>Range</span>
