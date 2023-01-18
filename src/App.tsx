@@ -24,7 +24,7 @@ const App: React.FC = () => {
   return (
     <div className='container mx-auto'>
       <Header/>
-      <div className='h-screen flex flex-col justify-center hidden'>
+      <div className='h-screen flex flex-col justify-center'>
         <div className='p-2 flex flex-wrap gap-x-48 gap-y-20 justify-center mb-40 mt-10 py-20'>
           <div className='w-40'>
             <Flat
@@ -43,7 +43,8 @@ const App: React.FC = () => {
               showMiniCircle={false}
               sx={{
                 strokeColor: '#16a34a',
-                bgColor: '#dadada',
+                bgStrokeColor: '#dadada',
+                bgColor: { value: '#000000', transparency: '40' },
                 textSize: 20,
                 strokeLinecap: 'square',
                 barWidth: 5,
@@ -77,7 +78,7 @@ const App: React.FC = () => {
                 valueColor: '#fd6958',
                 valueWeight: 'lighter',
                 shape: 'threequarters',
-                bgColor: '#ff0000',
+                bgStrokeColor: '#ff0000',
                 barWidth: 3,
                 strokeColor: '#00f531'
               }}
@@ -93,7 +94,7 @@ const App: React.FC = () => {
                 shape: 'half',
                 barWidth: 5,
                 valueSize: 20,
-                bgColor: '#d1d1d1',
+                bgStrokeColor: '#d1d1d1',
                 strokeColor: '#0284c7',
                 strokeLinecap: 'butt',
                 valueAnimation: false
