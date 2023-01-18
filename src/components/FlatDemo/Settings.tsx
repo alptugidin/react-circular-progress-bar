@@ -295,6 +295,8 @@ ${checkFlatSx(props).join(',\n')}
             <span className=''>Background transparency</span>
             <input
               type="number"
+              min={0}
+              max={100}
               onChange={e => props.setFlatOptions(prev => ({ ...prev, bgColor: { ...prev.bgColor, transparency: e.target.value.toString() } }))}
               value={props.flatOptions.bgColor.transparency}
               className='border rounded-lg outline-none pl-2 focus:border-400 w-20 '/>
