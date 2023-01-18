@@ -2,10 +2,10 @@ import { IFlatSettings } from '../types';
 
 export const checkFlatSx = (props: IFlatSettings): string[] => {
   const sxArr: string [] = [];
-  sxArr.push(`\t\tbarColor: '${props.flatOptions.strokeColor}'`);
+  sxArr.push(`\t\tstrokeColor: '${props.flatOptions.strokeColor}'`);
   sxArr.push(`\t\tbarWidth: ${props.flatOptions.strokeWidth}`);
-  if (props.flatOptions.bgColor !== '#ffffff') {
-    sxArr.push(`\t\tbgColor: '${props.flatOptions.bgColor}'`);
+  if (props.flatOptions.bgColor.value !== '#ffffff') {
+    sxArr.push(`\t\tbgColor: { value: '${props.flatOptions.bgColor.value}', transparency: '${props.flatOptions.bgColor.transparency}'}`);
   }
   if (props.flatOptions.shape !== 'full') {
     sxArr.push(`\t\tshape: '${props.flatOptions.shape}'`);
