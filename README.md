@@ -46,9 +46,10 @@ import {Flat, Heat, Nested} from '@alptugidin/react-circular-progress-bar'
    showMiniCircle={true}
    showValue={true}
    sx={{
-     barColor: '#ff0000',
-     barWidth: 5,
-     bgColor: '#ffffff',
+     strokeColor: '#ff0000',
+     barWidth: 5, 
+     bgStrokeColor: '#ffffff',
+     bgColor: { value: '#000000', transparency: '20' },  
      shape: 'full',
      strokeLinecap: 'round',
      valueSize: 13,
@@ -79,25 +80,26 @@ import {Flat, Heat, Nested} from '@alptugidin/react-circular-progress-bar'
 | sx | object | No | An object containing CSS styles for customizing the appearance of the progress bar. |
 
 ## Styling
-| Property | Type | Description |
-| --- | --- | --- |
-| barColor | string | The color of the progress bar. |
-| barWidth | number | The width of the progress bar. |
-| bgColor | string | The background color of the progress bar. |
-| shape | string | The shape of the progress bar. Can be `'full'`, `'half'` or `'threequarters'`. |
-| strokeLinecap | string | The line cap style of the progress bar. Can be `'butt'`, `'round'`, or `'square'`. |
-| valueSize | number | The font size of the progress value. |
-| valueWeight | string | The font weight of the progress value. |
-| valueColor | string | The color of the progress value. |
-| valueFamily | string | The font family of the progress value. |
-| textSize | number | The font size of the text above the progress bar. |
-| textWeight | string | The font weight of the text above the progress bar. |
-| textColor | string | The color of the text above the progress bar. |
-| textFamily | string | The font family of the text above the progress bar. |
-| loadingTime | number | The time it takes for the progress bar to animate from 0 to the specified progress value. |
-| miniCircleColor | string | The color of the mini circle at the end of the progress bar. |
-| miniCircleSize | number | The size of the mini circle at the end of the progress bar. |
-| valueAnimation | boolean | A flag indicating whether to animate the progress value. |
+| Property            | Type    | Description                                                                                                                                                          |
+|---------------------|---------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| barWidth            | number  | The width of the progress bar.                                                                                                                                       |
+| strokeColor         | string  | The color of the active progress bar.                                                                                                                                |
+| bgStrokeColor       | string  | The color of the background progress bar.                                                                                                                            |
+| bgColor             | object  | The color of the background progress bar.  It has two properties: `value`: hex color and `transparency`: number between 00-99 (as string)                            |
+| shape               | string  | The shape of the progress bar. Can be `'full'`, `'half'` or `'threequarters'`.                                                                                       |
+| strokeLinecap       | string  | The line cap style of the progress bar. Can be `'butt'`, `'round'`, or `'square'`.                                                                                   |
+| valueSize           | number  | The font size of the progress value.                                                                                                                                 |
+| valueWeight         | string  | The font weight of the progress value.                                                                                                                               |
+| valueColor          | string  | The color of the progress value.                                                                                                                                     |
+| valueFamily         | string  | The font family of the progress value.                                                                                                                               |
+| textSize            | number  | The font size of the text above the progress bar.                                                                                                                    |
+| textWeight          | string  | The font weight of the text above the progress bar.                                                                                                                  |
+| textColor           | string  | The color of the text above the progress bar.                                                                                                                        |
+| textFamily          | string  | The font family of the text above the progress bar.                                                                                                                  |
+| loadingTime         | number  | The time it takes for the progress bar to animate from 0 to the specified progress value.                                                                            |
+| miniCircleColor     | string  | The color of the mini circle at the end of the progress bar.                                                                                                         |
+| miniCircleSize      | number  | The size of the mini circle at the end of the progress bar.                                                                                                          |
+| valueAnimation      | boolean | A flag indicating whether to animate the progress value.                                                                                                             |
 | intersectionEnabled | boolean | A flag indicating whether to use an intersection observer to only start loading the progress bar when it becomes visible on the screen. The default value is `true`. |
 
 <hr>
