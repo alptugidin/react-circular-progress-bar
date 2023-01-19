@@ -69,15 +69,15 @@ import {Flat, Heat, Nested} from '@alptugidin/react-circular-progress-bar'
 />
 ```
 ## Props
-| Prop name | Type | Required | Description |
-| --- | --- | --- | --- |
-| progress | number | Yes | The progress value of the progress bar, ranging from 0 to 100. |
-| range | object | No | An object containing the `from` and `to` values for the progress bar. The default value is `{ from: 0, to: 100 }`. |
-| sign | object | No | An object containing the `value` and `position` for the sign displayed in the progress bar. The `value` can be a string, and the `position` can be either `'start'` or `'end'`. The default value is `{ value: '%', position: 'end' }`. |
-| text | string | No | The text displayed above the progress bar. |
-| showMiniCircle | boolean | No | A flag indicating whether to show a mini circle at the end of the progress bar. The default value is `true`. |
-| showValue | boolean | No | A flag indicating whether to show the progress value in the progress bar. The default value is `true`. |
-| sx | object | No | An object containing CSS styles for customizing the appearance of the progress bar. |
+| Prop name      | Type    | Required | Description                                                                                                                                                                                                                             |
+|----------------|---------|----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| progress       | number  | Yes      | The progress value of the progress bar, ranging from 0 to 100.                                                                                                                                                                          |
+| range          | object  | No       | An object containing the `from` and `to` values for the progress bar. The default value is `{ from: 0, to: 100 }`.                                                                                                                      |
+| sign           | object  | No       | An object containing the `value` and `position` for the sign displayed in the progress bar. The `value` can be a string, and the `position` can be either `'start'` or `'end'`. The default value is `{ value: '%', position: 'end' }`. |
+| text           | string  | No       | The text displayed above the progress bar.                                                                                                                                                                                              |
+| showMiniCircle | boolean | No       | A flag indicating whether to show a mini circle at the end of the progress bar. The default value is `true`.                                                                                                                            |
+| showValue      | boolean | No       | A flag indicating whether to show the progress value in the progress bar. The default value is `true`.                                                                                                                                  |
+| sx             | object  | No       | An object containing CSS styles for customizing the appearance of the progress bar.                                                                                                                                                     |
 
 ## Styling
 | Property            | Type    | Description                                                                                                                                                          |
