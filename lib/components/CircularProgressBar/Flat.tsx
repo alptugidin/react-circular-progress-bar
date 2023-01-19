@@ -173,10 +173,10 @@ const Flat: React.FC<IFlat> = ({
       {showMiniCircle &&
         <svg
           viewBox='0 0 110 110'
-          className='z-50'
           style={{
             position: 'absolute',
             top: 0,
+            zIndex: '50',
             transition: 'transform ease-in-out',
             MozTransition: 'transform ease-in-out',
             transitionDuration: loadingTime.toString().concat('ms')
@@ -191,7 +191,7 @@ const Flat: React.FC<IFlat> = ({
           </circle>
         </svg>
       }
-      <svg viewBox='0 0 110 110' className='absolute top-0 z-30'>
+      <svg viewBox='0 0 110 110' style={{ position: 'absolute', top: '0', zIndex: '30' }}>
         <circle
           cx='55'
           cy='55'
