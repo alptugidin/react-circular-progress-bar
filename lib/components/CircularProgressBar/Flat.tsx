@@ -151,7 +151,7 @@ const Flat: React.FC<IFlat> = ({
         style={{
           position: 'absolute',
           top: 0,
-          zIndex: -10,
+          // zIndex: -10,
           '--ds1': 'drop-shadow(0 10px 8px rgb(0 0 0 / 0.04))',
           '--ds2': 'drop-shadow(0 4px 3px rgb(0 0 0 / 0.1))',
           filter: 'var(--ds1) var(--ds2)'
