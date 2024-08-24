@@ -154,7 +154,8 @@ const Flat: React.FC<IFlat> = ({
           // zIndex: -10,
           '--ds1': 'drop-shadow(0 10px 8px rgb(0 0 0 / 0.04))',
           '--ds2': 'drop-shadow(0 4px 3px rgb(0 0 0 / 0.1))',
-          filter: 'var(--ds1) var(--ds2)'
+          filter: 'var(--ds1) var(--ds2)',
+          display: 'block'
         } as CSSProperties}
       >
         <circle
@@ -181,7 +182,8 @@ const Flat: React.FC<IFlat> = ({
             zIndex: '50',
             transition: 'transform ease-in-out',
             MozTransition: 'transform ease-in-out',
-            transitionDuration: loadingTime.toString().concat('ms')
+            transitionDuration: loadingTime.toString().concat('ms'),
+            display: 'block'
           }}
           transform={`rotate(${(afterProgress) * (3.6 / (range.to / 100)) - setAngle()}, 0, 0)`}>
           <circle
